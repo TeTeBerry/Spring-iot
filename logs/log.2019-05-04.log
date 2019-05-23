@@ -1,0 +1,99 @@
+2019-05-04 04:33:31 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 55 - Starting IotSmartWaterMeterApplication on ROG-PC with PID 17748 (C:\Development\CompanyProjects\IotSmartWaterMeter-Spring\target\classes started by ROG in C:\Development\CompanyProjects\IotSmartWaterMeter-Spring)
+2019-05-04 04:33:31 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 682 - No active profile set, falling back to default profiles: default
+2019-05-04 04:33:32 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - 166 - No MyBatis mapper was found in '[com.iot.smart.water.meter]' package. Please check your configuration.
+2019-05-04 04:33:33 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - 90 - Tomcat initialized with port(s): 8090 (http)
+2019-05-04 04:33:33 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - 173 - Initializing ProtocolHandler ["http-nio-8090"]
+2019-05-04 04:33:33 [main] INFO  org.apache.catalina.core.StandardService - 173 - Starting service [Tomcat]
+2019-05-04 04:33:33 [main] INFO  org.apache.catalina.core.StandardEngine - 173 - Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-05-04 04:33:33 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - 173 - Initializing Spring embedded WebApplicationContext
+2019-05-04 04:33:33 [main] INFO  org.springframework.web.context.ContextLoader - 296 - Root WebApplicationContext: initialization completed in 1487 ms
+2019-05-04 04:33:33 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - 171 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-04 04:33:33 [main] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - 557 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Generic.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties': Could not bind properties to 'DataSourceProperties' : prefix=spring.datasource, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>
+2019-05-04 04:33:33 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - 208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-04 04:33:33 [main] INFO  org.apache.catalina.core.StandardService - 173 - Stopping service [Tomcat]
+2019-05-04 04:33:33 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener - 142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-04 04:33:33 [main] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>:
+
+    Property: spring.datasource.type
+    Value: org.apache.tomcat.jdbc.pool.DataSource
+    Origin: class path resource [application.yml]:25:13
+    Reason: No converter found capable of converting from type [java.lang.String] to type [java.lang.Class<javax.sql.DataSource>]
+
+Action:
+
+Update your application's configuration
+
+2019-05-04 23:29:47 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 55 - Starting IotSmartWaterMeterApplication on ROG-PC with PID 18268 (C:\Development\CompanyProjects\IotSmartWaterMeter-Spring\target\classes started by ROG in C:\Development\CompanyProjects\IotSmartWaterMeter-Spring)
+2019-05-04 23:29:47 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 682 - No active profile set, falling back to default profiles: default
+2019-05-04 23:29:49 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - 90 - Tomcat initialized with port(s): 8090 (http)
+2019-05-04 23:29:49 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - 173 - Initializing ProtocolHandler ["http-nio-8090"]
+2019-05-04 23:29:49 [main] INFO  org.apache.catalina.core.StandardService - 173 - Starting service [Tomcat]
+2019-05-04 23:29:49 [main] INFO  org.apache.catalina.core.StandardEngine - 173 - Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-05-04 23:29:49 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - 173 - Initializing Spring embedded WebApplicationContext
+2019-05-04 23:29:49 [main] INFO  org.springframework.web.context.ContextLoader - 296 - Root WebApplicationContext: initialization completed in 1621 ms
+2019-05-04 23:29:49 [main] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - 557 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userController': Unsatisfied dependency expressed through field 'mService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userService': Unsatisfied dependency expressed through field 'mDao'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDao' defined in file [C:\Development\CompanyProjects\IotSmartWaterMeter-Spring\target\classes\com\iot\smart\water\meter\dao\UserDao.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Generic.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties': Could not bind properties to 'DataSourceProperties' : prefix=spring.datasource, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>
+2019-05-04 23:29:49 [main] INFO  org.apache.catalina.core.StandardService - 173 - Stopping service [Tomcat]
+2019-05-04 23:29:49 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener - 142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-04 23:29:49 [main] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>:
+
+    Property: spring.datasource.type
+    Value: org.apache.tomcat.jdbc.pool.DataSource
+    Origin: class path resource [application.yml]:25:13
+    Reason: No converter found capable of converting from type [java.lang.String] to type [java.lang.Class<javax.sql.DataSource>]
+
+Action:
+
+Update your application's configuration
+
+2019-05-04 23:31:45 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 55 - Starting IotSmartWaterMeterApplication on ROG-PC with PID 13960 (C:\Development\CompanyProjects\IotSmartWaterMeter-Spring\target\classes started by ROG in C:\Development\CompanyProjects\IotSmartWaterMeter-Spring)
+2019-05-04 23:31:45 [main] INFO  com.iot.smart.water.meter.IotSmartWaterMeterApplication - 682 - No active profile set, falling back to default profiles: default
+2019-05-04 23:31:46 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - 90 - Tomcat initialized with port(s): 8090 (http)
+2019-05-04 23:31:46 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - 173 - Initializing ProtocolHandler ["http-nio-8090"]
+2019-05-04 23:31:46 [main] INFO  org.apache.catalina.core.StandardService - 173 - Starting service [Tomcat]
+2019-05-04 23:31:46 [main] INFO  org.apache.catalina.core.StandardEngine - 173 - Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-05-04 23:31:46 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - 173 - Initializing Spring embedded WebApplicationContext
+2019-05-04 23:31:46 [main] INFO  org.springframework.web.context.ContextLoader - 296 - Root WebApplicationContext: initialization completed in 1496 ms
+2019-05-04 23:31:46 [main] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - 557 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userController': Unsatisfied dependency expressed through field 'mService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userService': Unsatisfied dependency expressed through field 'mDao'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDao' defined in file [C:\Development\CompanyProjects\IotSmartWaterMeter-Spring\target\classes\com\iot\smart\water\meter\dao\UserDao.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Generic.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties': Could not bind properties to 'DataSourceProperties' : prefix=spring.datasource, ignoreInvalidFields=false, ignoreUnknownFields=true; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>
+2019-05-04 23:31:46 [main] INFO  org.apache.catalina.core.StandardService - 173 - Stopping service [Tomcat]
+2019-05-04 23:31:46 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener - 142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-04 23:31:46 [main] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.datasource.type' to java.lang.Class<javax.sql.DataSource>:
+
+    Property: spring.datasource.type
+    Value: org.apache.tomcat.jdbc.pool.DataSource
+    Origin: class path resource [application.yml]:25:13
+    Reason: No converter found capable of converting from type [java.lang.String] to type [java.lang.Class<javax.sql.DataSource>]
+
+Action:
+
+Update your application's configuration
+

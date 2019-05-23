@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iot.smart.water.meter.dao.MeterDao">
+
+    <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="mid" keyProperty="mid" useGeneratedKeys="true">
+        insert into iot.meter
+        (meterName, meterDesc, createDate)
+        values
+        (#{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+    </insert>
+
+    <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
+        update iot.meter
+        set
+            meterName = #{meterName},
+            meterDesc = #{meterDesc}
+        where mid = #{mid}
+    </update>
+
+    <select id="selectAllMeter" resultType="com.iot.smart.water.meter.model.Meter">
+        select * from iot.meter
+        order by createDate desc
+    </select>
+
+    <select id="selectMeter" resultType="com.iot.smart.water.meter.model.Meter">
+        select * from iot.meter
+        where mid = #{mid}
+    </select>
+
+    <delete id="deleteMeter" parameterType="string">
+        delete from iot.mid
+        where mid = #{mid}
+    </delete>
+
+    <update id="createTable">
+        create table if not exists iot.mid (
+        `mid` varchar(64) NOT NULL AUTO_INCREMENT,
+        `meterName` varchar(64) NOT NULL,
+        `meterDesc` varchar(255),
+        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (`mid`),
+        UNIQUE KEY `mid` (`mid`) USING BTREE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </update>
+
+</mapper>
