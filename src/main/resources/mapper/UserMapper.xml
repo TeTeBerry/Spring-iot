@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iot.smart.water.meter.dao.UserDao">
 
-    <insert id="insertUser" parameterType="com.iot.smart.water.meter.model.User">
+    <insert id="insertUser" parameterType="com.iot.smart.water.meter.model.User" keyProperty="uid" useGeneratedKeys="true">
         insert into iot.user
-            (uid, userName, password, firstName, lastName, email, token, mid, createDate)
+            (userName, password, createDate)
         values
-            (#{uid}, #{userName}, #{password}, #{firstName}, #{lastName}, #{email}, #{token}, #{mid},
-            date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+            (#{userName}, #{password}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateUser" parameterType="com.iot.smart.water.meter.model.User">
@@ -15,17 +14,12 @@
         set
             userName = #{userName},
             password = #{password},
-            firstName = #{firstName},
-            lastName = #{lastName},
-            email = #{email},
-            token = #{token},
-            mid = #{mid}
         where uid = #{uid}
     </update>
 
-    <select id="selectUser" resultType="com.iot.smart.water.meter.model.User">
+    <select id="selectUserByName" resultType="com.iot.smart.water.meter.model.User">
         select * from iot.user
-        where userName = #{userName} and password = #{password}
+        where userName = #{userName}
     </select>
 
     <select id="selectUserById" resultType="com.iot.smart.water.meter.model.User">
@@ -33,26 +27,11 @@
         where uid = #{uid}
     </select>
 
-    <select id="selectUserNameForPwd" parameterType="string" resultType="string">
-        select password from iot.user
-        where userName = #{userName}
-    </select>
-
-    <delete id="deleteUser" parameterType="string">
-        delete from iot.user
-        where uid = #{uid}
-    </delete>
-
     <update id="createTable">
         create table if not exists iot.user (
-        `uid` varchar(64) NOT NULL,
-        `userName` varchar(64) NOT NULL,
-        `password` varchar(255) NOT NULL,
-        `firstName` varchar(64),
-        `lastName` varchar(64),
-        `email` varchar(64),
-        `token` varchar(255) NOT NULL,
-        `mid` varchar(64),
+        `uid` int(11) NOT NULL AUTO_INCREMENT,
+        `userName` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+        `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`uid`),
         UNIQUE KEY `uid` (`uid`) USING BTREE

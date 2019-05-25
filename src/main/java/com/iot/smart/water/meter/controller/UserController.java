@@ -1,21 +1,24 @@
 package com.iot.smart.water.meter.controller;
 
+import com.iot.smart.water.meter.model.LoginInfo;
+import com.iot.smart.water.meter.model.Member;
+import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/iot/user")
+@RequestMapping(value = "/iot/admin")
 public class UserController {
 
     @Autowired
@@ -29,30 +32,51 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @CrossOrigin(origins = "*")
-    public Response login(@RequestParam("userName") String userName,
-                          @RequestParam("password") String password) {
-        return mService.login(userName, password);
+    public Response login(@RequestBody LoginInfo info) {
+        return mService.login(info);
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/updatePassword")
     @CrossOrigin(origins = "*")
-    public Response update(@RequestBody() User user) {
-        return mService.update(user);
+    public Response updatePassword(@RequestHeader("auth") String auth,
+                                   @RequestParam("oldPwd") String oldPwd,
+                                   @RequestParam("newPwd") String newPwd) {
+        User user = mService.userAuth(auth);
+        if (user == null) {
+            Response response = new Response();
+            response.setCode(ErrorCode.INVALID_TOKEN);
+            response.setMsg("invalid token");
+            return response;
+        }
+        return mService.updatePassword(user, oldPwd, newPwd);
     }
 
-    @PostMapping(value = "addMeter/{uid}")
+    @PostMapping(value = "/addMember")
     @CrossOrigin(origins = "*")
-    public Response addMeter(@PathVariable("uid") String uid,
-                             @RequestParam("token") String token,
-                             @RequestParam("meterId") String meterId){
-        return mService.addMeter(uid, token, meterId);
+    public Response addMember(@RequestHeader("auth") String auth,
+                             @RequestBody Member member){
+        User user = mService.userAuth(auth);
+        if (user == null) {
+            Response response = new Response();
+            response.setCode(ErrorCode.INVALID_TOKEN);
+            response.setMsg("invalid token");
+            return response;
+        }
+        return mService.addMember(user, member);
     }
 
-    @DeleteMapping(value = "/delete/{uid}")
+    @PostMapping(value = "/addMeter")
     @CrossOrigin(origins = "*")
-    public Response delete(@PathVariable("uid") String uid,
-                           @RequestParam("token") String token,
-                           @RequestParam("pwd") String pwd) {
-        return mService.delete(uid, token, pwd);
+    public Response addMeter(@RequestHeader("auth") String auth,
+                             @RequestBody Meter meter){
+        User user = mService.userAuth(auth);
+        if (user == null) {
+            Response response = new Response();
+            response.setCode(ErrorCode.INVALID_TOKEN);
+            response.setMsg("invalid token");
+            return response;
+        }
+        return mService.addMeter(user, meter);
     }
+
 }

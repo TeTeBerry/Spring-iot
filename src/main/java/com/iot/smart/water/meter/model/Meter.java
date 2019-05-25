@@ -1,17 +1,17 @@
 package com.iot.smart.water.meter.model;
 
 public class Meter {
-    private String mid;
+    private String meterId;
     private String meterName;
     private String meterDesc;
     private String createDate;
 
-    public String getMid() {
-        return mid;
+    public String getMeterId() {
+        return meterId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setMeterId(String meterId) {
+        this.meterId = meterId;
     }
 
     public String getMeterName() {

@@ -37,9 +37,9 @@ public class MeterService {
 
     public Response updateMeter(Meter meter) {
         Response response = new Response();
-        Meter meterInDB = meterDao.selectMeter(meter.getMid());
+        Meter meterInDB = meterDao.selectMeter(meter.getMeterId());
         if (meterInDB == null) {
-            response.setResultCode(ErrorCode.INVALID_MID);
+            response.setCode(ErrorCode.INVALID_MID);
         } else {
             meterDao.updateMeter(meter);
         }
@@ -50,9 +50,9 @@ public class MeterService {
         Response response = new Response();
         Meter meter = meterDao.selectMeter(mid);
         if (meter == null) {
-            response.setResultCode(ErrorCode.INVALID_MID);
+            response.setCode(ErrorCode.INVALID_MID);
         } else {
-            meterDao.deleteMeter(meter.getMid());
+            meterDao.deleteMeter(meter.getMeterId());
         }
         return response;
     }

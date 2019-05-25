@@ -12,13 +12,9 @@ public interface UserDao {
 
     int updateUser(User user);
 
-    User selectUser(@Param("userName") String userName, @Param("password") String password);
+    User selectUserByName(@Param("userName") String userName);
 
-    User selectUserById(@Param("uid") String uid);
-
-    String selectUserNameForPwd(@Param("userName") String userName);
-
-    void deleteUser(@Param("uid") String uid);
+    User selectUserById(@Param("uid") int uid);
 
     void createTable();
 }

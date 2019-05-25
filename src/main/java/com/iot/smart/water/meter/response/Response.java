@@ -1,24 +1,24 @@
 package com.iot.smart.water.meter.response;
 
 public class Response<T> {
-    private int resultCode = ErrorCode.SUCCESS;
-    private String resultMsg;
+    private int code = ErrorCode.SUCCESS;
+    private String msg;
     private T data;
 
-    public int getResultCode() {
-        return resultCode;
+    public int getCode() {
+        return code;
     }
 
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getResultMsg() {
-        return resultMsg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setResultMsg(String resultMsg) {
-        this.resultMsg = resultMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {
