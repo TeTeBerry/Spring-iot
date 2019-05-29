@@ -1,17 +1,19 @@
 package com.iot.smart.water.meter.model;
 
+import java.util.Date;
+
 public class Meter {
-    private String meterId;
+    private int mid;
     private String meterName;
     private String meterDesc;
-    private String createDate;
+    private Date createDate;
 
-    public String getMeterId() {
-        return meterId;
+    public int getMid() {
+        return mid;
     }
 
-    public void setMeterId(String meterId) {
-        this.meterId = meterId;
+    public void setMid(int mid) {
+        this.mid = mid;
     }
 
     public String getMeterName() {
@@ -30,11 +32,11 @@ public class Meter {
         this.meterDesc = meterDesc;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 }

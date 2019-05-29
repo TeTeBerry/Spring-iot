@@ -24,24 +24,24 @@ public class MeterController {
     @GetMapping(value = "/getMeters")
     @CrossOrigin(origins = "*")
     public Response getMeters() {
-        return mService.getMeters();
+        return null;
     }
 
     @PostMapping(value = "/add")
     @CrossOrigin(origins = "*")
     public Response addMeter(@RequestBody Meter meter) {
-        return mService.addMeter(meter);
+        return null;
     }
 
     @PostMapping(value = "/update")
     @CrossOrigin(origins = "*")
     public Response update(@RequestBody Meter meter) {
-        return mService.updateMeter(meter);
+        return null;
     }
 
     @DeleteMapping(value = "/delete")
     @CrossOrigin(origins = "*")
     public Response delete(@RequestParam("mid") String mid) {
-        return mService.deleteMeter(mid);
+        return null;
     }
 }
