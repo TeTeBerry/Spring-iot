@@ -11,25 +11,23 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 30/05/2019 01:30:48
+ Date: 30/05/2019 01:30:54
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for meter
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `room` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `contact` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `meter`;
+CREATE TABLE `meter`  (
+  `mid` int(11) NOT NULL AUTO_INCREMENT,
+  `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`uid`) USING BTREE,
-  UNIQUE INDEX `uid`(`uid`) USING BTREE
+  PRIMARY KEY (`mid`) USING BTREE,
+  UNIQUE INDEX `mid`(`mid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

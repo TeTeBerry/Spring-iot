@@ -16,9 +16,9 @@ public interface MeterDao {
 
     List<Meter> selectAllMeter();
 
-    Meter selectMeter(@Param("mid") String mid);
+    Meter selectMeter(@Param("mid") int mid);
 
-    int deleteMeter(@Param("mid") String mid);
+    int deleteMeter(@Param("mid") int mid);
 
     void createTable();
 

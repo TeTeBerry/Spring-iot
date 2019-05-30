@@ -27,7 +27,7 @@
         where mid = #{mid}
     </select>
 
-    <delete id="deleteMeter" parameterType="string">
+    <delete id="deleteMeter" parameterType="int">
         delete from iot.mid
         where mid = #{mid}
     </delete>
@@ -35,8 +35,8 @@
     <update id="createTable">
         create table if not exists iot.mid (
         `mid` varchar(64) NOT NULL AUTO_INCREMENT,
-        `meterName` varchar(64) NOT NULL,
-        `meterDesc` varchar(255),
+        `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+        `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`mid`),
         UNIQUE KEY `mid` (`mid`) USING BTREE
