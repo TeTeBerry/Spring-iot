@@ -34,7 +34,7 @@
 
     <update id="createTable">
         create table if not exists iot.mid (
-        `mid` varchar(64) NOT NULL AUTO_INCREMENT,
+        `mid` INT(11) NOT NULL AUTO_INCREMENT,
         `meterName` varchar(64) NOT NULL,
         `meterDesc` varchar(255),
         `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

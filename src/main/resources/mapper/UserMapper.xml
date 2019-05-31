@@ -13,7 +13,7 @@
         update iot.user
         set
             userName = #{userName},
-            password = #{password},
+            password = #{password}
         where uid = #{uid}
     </update>
 
