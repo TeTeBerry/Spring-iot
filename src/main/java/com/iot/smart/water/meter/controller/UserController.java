@@ -5,7 +5,6 @@ import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
-import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class UserController {
             response.setMsg("invalid token");
             return response;
         }
-        return userService.addMeter(user, meter);
+        return userService.addMeter(meter);
     }
 
 }

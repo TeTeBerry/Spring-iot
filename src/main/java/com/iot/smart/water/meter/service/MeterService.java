@@ -1,7 +1,6 @@
 package com.iot.smart.water.meter.service;
 
 import com.iot.smart.water.meter.dao.MeterDao;
-import com.iot.smart.water.meter.dao.UMDao;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.response.ErrorCode;
@@ -16,9 +15,6 @@ import java.util.List;
 public class MeterService {
 
     @Autowired
-    private UMDao umDao;
-
-    @Autowired
     private MeterDao meterDao;
 
     public Response getMeters() {
@@ -28,10 +24,14 @@ public class MeterService {
         return response;
     }
 
-    public Response addMeter(User user, Meter meter) {
+    public Response addMeter(Meter meter) {
         Response response = new Response();
-        meterDao.insertMeter(meter);
-        umDao.insertUserToMeter(user.getUid(), meter.getMid());
+        try {
+            meterDao.insertMeter(meter);
+        } catch (Exception e) {
+            meterDao.createTable();
+            meterDao.insertMeter(meter);
+        }
         response.setMsg("add meter success");
         return response;
     }

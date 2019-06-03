@@ -6,8 +6,6 @@ public class User {
     private Integer uid;
     private String userName;
     private String password;
-    private String room;
-    private String contact;
     private Date createDate;
 
     public Integer getUid() {
@@ -32,22 +30,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 
     public Date getCreateDate() {

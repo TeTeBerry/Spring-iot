@@ -4,18 +4,16 @@
 
     <insert id="insertUser" parameterType="com.iot.smart.water.meter.model.User" keyProperty="uid" useGeneratedKeys="true">
         insert into iot.user
-            (userName, password, room, contact, createDate)
+            (userName, password, createDate)
         values
-            (#{userName}, #{password}, #{room}, #{contact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+            (#{userName}, #{password}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateUser" parameterType="com.iot.smart.water.meter.model.User">
         update iot.user
         set
             userName = #{userName},
-            password = #{password},
-            room = #{room},
-            contact = #{contact}
+            password = #{password}
         where uid = #{uid}
     </update>
 
@@ -32,14 +30,12 @@
     <update id="createTable">
         create table if not exists iot.user (
         `uid` int(11) NOT NULL AUTO_INCREMENT,
-        `userName` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+        `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-        `room` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-        `contact` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (`uid`),
-        UNIQUE KEY `uid` (`uid`) USING BTREE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+        PRIMARY KEY (`uid`) USING BTREE,
+        UNIQUE INDEX `uid`(`uid`) USING BTREE
+        ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
 
 </mapper>

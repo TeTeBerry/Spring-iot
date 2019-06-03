@@ -37,8 +37,8 @@ public class UserService {
     private Map<Integer, String> uidTokenMap = new HashMap<>();
 
 
-    public Response addMeter(User user, Meter meter) {
-        return meterService.addMeter(user, meter);
+    public Response addMeter(Meter meter) {
+        return meterService.addMeter(meter);
     }
 
     public Response updatePassword(User user, String oldPwd, String newPwd) {
