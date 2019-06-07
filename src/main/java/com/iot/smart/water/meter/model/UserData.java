@@ -6,8 +6,7 @@ public class UserData {
     private int uid;
     private String userName;
     private String createDate;
-    private List<Member> members;
-    private List<Meter> meters;
+    private Meter meter;
 
     public int getUid() {
         return uid;
@@ -33,19 +32,11 @@ public class UserData {
         this.createDate = createDate;
     }
 
-    public List<Member> getMembers() {
-        return members;
+    public Meter getMeter() {
+        return meter;
     }
 
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-
-    public List<Meter> getMeters() {
-        return meters;
-    }
-
-    public void setMeters(List<Meter> meters) {
-        this.meters = meters;
+    public void setMeter(Meter meter) {
+        this.meter = meter;
     }
 }

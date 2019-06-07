@@ -3,7 +3,6 @@ package com.iot.smart.water.meter.service;
 import com.iot.smart.water.meter.dao.MeterDao;
 import com.iot.smart.water.meter.dao.UserDao;
 import com.iot.smart.water.meter.model.LoginInfo;
-import com.iot.smart.water.meter.model.Member;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.model.UserData;
 import com.iot.smart.water.meter.response.ErrorCode;
@@ -23,26 +22,23 @@ import java.util.Map;
 @Service
 public class UserService {
 
+    private static final String USER_ADMIN = "admin";
+
     @Autowired
     private UserDao userDao;
 
     @Autowired
     private MeterDao meterDao;
 
+    @Autowired
+    private MeterService meterService;
+
     private Map<String, Integer> tokenUidMap = new HashMap<>();
     private Map<Integer, String> uidTokenMap = new HashMap<>();
 
 
-    public Response addMeter(User user, Meter meter) {
-        Response response = new Response();
-        response.setMsg("bazinga");
-        return response;
-    }
-
-    public Response addMember(User user, Member member) {
-        Response response = new Response();
-        response.setMsg("bazinga");
-        return response;
+    public Response addMeter(Meter meter) {
+        return meterService.addMeter(meter);
     }
 
     public Response updatePassword(User user, String oldPwd, String newPwd) {

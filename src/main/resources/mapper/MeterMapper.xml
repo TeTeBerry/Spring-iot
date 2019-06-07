@@ -4,16 +4,19 @@
 
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="mid" keyProperty="mid" useGeneratedKeys="true">
         insert into iot.meter
-        (meterName, meterDesc, createDate)
+        (meterName, meterDesc, memberName, room, memberContact, createDate)
         values
-        (#{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+        (#{meterName}, #{meterDesc}, #{memberName}, #{room}, #{memberContact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
         update iot.meter
         set
             meterName = #{meterName},
-            meterDesc = #{meterDesc}
+            meterDesc = #{meterDesc},
+            memberName = #{memberName},
+            room = #{room},
+            memberContact = #{memberContact}
         where mid = #{mid}
     </update>
 
@@ -27,20 +30,23 @@
         where mid = #{mid}
     </select>
 
-    <delete id="deleteMeter" parameterType="string">
+    <delete id="deleteMeter" parameterType="int">
         delete from iot.mid
         where mid = #{mid}
     </delete>
 
     <update id="createTable">
-        create table if not exists iot.mid (
-        `mid` INT(11) NOT NULL AUTO_INCREMENT,
-        `meterName` varchar(64) NOT NULL,
-        `meterDesc` varchar(255),
-        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (`mid`),
-        UNIQUE KEY `mid` (`mid`) USING BTREE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        create table if not exists iot.meter (
+        `mid` int(11) NOT NULL AUTO_INCREMENT,
+        `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+        `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+        `memberName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+        `room` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+        `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+        `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+        PRIMARY KEY (`mid`) USING BTREE,
+        UNIQUE INDEX `mid`(`mid`) USING BTREE
+        ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
 
 </mapper>

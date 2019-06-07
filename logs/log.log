@@ -1,6 +1,0 @@
-2019-05-31 00:04:48 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - 787 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m14s771ms).
-2019-05-31 00:14:15 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - 787 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m57s589ms).
-2019-05-31 00:18:40 [Thread-3] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler - 208 - Shutting down ExecutorService 'taskScheduler'
-2019-05-31 00:18:40 [Thread-3] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor - 208 - Shutting down ExecutorService 'applicationTaskExecutor'
-2019-05-31 00:18:40 [Thread-3] INFO  com.zaxxer.hikari.HikariDataSource - 350 - HikariPool-1 - Shutdown initiated...
-2019-05-31 00:18:40 [Thread-3] INFO  com.zaxxer.hikari.HikariDataSource - 352 - HikariPool-1 - Shutdown completed.
