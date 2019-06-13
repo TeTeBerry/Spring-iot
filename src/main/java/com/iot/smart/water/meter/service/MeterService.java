@@ -9,6 +9,7 @@ import com.iot.smart.water.meter.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,12 +21,14 @@ public class MeterService {
     public Response getMeters() {
         Response<List<Meter>> response = new Response<>();
         List<Meter> meters = meterDao.selectAllMeter();
+        response.setMsg("get meter success");
         response.setData(meters);
         return response;
     }
 
     public Response addMeter(Meter meter) {
         Response response = new Response();
+        meter.setCreateDate(new Date());
         try {
             meterDao.insertMeter(meter);
         } catch (Exception e) {
@@ -44,6 +47,7 @@ public class MeterService {
         } else {
             meterDao.updateMeter(meter);
         }
+        response.setMsg("update meter success");
         return response;
     }
 
@@ -55,6 +59,7 @@ public class MeterService {
         } else {
             meterDao.deleteMeter(meter.getMid());
         }
+        response.setMsg("delete success");
         return response;
     }
 }

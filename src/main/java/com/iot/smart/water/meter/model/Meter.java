@@ -64,6 +64,7 @@ public class Meter {
     }
 
     public void setCreateDate(Date createDate) {
+
         this.createDate = createDate;
     }
 }
