@@ -31,7 +31,7 @@
     </select>
 
     <delete id="deleteMeter" parameterType="int">
-        delete from iot.mid
+        delete from iot.meter
         where mid = #{mid}
     </delete>
 
