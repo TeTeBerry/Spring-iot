@@ -90,7 +90,7 @@ public class UserService {
 
                 String token = uidTokenMap.get(user.getUid());
                 if (token != null) {
-                   tokenUidMap.remove(token);
+                    tokenUidMap.remove(token);
                 }
                 token = createToken(user.getUid());
                 tokenUidMap.put(token, user.getUid());
