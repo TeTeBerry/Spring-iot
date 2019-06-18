@@ -27,21 +27,23 @@ public class MeterController {
         return mService.getMeters();
     }
 
-    @PostMapping(value = "/add")
-    @CrossOrigin(origins = "*")
-    public Response addMeter(@RequestBody Meter meter) {
-        return mService.getMeters();
-    }
+//    @PostMapping(value = "/add")
+//    @CrossOrigin(origins = "*")
+//    public Response addMeter(@RequestBody Meter meter) {
+//        return mService.getMeters();
+//    }
 
     @PostMapping(value = "/update")
     @CrossOrigin(origins = "*")
     public Response update(@RequestBody Meter meter) {
+        // TODO need auth in header to verify token?
         return mService.updateMeter(meter);
     }
 
     @DeleteMapping(value = "/delete")
     @CrossOrigin(origins = "*")
     public Response delete(@RequestParam("mid") int mid) {
+        // TODO need auth in header to verify token?
         return mService.deleteMeter(mid);
     }
 }

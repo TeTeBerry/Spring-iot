@@ -1,9 +1,8 @@
-package com.iot.smart.water.meter.controller;
+package com.iot.smart.water.meter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -30,46 +29,36 @@ public class MeterControllerTest {
     public void setupMockMvc(){
         mvc = MockMvcBuilders.webAppContextSetup(wac).build(); //初始化MockMvc对象
         session = new MockHttpSession();
-
     }
-
 
     @Test
     public void getMeters() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getMeters")
-                   .contentType(MediaType.APPLICATION_JSON)
-                   .accept(MediaType.APPLICATION_JSON)
-                   .session(session)
-        )
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
-
-
     }
 
     @Test
     public void update() throws Exception{
-        String json="{\"mid\":\"4\",\"meterName\":sensoresp,\"meterDes\":\"Spring Boot\",\"memberName\":\":\"tee,\"room\":\" Boot\",\"memberContact\":\"Spring Boot\"}";
+        String json="{\"mid\":\"1\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
                 .accept(MediaType.APPLICATION_JSON)
-                .content(json.getBytes())//传json参数
-                .session(session)
-        )
+                .content(json.getBytes())
+                .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void delete() throws Exception{
-        String json="[13]";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/delete")
-                .accept(MediaType.APPLICATION_JSON)
-                .content(json.getBytes())//传json参数
-                .session(session)
-        )
+                .accept(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .param("mid", "1")
+                .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
-
-
 }

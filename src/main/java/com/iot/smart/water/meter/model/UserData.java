@@ -1,7 +1,5 @@
 package com.iot.smart.water.meter.model;
 
-import java.util.List;
-
 public class UserData {
     private int uid;
     private String userName;
