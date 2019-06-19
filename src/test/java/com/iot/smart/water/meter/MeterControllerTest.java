@@ -34,8 +34,7 @@ public class MeterControllerTest {
     @Test
     public void getMeters() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getMeters")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -45,8 +44,8 @@ public class MeterControllerTest {
     public void update() throws Exception{
         String json="{\"mid\":\"1\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
-                .accept(MediaType.APPLICATION_JSON)
-                .content(json.getBytes())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(json)
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -54,8 +53,8 @@ public class MeterControllerTest {
 
     @Test
     public void delete() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.post("/iot/meter/delete")
-                .accept(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+        mvc.perform(MockMvcRequestBuilders.delete("/iot/meter/delete")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .param("mid", "1")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
