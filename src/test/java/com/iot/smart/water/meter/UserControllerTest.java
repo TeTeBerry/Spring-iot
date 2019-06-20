@@ -29,7 +29,8 @@ public class UserControllerTest {
     private MockMvc mvc;
     private MockHttpSession session;
 
-    private static String token;
+    private static final String testToken = "72F97DC34A9D0FFD45E5FC1D963EB01A";
+    private static final String testUserName = "test";
 
     @Before
     public void setupMockMvc(){
@@ -50,7 +51,7 @@ public class UserControllerTest {
 
     @Test
     public void login() throws Exception {
-        String paramJson = "{\"userName\":\"test\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"111\"}";
         String response = mvc.perform(MockMvcRequestBuilders.post("/iot/admin/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -60,7 +61,7 @@ public class UserControllerTest {
                 .andReturn().getResponse().getContentAsString();
         JSONObject resultJson = JSON.parseObject(response);
         if (resultJson != null) {
-            token = resultJson.getString("msg");
+            String token = resultJson.getString("msg");
             System.out.println("token: " + token);
         }
     }
@@ -69,7 +70,7 @@ public class UserControllerTest {
     public void updatePassword() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .header("auth", "invalidToken")
+                .header("auth", testToken + testUserName)
                 .param("oldPwd", "111")
                 .param("newPwd", "123456")
                 .session(session))
@@ -82,7 +83,7 @@ public class UserControllerTest {
         String paramJson = "{\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .header("auth", "invalidToken")
+                .header("auth", testToken + testUserName)
                 .content(paramJson)
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
