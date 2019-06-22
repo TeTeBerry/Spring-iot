@@ -15,19 +15,24 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+
+/**
+ *
+ * Created by Chenziyu on 2019/6/15
+ **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MeterControllerTest {
 
     @Autowired
-    private WebApplicationContext wac;
+    private WebApplicationContext webApplicationContext;
 
     private MockMvc mvc;
     private MockHttpSession session;
 
     @Before
     public void setupMockMvc(){
-        mvc = MockMvcBuilders.webAppContextSetup(wac).build(); //初始化MockMvc对象
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build(); //初始化MockMvc对象
         session = new MockHttpSession();
     }
 
@@ -42,7 +47,7 @@ public class MeterControllerTest {
 
     @Test
     public void update() throws Exception{
-        String json="{\"mid\":\"1\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
+        String json="{\"mid\":\"6\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json)
@@ -55,7 +60,7 @@ public class MeterControllerTest {
     public void delete() throws Exception{
         mvc.perform(MockMvcRequestBuilders.delete("/iot/meter/delete")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("mid", "1")
+                .param("mid", "4")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());

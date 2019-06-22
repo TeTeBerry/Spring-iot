@@ -19,6 +19,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 
+
+/**
+ *
+ * Created by Chenziyu on 2019/6/15
+ **/
+
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 public class UserControllerTest {
@@ -40,7 +46,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"test02\",\"password\":\"111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -51,7 +57,7 @@ public class UserControllerTest {
 
     @Test
     public void login() throws Exception {
-        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"123456\"}";
         String response = mvc.perform(MockMvcRequestBuilders.post("/iot/admin/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -71,8 +77,8 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .header("auth", testToken + testUserName)
-                .param("oldPwd", "111")
-                .param("newPwd", "123456")
+                .param("oldPwd", "123456")
+                .param("newPwd", "1234")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -80,7 +86,7 @@ public class UserControllerTest {
 
     @Test
     public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"111111\"}";
+        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .header("auth", testToken + testUserName)
