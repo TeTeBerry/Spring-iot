@@ -1,4 +1,5 @@
-package com.iot.smart.water.meter;
+package com.iot.smart.water.meter.controller;
+
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -46,7 +47,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test02\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"test03\",\"password\":\"111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)

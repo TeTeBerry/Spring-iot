@@ -1,56 +1,68 @@
 package com.iot.smart.water.meter.controller;
 
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.response.Response;
-import com.iot.smart.water.meter.service.MeterService;
-import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-
-import static org.junit.Assert.*;
 
 /**
  *
- * Created by Chenziyu on 2019/6/22
-**/
-
+ * Created by Chenziyu on 2019/6/15
+ **/
 @RunWith(SpringRunner.class)
-@WebMvcTest(MeterController.class)
+@SpringBootTest
 public class MeterControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private WebApplicationContext webApplicationContext;
 
+    private MockMvc mvc;
+    private MockHttpSession session;
 
-    @MockBean
-    private MeterService service;
-
+    @Before
+    public void setupMockMvc(){
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build(); //初始化MockMvc对象
+        session = new MockHttpSession();
+    }
 
     @Test
     public void getMeters() throws Exception {
-
-    }
-
-
-
-    @Test
-    public void update() {
+        mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getMeters")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void delete() {
+    public void update() throws Exception{
+        String json="{\"mid\":\"9\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
+        mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(json)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void delete() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.delete("/iot/meter/delete")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .param("mid", "6")
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }
