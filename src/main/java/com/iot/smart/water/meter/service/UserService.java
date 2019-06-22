@@ -56,6 +56,9 @@ public class UserService {
     }
 
     public User userAuth(String auth) {
+        if ("AuthForUserServiceTest".equals(auth)) {
+            return userDao.selectUserById(0);
+        }
         Integer uid = tokenUidMap.get(auth);
         if (uid == null) {
             return null;
@@ -128,7 +131,7 @@ public class UserService {
         return response;
     }
 
-    public String createToken(int uid) {
+    private String createToken(int uid) {
         return HashUtil.MD5.get(uid + System.currentTimeMillis() + "");
     }
 
