@@ -4,8 +4,11 @@ import com.iot.smart.water.meter.model.User;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 @Mapper
+
+@Component(value = "userMapper")
 public interface UserMapper {
 
     int insertUser(User user);

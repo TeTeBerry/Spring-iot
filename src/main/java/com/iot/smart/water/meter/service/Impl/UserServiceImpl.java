@@ -5,7 +5,6 @@ import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
 import com.iot.smart.water.meter.model.UserData;
-import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.service.UserService;
 import com.iot.smart.water.meter.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +26,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    UserMapper userMapper;
-
-
+    private UserMapper userMapper;
 
     private static final String USER_ADMIN = "admin";
-
-
-
 
 
     @Override
