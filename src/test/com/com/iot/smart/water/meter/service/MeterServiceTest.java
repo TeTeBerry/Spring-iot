@@ -1,9 +1,8 @@
 package com.iot.smart.water.meter.service;
 
-import com.iot.smart.water.meter.dao.MeterDao;
+import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.response.Response;
-
+import com.iot.smart.water.meter.service.Impl.MeterServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +10,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
@@ -23,11 +25,20 @@ import java.util.List;
 @SpringBootTest
 public class MeterServiceTest {
 
-    @MockBean
-    private MeterDao meterDao;
 
-    @InjectMocks
-    private MeterService meterService;
+    @Configuration
+    static class MeterServiceConfig {
+        @Bean
+        public MeterService meterService() {
+            return new MeterServiceImpl();
+        }
+    }
+
+    @MockBean
+    private MeterMapper meterMapper;
+
+    @Autowired
+    private  MeterService meterService;
 
     @Before
     public void setUp() throws Exception {
@@ -44,13 +55,12 @@ public class MeterServiceTest {
         meter.setMemberContact("343242@qq.com");
         meter.setMemberName("tete");
 
-        Mockito.when(meterDao.selectAllMeter())
+        Mockito.when(meterMapper.selectAllMeter())
                 .thenReturn(Collections.singletonList(meter));
 
-        Response response = meterService.getMeters();
-        List<Meter> list = (List<Meter>) response.getData();
-        Assertions.assertThat(list.size()).isEqualTo(1);
-        Assertions.assertThat(list.get(0).getMemberName()).isEqualTo("tete");
+         List<Meter> result = meterService.getMeters();
+        Assertions.assertThat(result.size()).isEqualTo(1);
+        Assertions.assertThat(result.get(0).getMemberName()).isEqualTo("tete");
     }
 
     @Test
@@ -63,9 +73,11 @@ public class MeterServiceTest {
         meter.setMemberName("tete");
         meter.setCreateDate(new Date());
 
-        Mockito.when(meterDao.insertMeter(meter)).thenReturn(1);
-        Response response = meterService.addMeter(meter);
-        Assertions.assertThat(response.getCode()).isEqualTo(200);
+        Mockito.when(meterMapper.insertMeter(meter)).thenReturn(1);
+        Meter result = meterService.addMeter(meter);
+        Assertions.assertThat(result).isEqualTo(meter);
+
+
     }
 
     @Test
@@ -78,9 +90,11 @@ public class MeterServiceTest {
         meter.setMemberContact("test@qq.com");
         meter.setMemberName("tete");
 
-        Mockito.when(meterDao.updateMeter(meter)).thenReturn(1);
-        Response response = meterService.updateMeter(meter);
-        Assertions.assertThat(response.getCode()).isEqualTo(200);
+        Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
+        Mockito.when(meterMapper.updateMeter(meter)).thenReturn(1);
+       Meter result = meterService.updateMeter(meter);
+       Assertions.assertThat(result.getMid()).isEqualTo(1);
+
     }
 
     @Test
@@ -93,10 +107,12 @@ public class MeterServiceTest {
         meter.setMemberContact("test@qq.com");
         meter.setMemberName("tete");
 
-        Mockito.when(meterDao.selectMeter(meter.getMid())).thenReturn(meter);
-        Mockito.when(meterDao.deleteMeter(meter.getMid())).thenReturn(1);
-        Response response = meterService.deleteMeter(meter.getMid());
-        Assertions.assertThat(response.getCode()).isEqualTo(200);
+        Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
+        Mockito.when(meterMapper.deleteMeterById(meter.getMid())).thenReturn(1);
+
+        Meter result = meterService.deleteMeter(1);
+        Assertions.assertThat(result).isEqualTo(meter);
+
     }
 
 }
