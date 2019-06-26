@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.iot.smart.water.meter.dao.MeterDao">
+<mapper namespace="com.iot.smart.water.meter.dao.MeterMapper">
 
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="mid" keyProperty="mid" useGeneratedKeys="true">
         insert into iot.meter
@@ -25,12 +25,12 @@
         order by createDate desc
     </select>
 
-    <select id="selectMeter" resultType="com.iot.smart.water.meter.model.Meter">
+    <select id="selectMeterById" resultType="com.iot.smart.water.meter.model.Meter">
         select * from iot.meter
         where mid = #{mid}
     </select>
 
-    <delete id="deleteMeter" parameterType="int">
+    <delete id="deleteMeterById" parameterType="int">
         delete from iot.meter
         where mid = #{mid}
     </delete>
