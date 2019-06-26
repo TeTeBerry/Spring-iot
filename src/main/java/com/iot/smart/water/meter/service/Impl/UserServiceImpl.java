@@ -18,13 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service("UserService")
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
 
     private static final String testToken = "72F97DC34A9D0FFD45E5FC1D963EB01A";
 
     private Map<String, Integer> tokenUidMap = new HashMap<>();
-    private Map<Integer, String> uidTokenMap = new HashMap<>();
+
 
     @Autowired
     UserMapper userMapper;
