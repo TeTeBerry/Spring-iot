@@ -45,9 +45,10 @@ public class UserControllerTest {
         session = new MockHttpSession();
     }
 
+
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test05\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"testnewversion\",\"password\":\"111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -58,7 +59,7 @@ public class UserControllerTest {
 
     @Test
     public void login() throws Exception {
-        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"123456\"}";
+        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"1112\"}";
         String response = mvc.perform(MockMvcRequestBuilders.post("/iot/admin/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -78,8 +79,8 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .header("auth", testToken + testUserName)
-                .param("oldPwd", "123456")
-                .param("newPwd", "1234")
+                .param("oldPwd", "1112")
+                .param("newPwd", "1112")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
