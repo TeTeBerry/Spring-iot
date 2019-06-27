@@ -62,9 +62,10 @@ public class MeterController {
             response.setMsg("empty room");
             return response;
 
-        }else if (StringUtils.isEmpty(meter.getMemberContact())) {
+        }else if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))){
+
             response.setCode(ErrorCode.EMPTY_MeterContact);
-            response.setMsg("empty meterContact");
+            response.setMsg("email invalid");
             return response;
         }
 

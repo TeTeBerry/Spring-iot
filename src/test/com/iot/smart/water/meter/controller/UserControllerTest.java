@@ -88,7 +88,7 @@ public class UserControllerTest {
 
     @Test
     public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"111111\"}";
+        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"t111111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)

@@ -14,12 +14,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -163,9 +163,10 @@ public class UserController {
             return response;
 
         }
-        if (StringUtils.isEmpty(meter.getMemberContact())) {
+        if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))){
+
             response.setCode(ErrorCode.EMPTY_MeterContact);
-            response.setMsg("empty meterContact");
+            response.setMsg("email invalid");
             return response;
         }
         response.setMsg("add meter success");
