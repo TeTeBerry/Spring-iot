@@ -8,6 +8,7 @@ import com.iot.smart.water.meter.response.Response;
 
 import com.iot.smart.water.meter.service.MeterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,10 +43,36 @@ public class MeterController {
 
         if (mService.updateMeter(meter) == null) {
             response.setCode(ErrorCode.INVALID_MID);
-        } else {
-            meterMapper.updateMeter(meter);
+        } else if (StringUtils.isEmpty(meter.getMeterName())) {
+            response.setCode(ErrorCode.EMPTY_MeterName);
+            response.setMsg("empty meterName");
+            return response;
+        } else  if (StringUtils.isEmpty(meter.getMeterDesc())) {
+            response.setCode(ErrorCode.EMPTY_MeterDesc);
+            response.setMsg("empty meterDesc");
+            return response;
+        }else
+        if (StringUtils.isEmpty(meter.getMeterDesc())) {
+            response.setCode(ErrorCode.EMPTY_MemberName);
+            response.setMsg("empty memberName");
+            return response;
+
+        }else if (StringUtils.isEmpty(meter.getRoom())) {
+            response.setCode(ErrorCode.EMPTY_Room);
+            response.setMsg("empty room");
+            return response;
+
+        }else if (StringUtils.isEmpty(meter.getMemberContact())) {
+            response.setCode(ErrorCode.EMPTY_MeterContact);
+            response.setMsg("empty meterContact");
+            return response;
         }
+
+
+            meterMapper.updateMeter(meter);
+
         response.setMsg("update meter success");
+        response.setData(mService.updateMeter(meter));
         return response;
 
     }

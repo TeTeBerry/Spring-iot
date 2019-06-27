@@ -4,14 +4,12 @@ import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
-import com.iot.smart.water.meter.model.UserData;
 import com.iot.smart.water.meter.service.UserService;
 import com.iot.smart.water.meter.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,50 +47,22 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public User userAuth(String auth) {
-
-        if ("AuthForUserServiceTest".equals(auth)) {
-            return userMapper.selectUserById(0);
-        }
-        Integer uid = tokenUidMap.get(auth);
-        if (uid == null) {
-            return null;
-        } else {
-            return userMapper.selectUserById(uid);
-        }
-
-    }
-
 
     @Override
     public String createToken(int uid) {
         return HashUtil.MD5.get(uid + System.currentTimeMillis() + "");
     }
 
-    @Override
-    public String formatDate(Date createDate) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            return sdf.format(createDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+
 
 
     @Override
     public User login(LoginInfo info) {
-        User user = userMapper.selectUserByName(info.getUserName());
-        UserData userData = new UserData();
-        userData.setUid(user.getUid());
-        userData.setUserName(user.getUserName());
-        userData.setCreateDate(formatDate(user.getCreateDate()));
 
 
-        return user;
+        return userMapper.selectUserByName(info.getUserName());
     }
+
 
 
 

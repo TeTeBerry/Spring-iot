@@ -49,7 +49,7 @@ public class MeterControllerTest {
 
     @Test
     public void update() throws Exception{
-        String json="{\"mid\":\"8\",\"meterName\":\"tete\",\"meterDes\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
+        String json="{\"mid\":\"12\",\"meterName\":\"tete\",\"meterDesc\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json)
