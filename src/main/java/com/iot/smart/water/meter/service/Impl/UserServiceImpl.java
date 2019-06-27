@@ -18,10 +18,6 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
 
-    private static final String testToken = "72F97DC34A9D0FFD45E5FC1D963EB01A";
-
-    private Map<String, Integer> tokenUidMap = new HashMap<>();
-
 
     @Autowired
     private UserMapper userMapper;

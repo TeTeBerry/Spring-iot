@@ -142,30 +142,30 @@ public class UserController {
     public Response addMeter(@RequestBody Meter meter) {
         Response response = new Response();
         if (StringUtils.isEmpty(meter.getMeterName())) {
-            response.setCode(ErrorCode.EMPTY_MeterName);
+            response.setCode(ErrorCode.EMPTY_METERNAME);
             response.setMsg("empty meterName");
             return response;
         }
         if (StringUtils.isEmpty(meter.getMeterDesc())) {
-            response.setCode(ErrorCode.EMPTY_MeterDesc);
+            response.setCode(ErrorCode.EMPTY_METERDESC);
             response.setMsg("empty meterDesc");
             return response;
         }
         if (StringUtils.isEmpty(meter.getMeterDesc())) {
-            response.setCode(ErrorCode.EMPTY_MemberName);
+            response.setCode(ErrorCode.EMPTY_METERDESC);
             response.setMsg("empty memberName");
             return response;
 
         }
         if (StringUtils.isEmpty(meter.getRoom())) {
-            response.setCode(ErrorCode.EMPTY_Room);
+            response.setCode(ErrorCode.EMPTY_ROOM);
             response.setMsg("empty room");
             return response;
 
         }
         if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))){
 
-            response.setCode(ErrorCode.EMPTY_MeterContact);
+            response.setCode(ErrorCode.INVALID_METERCONTACT);
             response.setMsg("email invalid");
             return response;
         }
