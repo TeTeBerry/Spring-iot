@@ -78,8 +78,8 @@ public class UserControllerTest {
     public void updatePassword() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .header("auth", testToken + testUserName)
-                .param("oldPwd", "1112")
+                .param("userName", "admin")
+                .param("oldPwd", "1111")
                 .param("newPwd", "1112")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -88,10 +88,9 @@ public class UserControllerTest {
 
     @Test
     public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"111111\"}";
+        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"t111111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .header("auth", testToken + testUserName)
                 .content(paramJson)
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
