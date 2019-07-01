@@ -113,6 +113,15 @@ public class UserController {
         Response response = new Response();
 
         User user = userMapper.selectUserByName(userName);
+
+
+                   if (StringUtils.isEmpty(user.getUserName())) {
+                    response.setCode(ErrorCode.EMPTY_USERNAME);
+                    response.setMsg("empty userName");
+                   return response;
+            }
+
+
                 if (user != null) {
 
                     if (!user.getPassword().equals(oldPwd)) {
