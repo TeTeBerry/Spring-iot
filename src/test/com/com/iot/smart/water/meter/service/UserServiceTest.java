@@ -62,16 +62,6 @@ public class UserServiceTest {
         Assertions.assertThat(result).isEqualTo(user);
     }
 
-    @Test
-    public void userAuth() {
-        String auth = "AuthForUserServiceTest";
-        User user = new User();
-        user.setUserName("test");
-
-        Mockito.when(userMapper.selectUserById(0)).thenReturn(user);
-        User resultUser = userService.userAuth(auth);
-        Assertions.assertThat(resultUser.getUserName()).isEqualTo(user.getUserName());
-    }
 
     @Test
     public void login() {
