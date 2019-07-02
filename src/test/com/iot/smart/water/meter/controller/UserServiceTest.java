@@ -1,10 +1,12 @@
-package com.iot.smart.water.meter.service;
+package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
 import com.iot.smart.water.meter.service.Impl.UserServiceImpl;
+import com.iot.smart.water.meter.service.UserService;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +26,6 @@ import java.util.Date;
 @SpringBootTest
 public class UserServiceTest {
 
-
-
     @Configuration
     static class UserServiceConfig {
         @Bean
@@ -37,17 +37,13 @@ public class UserServiceTest {
     @MockBean
     private UserMapper userMapper;
 
-
-
     @Autowired
     private UserService userService;
-
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void updatePassword() {
@@ -58,7 +54,7 @@ public class UserServiceTest {
         String newPwd = "123456";
 
         Mockito.when(userMapper.updateUser(user)).thenReturn(1);
-        User result = userService.updatePassword(user,oldPwd,newPwd);
+        User result = userService.updatePassword(user, oldPwd, newPwd);
         Assertions.assertThat(result).isEqualTo(user);
     }
 
@@ -90,5 +86,4 @@ public class UserServiceTest {
         User result = userService.register(user);
         Assertions.assertThat(result).isEqualTo(user);
     }
-
 }

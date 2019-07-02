@@ -1,8 +1,10 @@
-package com.iot.smart.water.meter.service;
+package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.service.Impl.MeterServiceImpl;
+import com.iot.smart.water.meter.service.MeterService;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,6 @@ import java.util.List;
 @SpringBootTest
 public class MeterServiceTest {
 
-
     @Configuration
     static class MeterServiceConfig {
         @Bean
@@ -37,11 +38,26 @@ public class MeterServiceTest {
     private MeterMapper meterMapper;
 
     @Autowired
-    private  MeterService meterService;
+    private MeterService meterService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void setMemberVolume() {
+        Meter meter = new Meter();
+        meter.setMid(1);
+        meter.setMeterDesc(null);
+        meter.setMeterName("tete");
+        meter.setRoom("1");
+        meter.setMemberContact("111111");
+        meter.setVolume(100.0f);
+
+        Mockito.when(meterMapper.selectMeterByMemberName(meter.getMemberName())).thenReturn(meter);
+        boolean result = meterService.setMemberVolume(meter.getMemberName(), meter.getVolume());
+        Assertions.assertThat(result).isEqualTo(true);
     }
 
     @Test
@@ -56,8 +72,7 @@ public class MeterServiceTest {
 
         Mockito.when(meterMapper.selectAllMeter())
                 .thenReturn(Collections.singletonList(meter));
-
-         List<Meter> result = meterService.getMeters();
+        List<Meter> result = meterService.getMeters();
         Assertions.assertThat(result.size()).isEqualTo(1);
         Assertions.assertThat(result.get(0).getMemberName()).isEqualTo("tete");
     }
@@ -75,8 +90,6 @@ public class MeterServiceTest {
         Mockito.when(meterMapper.insertMeter(meter)).thenReturn(1);
         Meter result = meterService.addMeter(meter);
         Assertions.assertThat(result).isEqualTo(meter);
-
-
     }
 
     @Test
@@ -91,9 +104,8 @@ public class MeterServiceTest {
 
         Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
         Mockito.when(meterMapper.updateMeter(meter)).thenReturn(1);
-       Meter result = meterService.updateMeter(meter);
-       Assertions.assertThat(result.getMid()).isEqualTo(1);
-
+        Meter result = meterService.updateMeter(meter);
+        Assertions.assertThat(result.getMid()).isEqualTo(1);
     }
 
     @Test
@@ -108,10 +120,7 @@ public class MeterServiceTest {
 
         Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
         Mockito.when(meterMapper.deleteMeterById(meter.getMid())).thenReturn(1);
-
         Meter result = meterService.deleteMeter(1);
         Assertions.assertThat(result).isEqualTo(meter);
-
     }
-
 }

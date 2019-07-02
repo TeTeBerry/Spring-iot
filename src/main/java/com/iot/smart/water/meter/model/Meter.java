@@ -10,6 +10,7 @@ public class Meter {
     private String room;
     private String memberContact;
     private Date createDate;
+    private float volume;
 
     public int getMid() {
         return mid;
@@ -64,7 +65,14 @@ public class Meter {
     }
 
     public void setCreateDate(Date createDate) {
-
         this.createDate = createDate;
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
     }
 }

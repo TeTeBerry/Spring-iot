@@ -15,11 +15,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-/**
- *
- * Created by Chenziyu on 2019/6/15
- **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MeterControllerTest {
@@ -27,15 +22,24 @@ public class MeterControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-
     private MockMvc mvc;
     private MockHttpSession session;
 
-
     @Before
-    public void setupMockMvc(){
+    public void setupMockMvc() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build(); //初始化MockMvc对象
         session = new MockHttpSession();
+    }
+
+    @Test
+    public void setMemberVolume() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.post("/iot/meter/setMemberVolume")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .param("memberName", "tete")
+                .param("volume", "100.0f")
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -48,8 +52,8 @@ public class MeterControllerTest {
     }
 
     @Test
-    public void update() throws Exception{
-        String json="{\"mid\":\"12\",\"meterName\":\"tete\",\"meterDesc\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
+    public void update() throws Exception {
+        String json = "{\"mid\":\"12\",\"meterName\":\"tete\",\"meterDesc\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json)
@@ -59,7 +63,7 @@ public class MeterControllerTest {
     }
 
     @Test
-    public void delete() throws Exception{
+    public void delete() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/iot/meter/delete")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .param("mid", "8")

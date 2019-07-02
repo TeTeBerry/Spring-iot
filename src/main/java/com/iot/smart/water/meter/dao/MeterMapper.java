@@ -20,8 +20,9 @@ public interface MeterMapper {
 
     Meter selectMeterById(@Param("mid") int mid);
 
+    Meter selectMeterByMemberName(@Param("memberName") String memberName);
+
     int deleteMeterById(@Param("mid") int mid);
 
     void createTable();
-
 }

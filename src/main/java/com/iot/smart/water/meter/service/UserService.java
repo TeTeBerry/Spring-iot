@@ -4,18 +4,13 @@ import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
 
-
 public interface UserService {
 
+    User updatePassword(User user, String oldPwd, String newPwd);
 
+    User login(LoginInfo info);
 
-      User updatePassword(User user, String oldPwd, String newPwd);
+    User register(User user);
 
-      User login(LoginInfo info);
-
-      User register(User user);
-
-      String createToken(int uid);
-
-
+    String createToken(int uid);
 }
