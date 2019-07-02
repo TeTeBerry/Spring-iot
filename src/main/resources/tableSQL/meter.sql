@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 04/06/2019 01:11:29
+ Date: 03/07/2019 01:46:18
 */
 
 SET NAMES utf8mb4;
@@ -29,8 +29,9 @@ CREATE TABLE `meter`  (
   `room` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `volume` float(20, 2) NULL DEFAULT 0.00,
   PRIMARY KEY (`mid`) USING BTREE,
   UNIQUE INDEX `mid`(`mid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
