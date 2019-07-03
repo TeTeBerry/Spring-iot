@@ -11,6 +11,8 @@ public class Meter {
     private String memberContact;
     private Date createDate;
     private float volume;
+    private int dailyCheck;
+    private int monthlyCheck;
 
     public int getMid() {
         return mid;
@@ -74,5 +76,21 @@ public class Meter {
 
     public void setVolume(float volume) {
         this.volume = volume;
+    }
+
+    public int getDailyCheck() {
+        return dailyCheck;
+    }
+
+    public void setDailyCheck(int dailyCheck) {
+        this.dailyCheck = dailyCheck;
+    }
+
+    public int getMonthlyCheck() {
+        return monthlyCheck;
+    }
+
+    public void setMonthlyCheck(int monthlyCheck) {
+        this.monthlyCheck = monthlyCheck;
     }
 }

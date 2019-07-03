@@ -6,7 +6,7 @@
         insert into iot.meter
         (meterName, meterDesc, memberName, room, memberContact, createDate)
         values
-        (#{meterName}, #{meterDesc}, #{memberName}, #{room}, #{memberContact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'), #{volume})
+        (#{meterName}, #{meterDesc}, #{memberName}, #{room}, #{memberContact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
@@ -17,7 +17,9 @@
             memberName = #{memberName},
             room = #{room},
             memberContact = #{memberContact},
-            volume = #{volume}
+            volume = #{volume},
+            dailyCheck = #{dailyCheck},
+            monthlyCheck = #{mouthlyCheck}
         where mid = #{mid}
     </update>
 
@@ -51,6 +53,8 @@
         `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
         `volume` float(20, 2) NULL DEFAULT 0.00,
+        `dailyCheck` tinyint(4) NULL DEFAULT 0,
+        `monthlyCheck` tinyint(4) NULL DEFAULT 0,
         PRIMARY KEY (`mid`) USING BTREE,
         UNIQUE INDEX `mid`(`mid`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;

@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 03/07/2019 01:46:18
+ Date: 04/07/2019 01:29:27
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,8 @@ CREATE TABLE `meter`  (
   `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `volume` float(20, 2) NULL DEFAULT 0.00,
+  `dailyCheck` tinyint(4) NULL DEFAULT 0,
+  `monthlyCheck` tinyint(4) NULL DEFAULT 0,
   PRIMARY KEY (`mid`) USING BTREE,
   UNIQUE INDEX `mid`(`mid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
