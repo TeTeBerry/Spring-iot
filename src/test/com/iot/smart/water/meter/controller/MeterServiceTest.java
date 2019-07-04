@@ -1,9 +1,12 @@
 package com.iot.smart.water.meter.controller;
 
+import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.MeterServiceImpl;
 import com.iot.smart.water.meter.service.MeterService;
+import com.iot.smart.water.meter.util.EmailUtil;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -36,6 +39,15 @@ public class MeterServiceTest {
 
     @MockBean
     private MeterMapper meterMapper;
+
+    @MockBean
+    private DataMapper dataMapper;
+
+    @MockBean
+    private DataService dataService;
+
+    @MockBean
+    private EmailUtil emailUtil;
 
     @Autowired
     private MeterService meterService;
