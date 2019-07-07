@@ -19,7 +19,7 @@
             memberContact = #{memberContact},
             volume = #{volume},
             dailyCheck = #{dailyCheck},
-            monthlyCheck = #{mouthlyCheck}
+            monthlyCheck = #{monthlyCheck}
         where mid = #{mid}
     </update>
 

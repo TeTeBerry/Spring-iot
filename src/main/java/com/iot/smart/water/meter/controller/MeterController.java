@@ -2,6 +2,7 @@ package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 
@@ -22,6 +23,15 @@ public class MeterController {
 
     @Autowired
     private MeterMapper meterMapper;
+
+    @GetMapping(value = "/getWaterBill")
+    @CrossOrigin(origins = "*")
+    public Response getWaterBill() {
+        Response response = new Response();
+        List<WaterBill> list = mService.getWaterBill();
+        response.setData(list);
+        return response;
+    }
 
     @PostMapping(value = "/setMemberVolume")
     @CrossOrigin(origins = "*")

@@ -1,7 +1,9 @@
 package com.iot.smart.water.meter.service.Impl;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.util.DateUtil;
@@ -14,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +36,33 @@ public class MeterServiceImpl implements MeterService {
 
     @Autowired
     private EmailUtil emailUtil;
+
+    @Override
+    public List<WaterBill> getWaterBill() {
+        List<WaterBill> waterBills = null;
+        List<Meter> meters = meterMapper.selectAllMeter();
+        if (meters != null) {
+            Date date = new Date();
+            waterBills = new ArrayList<>();
+            for (Meter meter : meters) {
+                WaterBill bill = new WaterBill();
+                bill.setMeterName(meter.getMeterName());
+                bill.setMemberName(meter.getMemberName());
+                bill.setMonth(DateUtil.getMonth(date));
+                Data data = dataService.getLatestData(meter.getMeterName(),
+                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
+                if (data != null) {
+                    bill.setTotalMilliters(data.getTotalMilliters());
+                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
+                } else {
+                    bill.setFee(0);
+                    bill.setTotalMilliters(0);
+                }
+                waterBills.add(bill);
+            }
+        }
+        return waterBills;
+    }
 
     @Override
     public boolean setMemberVolume(String memberName, float volume) {

@@ -58,6 +58,21 @@ public class MeterServiceTest {
     }
 
     @Test
+    public void getWaterBill() {
+        Meter meter = new Meter();
+        meter.setMid(1);
+        meter.setMeterDesc("ghugjkafj87979");
+        meter.setMeterName("sensor1");
+        meter.setRoom("B232");
+        meter.setMemberContact("343242@qq.com");
+        meter.setMemberName("tete");
+
+        Mockito.when(meterMapper.selectAllMeter()).thenReturn(Collections.singletonList(meter));
+        List result = meterService.getWaterBill();
+        Assertions.assertThat(result.size()).isEqualTo(1);
+    }
+
+    @Test
     public void setMemberVolume() {
         Meter meter = new Meter();
         meter.setMid(1);

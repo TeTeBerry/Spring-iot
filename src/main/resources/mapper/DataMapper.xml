@@ -6,6 +6,14 @@
         select * from iot.data_total_stats
         where sensorName = #{name}
         order by readingTime desc
+        limit 1
+    </select>
+
+    <select id="selectLatestDataInMonthByName" resultType="com.iot.smart.water.meter.model.Data">
+        select * from iot.data_total_stats
+        where sensorName = #{name} and readingTime &gt;= #{startTime} and readingTime &lt;= #{endTime}
+        order by readingTime desc
+        limit 1
     </select>
 
 </mapper>

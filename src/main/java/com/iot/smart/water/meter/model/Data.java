@@ -4,8 +4,8 @@ public class Data {
     private int id;
     private String sensorName;
     private float flowRate;
-    private float flowMilliLtres;
-    private float totalMilliLtres;
+    private float flowMilliters;
+    private float totalMilliters;
     private long readingTime;
 
     public int getId() {
@@ -32,20 +32,20 @@ public class Data {
         this.flowRate = flowRate;
     }
 
-    public float getFlowMilliLtres() {
-        return flowMilliLtres;
+    public float getFlowMilliters() {
+        return flowMilliters;
     }
 
-    public void setFlowMilliLtres(float flowMilliLtres) {
-        this.flowMilliLtres = flowMilliLtres;
+    public void setFlowMilliters(float flowMilliters) {
+        this.flowMilliters = flowMilliters;
     }
 
-    public float getTotalMilliLtres() {
-        return totalMilliLtres;
+    public float getTotalMilliters() {
+        return totalMilliters;
     }
 
-    public void setTotalMilliLtres(float totalMilliLtres) {
-        this.totalMilliLtres = totalMilliLtres;
+    public void setTotalMilliters(float totalMilliters) {
+        this.totalMilliters = totalMilliters;
     }
 
     public long getReadingTime() {
