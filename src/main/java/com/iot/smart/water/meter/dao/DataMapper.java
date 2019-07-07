@@ -9,4 +9,8 @@ import org.apache.ibatis.annotations.Param;
 public interface DataMapper {
 
     Data selectLatestDataByName(@Param("name") String name);
+
+    Data selectLatestDataInMonthByName(@Param("name") String name,
+                                       @Param("startTime") long startTime,
+                                       @Param("endTime") long endTime);
 }

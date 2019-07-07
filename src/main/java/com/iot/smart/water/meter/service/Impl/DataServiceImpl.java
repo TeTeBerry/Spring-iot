@@ -20,11 +20,16 @@ public class DataServiceImpl implements DataService {
     private DataMapper dataMapper;
 
     @Override
+    public Data getLatestData(String meterName, long start, long end) {
+        return dataMapper.selectLatestDataInMonthByName(meterName, start, end);
+    }
+
+    @Override
     public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
         Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
         if (data != null && DateUtil.isSameDay(data.getReadingTime(), System.currentTimeMillis())) {
-            return new Pair<>(data.getTotalMilliLtres() >= meter.getVolume(),
-                    data.getTotalMilliLtres() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
+            return new Pair<>(data.getTotalMilliters() >= meter.getVolume(),
+                    data.getTotalMilliters() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
         }
         return new Pair<>(false, false);
     }

@@ -32,6 +32,15 @@ public class MeterControllerTest {
     }
 
     @Test
+    public void getWaterBill() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getWaterBill")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
     public void setMemberVolume() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/setMemberVolume")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)

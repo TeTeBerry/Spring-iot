@@ -5,6 +5,7 @@ import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.DataServiceImpl;
+import com.iot.smart.water.meter.util.DateUtil;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -16,6 +17,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 import javafx.util.Pair;
 
@@ -38,6 +41,25 @@ public class DataServiceTest {
     private DataService dataService;
 
     @Test
+    public void getLatestData() {
+        Date date = new Date();
+        long start = DateUtil.getMonthStartTimestamp(date);
+        long end = DateUtil.getMonthEndTimestamp(date);
+
+        Meter meter = new Meter();
+        meter.setMeterName("sensor1");
+
+        Data data = new Data();
+        data.setSensorName("sensor1");
+        data.setTotalMilliters(100);
+        data.setReadingTime(System.currentTimeMillis());
+
+        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
+        Data result = dataService.getLatestData(meter.getMeterName(), start, end);
+        Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
+    }
+
+    @Test
     public void whetherExceedLimit() {
         Meter meter = new Meter();
         meter.setMeterName("sensor1");
@@ -45,7 +67,7 @@ public class DataServiceTest {
 
         Data data = new Data();
         data.setSensorName("sensor1");
-        data.setTotalMilliLtres(100);
+        data.setTotalMilliters(100);
         data.setReadingTime(System.currentTimeMillis());
 
         Mockito.when(dataMapper.selectLatestDataByName(meter.getMeterName())).thenReturn(data);
