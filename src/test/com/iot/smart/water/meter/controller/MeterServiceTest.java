@@ -2,7 +2,9 @@ package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.MeterServiceImpl;
 import com.iot.smart.water.meter.service.MeterService;
@@ -66,6 +68,10 @@ public class MeterServiceTest {
         meter.setRoom("B232");
         meter.setMemberContact("343242@qq.com");
         meter.setMemberName("tete");
+        WaterBill waterBill = new WaterBill();
+        Data data = new Data();
+        waterBill.setTotalMilliters(data.getTotalMilliters());
+        waterBill.setTotalMilliters(data.getTotalMilliters()/1000f*25);
 
         Mockito.when(meterMapper.selectAllMeter()).thenReturn(Collections.singletonList(meter));
         List result = meterService.getWaterBill();

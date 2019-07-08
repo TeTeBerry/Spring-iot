@@ -16,8 +16,8 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   mail:
     host: smtp.exmail.qq.com
-    username: tete
-    password: 123456
+    username: 250714751@qq.com
+    password: czy1994128!
     properties:
       mail:
         smtp:
