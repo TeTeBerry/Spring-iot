@@ -15,8 +15,8 @@ public interface DataMapper {
     Data selectLatestDataByName(@Param("name") String name);
 
     Data selectLatestDataInMonthByName(@Param("name") String name,
-                                       @Param("startTime") long startTime,
-                                       @Param("endTime") long endTime);
+                                       @Param("startTime") String startTime,
+                                       @Param("endTime") String endTime);
 
     List<Data> selectAllSensorData();
 

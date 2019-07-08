@@ -42,7 +42,7 @@ public class DateUtil {
         return calendar.get(Calendar.MONTH) + 1;
     }
 
-    public static long getMonthStartTimestamp(Date date) {
+    public static String getMonthStartTimestamp(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -50,10 +50,10 @@ public class DateUtil {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTimeInMillis();
+        return formatDate(calendar.getTime(), "yyyy-MM-dd HH:mm:ss");
     }
 
-    public static long getMonthEndTimestamp(Date date) {
+    public static String getMonthEndTimestamp(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
@@ -61,6 +61,6 @@ public class DateUtil {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
-        return calendar.getTimeInMillis();
+        return formatDate(calendar.getTime(), "yyyy-MM-dd HH:mm:ss");
     }
 }

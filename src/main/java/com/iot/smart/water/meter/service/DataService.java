@@ -11,7 +11,7 @@ public interface DataService {
 
 //    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
 
-    Data getLatestData(String meterName, long start, long end);
+    Data getLatestData(String meterName, String start, String end);
 
     List<Data> getSensorData();
 

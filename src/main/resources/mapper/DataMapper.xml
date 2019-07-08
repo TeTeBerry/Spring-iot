@@ -11,7 +11,7 @@
 
     <select id="selectLatestDataInMonthByName" resultType="com.iot.smart.water.meter.model.Data">
         select * from iot.sensorData
-        where sensorName = #{name} and reading_time &gt;= #{startTime} and reading_time &lt;= #{endTime}
+        where sensorName = #{name} and reading_time between #{startTime} and #{endTime}
         order by reading_time desc
         limit 1
     </select>

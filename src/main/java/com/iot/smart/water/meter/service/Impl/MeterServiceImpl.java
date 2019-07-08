@@ -66,15 +66,15 @@ public class MeterServiceImpl implements MeterService {
                     bill.setTotalMilliters(0);
                 }
 
-//                Data data = dataService.getLatestData(meter.getMeterName(),
-//                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
-//                if (data != null) {
-//                    bill.setTotalMilliters(data.getTotalMilliters());
-//                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
-//                } else {
-//                    bill.setFee(0);
-//                    bill.setTotalMilliters(0);
-//                }
+                Data data = dataService.getLatestData(meter.getMeterName(),
+                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
+                if (data != null) {
+                    bill.setTotalMilliters(data.getTotalMilliters());
+                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
+                } else {
+                    bill.setFee(0);
+                    bill.setTotalMilliters(0);
+                }
                 waterBills.add(bill);
             }
         }
