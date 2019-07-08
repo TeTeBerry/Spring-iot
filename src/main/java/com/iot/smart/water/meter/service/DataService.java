@@ -1,16 +1,19 @@
 package com.iot.smart.water.meter.service;
 
 import com.iot.smart.water.meter.model.Data;
-import com.iot.smart.water.meter.model.Meter;
 
 import org.springframework.stereotype.Service;
 
-import javafx.util.Pair;
+import java.util.List;
 
 @Service
 public interface DataService {
 
-    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
+//    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
 
     Data getLatestData(String meterName, long start, long end);
+
+    List<Data> getSensorData();
+
+
 }

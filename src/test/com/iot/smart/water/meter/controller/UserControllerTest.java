@@ -39,7 +39,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"testnen\",\"password\":\"111\"}";
+        String paramJson = "{\"userName\":\"test\",\"password\":\"1111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -79,7 +79,7 @@ public class UserControllerTest {
 
     @Test
     public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tete\",\"room\":\"1\",\"memberContact\":\"t111111@qq.com\"}";
+        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tetebaobao\",\"room\":\"1\",\"memberContact\":\"t111111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)

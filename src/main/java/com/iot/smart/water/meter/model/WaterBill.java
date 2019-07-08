@@ -5,7 +5,7 @@ public class WaterBill {
     private float fee;
     private String meterName;
     private String memberName;
-    private float totalMilliters;
+    private float totalMilliLitres;
 
     public int getMonth() {
         return month;
@@ -40,10 +40,10 @@ public class WaterBill {
     }
 
     public float getTotalMilliters() {
-        return totalMilliters;
+        return totalMilliLitres;
     }
 
-    public void setTotalMilliters(float totalMilliters) {
-        this.totalMilliters = totalMilliters;
+    public void setTotalMilliters(float totalMilliLitres) {
+        this.totalMilliLitres = totalMilliLitres;
     }
 }

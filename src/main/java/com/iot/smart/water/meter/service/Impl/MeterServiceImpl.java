@@ -1,5 +1,6 @@
 package com.iot.smart.water.meter.service.Impl;
 
+import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
@@ -35,12 +36,17 @@ public class MeterServiceImpl implements MeterService {
     private DataService dataService;
 
     @Autowired
+    private DataMapper dataMapper;
+
+    @Autowired
     private EmailUtil emailUtil;
+
 
     @Override
     public List<WaterBill> getWaterBill() {
         List<WaterBill> waterBills = null;
         List<Meter> meters = meterMapper.selectAllMeter();
+        List<Data> sensorData = dataMapper.selectAllSensorData();
         if (meters != null) {
             Date date = new Date();
             waterBills = new ArrayList<>();
@@ -49,15 +55,26 @@ public class MeterServiceImpl implements MeterService {
                 bill.setMeterName(meter.getMeterName());
                 bill.setMemberName(meter.getMemberName());
                 bill.setMonth(DateUtil.getMonth(date));
-                Data data = dataService.getLatestData(meter.getMeterName(),
-                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
-                if (data != null) {
-                    bill.setTotalMilliters(data.getTotalMilliters());
-                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
+                if(sensorData !=null){
+                    for(Data data : sensorData){
+                        bill.setTotalMilliters(data.getTotalMilliters());
+                        bill.setFee(data.getTotalMilliters() /1000f *25);
+                    }
+
                 } else {
                     bill.setFee(0);
                     bill.setTotalMilliters(0);
                 }
+
+//                Data data = dataService.getLatestData(meter.getMeterName(),
+//                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
+//                if (data != null) {
+//                    bill.setTotalMilliters(data.getTotalMilliters());
+//                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
+//                } else {
+//                    bill.setFee(0);
+//                    bill.setTotalMilliters(0);
+//                }
                 waterBills.add(bill);
             }
         }
@@ -102,39 +119,39 @@ public class MeterServiceImpl implements MeterService {
         return meterMapper.selectMeterById(mid);
     }
 
-    @Scheduled(cron = "0 * * * * ?")
-    private void scheduleTask() {
-        String currentTime = DateUtil.formatDate(new Date());
-        logger.info("execute task in: " + currentTime);
-        List<Meter> meters = meterMapper.selectAllMeter();
-        if (meters != null) {
-            for (Meter meter : meters) {
-                if (currentTime.endsWith("000000")) {
-                    resetCheck(meter, "01".equals(currentTime.substring(6,8)));
-                } else {
-                    checkLimit(meter);
-                }
-            }
-        }
-    }
+//    @Scheduled(cron = "0 * * * * ?")
+//    private void scheduleTask() {
+//        String currentTime = DateUtil.formatDate(new Date());
+//        logger.info("execute task in: " + currentTime);
+//        List<Meter> meters = meterMapper.selectAllMeter();
+//        if (meters != null) {
+//            for (Meter meter : meters) {
+//                if (currentTime.endsWith("000000")) {
+//                    resetCheck(meter, "01".equals(currentTime.substring(6,8)));
+//                } else {
+//                    checkLimit(meter);
+//                }
+//            }
+//        }
+//    }
 
-    private void checkLimit(Meter meter) {
-        Pair<Boolean, Boolean> result = dataService.whetherExceedLimit(meter);
-        boolean update = false;
-        if (result.getKey()) {
-            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "Today's water exceeds the limit");
-            meter.setDailyCheck(1);
-            update = true;
-        }
-        if (result.getValue()) {
-            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "This Month's water exceeds the limit");
-            meter.setMonthlyCheck(1);
-            update = true;
-        }
-        if (update) {
-            meterMapper.updateMeter(meter);
-        }
-    }
+//    private void checkLimit(Meter meter) {
+//        Pair<Boolean, Boolean> result = dataService.whetherExceedLimit(meter);
+//        boolean update = false;
+//        if (result.getKey()) {
+//            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "Today's water exceeds the limit");
+//            meter.setDailyCheck(1);
+//            update = true;
+//        }
+//        if (result.getValue()) {
+//            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "This Month's water exceeds the limit");
+//            meter.setMonthlyCheck(1);
+//            update = true;
+//        }
+//        if (update) {
+//            meterMapper.updateMeter(meter);
+//        }
+//    }
 
     private void resetCheck(Meter meter, boolean firstDayOfMonth) {
         boolean update = false;

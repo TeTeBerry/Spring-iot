@@ -3,17 +3,22 @@
 <mapper namespace="com.iot.smart.water.meter.dao.DataMapper">
 
     <select id="selectLatestDataByName" parameterType="string" resultType="com.iot.smart.water.meter.model.Data">
-        select * from iot.data_total_stats
+        select * from iot.sensorData
         where sensorName = #{name}
-        order by readingTime desc
+        order by reading_time desc
         limit 1
     </select>
 
     <select id="selectLatestDataInMonthByName" resultType="com.iot.smart.water.meter.model.Data">
-        select * from iot.data_total_stats
-        where sensorName = #{name} and readingTime &gt;= #{startTime} and readingTime &lt;= #{endTime}
-        order by readingTime desc
+        select * from iot.sensorData
+        where sensorName = #{name} and reading_time &gt;= #{startTime} and reading_time &lt;= #{endTime}
+        order by reading_time desc
         limit 1
     </select>
 
+    <select id="selectAllSensorData" resultType="com.iot.smart.water.meter.model.Data">
+        select * from iot.sensorData
+        order by reading_time desc
+        limit 1
+    </select>
 </mapper>
