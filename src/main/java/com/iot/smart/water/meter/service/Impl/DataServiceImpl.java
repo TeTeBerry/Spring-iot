@@ -16,7 +16,7 @@ public class DataServiceImpl implements DataService {
     private DataMapper dataMapper;
 
     @Override
-    public Data getLatestData(String meterName, long start, long end) {
+    public Data getLatestData(String meterName, String start, String end) {
         return dataMapper.selectLatestDataInMonthByName(meterName, start, end);
     }
 

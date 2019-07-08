@@ -1,6 +1,6 @@
 package com.iot.smart.water.meter.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Data {
     private int id;
@@ -8,7 +8,7 @@ public class Data {
     private float flowRate;
     private float flowMilliters;
     private float totalMilliLitres;
-    private Date reading_time;
+    private Timestamp reading_time;
 
     public int getId() {
         return id;
@@ -50,11 +50,19 @@ public class Data {
         this.totalMilliLitres = totalMilliLitres;
     }
 
-    public Date getReadingTime() {
+    public float getTotalMilliLitres() {
+        return totalMilliLitres;
+    }
+
+    public void setTotalMilliLitres(float totalMilliLitres) {
+        this.totalMilliLitres = totalMilliLitres;
+    }
+
+    public Timestamp getReading_time() {
         return reading_time;
     }
 
-    public void setReadingTime(Date readingTime) {
-        this.reading_time = readingTime;
+    public void setReading_time(Timestamp reading_time) {
+        this.reading_time = reading_time;
     }
 }
