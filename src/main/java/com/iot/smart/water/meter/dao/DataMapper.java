@@ -4,8 +4,12 @@ import com.iot.smart.water.meter.model.Data;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
+@Component(value = "dataMapper")
 public interface DataMapper {
 
     Data selectLatestDataByName(@Param("name") String name);
@@ -13,4 +17,7 @@ public interface DataMapper {
     Data selectLatestDataInMonthByName(@Param("name") String name,
                                        @Param("startTime") long startTime,
                                        @Param("endTime") long endTime);
+
+    List<Data> selectAllSensorData();
+
 }

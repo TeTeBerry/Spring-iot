@@ -16,7 +16,7 @@ public class EmailUtil {
         message.setFrom("250714751@qq.com");
         message.setTo(contact);
         message.setSubject(name);
-        message.setText(contact);
+        message.setText(content);
         mailSender.send(message);
     }
 }

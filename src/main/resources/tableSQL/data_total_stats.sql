@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for data_total_stats
 -- ----------------------------
-DROP TABLE IF EXISTS `data_total_stats`;
-CREATE TABLE `data_total_stats`  (
+DROP TABLE IF EXISTS `sensorData`;
+CREATE TABLE `sensorData`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sensorName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `flowRate` float(10, 2) NULL DEFAULT 0.00,

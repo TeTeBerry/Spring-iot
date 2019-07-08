@@ -44,7 +44,7 @@ public class MeterControllerTest {
     public void setMemberVolume() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/setMemberVolume")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("memberName", "tete")
+                .param("memberName", "tetebaobao")
                 .param("volume", "100.0f")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -62,7 +62,7 @@ public class MeterControllerTest {
 
     @Test
     public void update() throws Exception {
-        String json = "{\"mid\":\"12\",\"meterName\":\"tete\",\"meterDesc\":\"tete\",\"memberName\":\"tete\",\"room\":\"2\",\"memberContact\":\"111111\"}";
+        String json = "{\"mid\":\"18\",\"meterName\":\"Sensor-1\",\"meterDesc\":\"G3&4flowSensor\",\"memberName\":\"tete\",\"room\":\"B123\",\"memberContact\":\"test111111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/update")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(json)

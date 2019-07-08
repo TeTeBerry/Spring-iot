@@ -40,39 +40,39 @@ public class DataServiceTest {
     @Autowired
     private DataService dataService;
 
-    @Test
-    public void getLatestData() {
-        Date date = new Date();
-        long start = DateUtil.getMonthStartTimestamp(date);
-        long end = DateUtil.getMonthEndTimestamp(date);
-
-        Meter meter = new Meter();
-        meter.setMeterName("sensor1");
-
-        Data data = new Data();
-        data.setSensorName("sensor1");
-        data.setTotalMilliters(100);
-        data.setReadingTime(System.currentTimeMillis());
-
-        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
-        Data result = dataService.getLatestData(meter.getMeterName(), start, end);
-        Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
-    }
-
-    @Test
-    public void whetherExceedLimit() {
-        Meter meter = new Meter();
-        meter.setMeterName("sensor1");
-        meter.setVolume(100);
-
-        Data data = new Data();
-        data.setSensorName("sensor1");
-        data.setTotalMilliters(100);
-        data.setReadingTime(System.currentTimeMillis());
-
-        Mockito.when(dataMapper.selectLatestDataByName(meter.getMeterName())).thenReturn(data);
-        Pair<Boolean, Boolean> result = dataService.whetherExceedLimit(meter);
-        Assertions.assertThat(result.getKey()).isEqualTo(true);
-        Assertions.assertThat(result.getValue()).isEqualTo(false);
-    }
+//    @Test
+//    public void getLatestData() {
+//        Date date = new Date();
+//        long start = DateUtil.getMonthStartTimestamp(date);
+//        long end = DateUtil.getMonthEndTimestamp(date);
+//
+//        Meter meter = new Meter();
+//        meter.setMeterName("sensor1");
+//
+//        Data data = new Data();
+//        data.setSensorName("sensor1");
+//        data.setTotalMilliters(100);
+//        data.setReadingTime(System.currentTimeMillis());
+//
+//        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
+//        Data result = dataService.getLatestData(meter.getMeterName(), start, end);
+//        Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
+//    }
+//
+//    @Test
+//    public void whetherExceedLimit() {
+//        Meter meter = new Meter();
+//        meter.setMeterName("sensor1");
+//        meter.setVolume(100);
+//
+//        Data data = new Data();
+//        data.setSensorName("sensor1");
+//        data.setTotalMilliters(100);
+//        data.setReadingTime(System.currentTimeMillis());
+//
+//        Mockito.when(dataMapper.selectLatestDataByName(meter.getMeterName())).thenReturn(data);
+//        Pair<Boolean, Boolean> result = dataService.whetherExceedLimit(meter);
+//        Assertions.assertThat(result.getKey()).isEqualTo(true);
+//        Assertions.assertThat(result.getValue()).isEqualTo(false);
+//    }
 }
