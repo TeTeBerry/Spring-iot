@@ -1,8 +1,11 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.model.DailyData;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.MonthlyData;
 import com.iot.smart.water.meter.model.WaterBill;
+import com.iot.smart.water.meter.model.WeeklyData;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 
@@ -23,6 +26,51 @@ public class MeterController {
 
     @Autowired
     private MeterMapper meterMapper;
+
+    @GetMapping(value = "/getMonthlyData")
+    @CrossOrigin(origins = "*")
+    public Response getMonthlyData(@RequestParam("meterName") String meterName,
+                                   @RequestParam("date") String date) {
+        Response response = new Response();
+        List<MonthlyData> monthlyDataList = mService.getMonthlyDatas(meterName, date);
+        if (monthlyDataList == null) {
+            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
+            response.setMsg("invalid format date");
+            return response;
+        }
+        response.setData(monthlyDataList);
+        return response;
+    }
+
+    @GetMapping(value = "/getWeeklyData")
+    @CrossOrigin(origins = "*")
+    public Response getWeeklyData(@RequestParam("meterName") String meterName,
+                                 @RequestParam("date") String date) {
+        Response response = new Response();
+        List<WeeklyData> weeklyDataList = mService.getWeeklyDatas(meterName, date);
+        if (weeklyDataList == null) {
+            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
+            response.setMsg("invalid format date");
+            return response;
+        }
+        response.setData(weeklyDataList);
+        return response;
+    }
+
+    @GetMapping(value = "/getDailyData")
+    @CrossOrigin(origins = "*")
+    public Response getDailyData(@RequestParam("meterName") String meterName,
+                                 @RequestParam("date") String date) {
+        Response response = new Response();
+        List<DailyData> dailyDataList = mService.getDailyDatas(meterName, date);
+        if (dailyDataList == null) {
+            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
+            response.setMsg("invalid format date");
+            return response;
+        }
+        response.setData(dailyDataList);
+        return response;
+    }
 
     @GetMapping(value = "/getWaterBill")
     @CrossOrigin(origins = "*")

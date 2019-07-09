@@ -19,5 +19,6 @@ public class ErrorCode {
     public static final int INVALID_METERCONTACT = 1012;
     public static final int INVALID_MEMBERNAME = 1013;
     public static final int INVALID_VOLUME = 1014;
+    public static final int INVALID_FORMAT_DATE = 1015;
 
 }
