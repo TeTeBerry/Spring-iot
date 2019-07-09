@@ -27,57 +27,11 @@ public class MeterController {
     @Autowired
     private MeterMapper meterMapper;
 
-    @GetMapping(value = "/getMonthlyData")
-    @CrossOrigin(origins = "*")
-    public Response getMonthlyData(@RequestParam("meterName") String meterName,
-                                   @RequestParam("date") String date) {
-        Response response = new Response();
-        List<MonthlyData> monthlyDataList = mService.getMonthlyDatas(meterName, date);
-        if (monthlyDataList == null) {
-            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
-            response.setMsg("invalid format date");
-            return response;
-        }
-        response.setData(monthlyDataList);
-        return response;
-    }
-
-    @GetMapping(value = "/getWeeklyData")
-    @CrossOrigin(origins = "*")
-    public Response getWeeklyData(@RequestParam("meterName") String meterName,
-                                 @RequestParam("date") String date) {
-        Response response = new Response();
-        List<WeeklyData> weeklyDataList = mService.getWeeklyDatas(meterName, date);
-        if (weeklyDataList == null) {
-            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
-            response.setMsg("invalid format date");
-            return response;
-        }
-        response.setData(weeklyDataList);
-        return response;
-    }
-
-    @GetMapping(value = "/getDailyData")
-    @CrossOrigin(origins = "*")
-    public Response getDailyData(@RequestParam("meterName") String meterName,
-                                 @RequestParam("date") String date) {
-        Response response = new Response();
-        List<DailyData> dailyDataList = mService.getDailyDatas(meterName, date);
-        if (dailyDataList == null) {
-            response.setCode(ErrorCode.INVALID_FORMAT_DATE);
-            response.setMsg("invalid format date");
-            return response;
-        }
-        response.setData(dailyDataList);
-        return response;
-    }
-
     @GetMapping(value = "/getWaterBill")
     @CrossOrigin(origins = "*")
     public Response getWaterBill() {
-        Response response = new Response();
-        List<WaterBill> list = mService.getWaterBill();
-        response.setData(list);
+        Response<List<WaterBill>> response = new Response<>();
+        response.setData(mService.getWaterBill());
         response.setMsg("get water bill success");
         return response;
     }
@@ -150,6 +104,40 @@ public class MeterController {
             meterMapper.deleteMeterById(mService.deleteMeter(mid).getMid());
         }
         response.setMsg("delete success");
+        return response;
+    }
+
+    @PostMapping(value = "/addMeter")
+    @CrossOrigin(origins = "*")
+    public Response addMeter(@RequestBody Meter meter) {
+        Response response = new Response();
+        if (StringUtils.isEmpty(meter.getMeterName())) {
+            response.setCode(ErrorCode.EMPTY_METERNAME);
+            response.setMsg("empty meterName");
+            return response;
+        }
+        if (StringUtils.isEmpty(meter.getMeterDesc())) {
+            response.setCode(ErrorCode.EMPTY_METERDESC);
+            response.setMsg("empty meterDesc");
+            return response;
+        }
+        if (StringUtils.isEmpty(meter.getMeterDesc())) {
+            response.setCode(ErrorCode.EMPTY_METERDESC);
+            response.setMsg("empty memberName");
+            return response;
+        }
+        if (StringUtils.isEmpty(meter.getRoom())) {
+            response.setCode(ErrorCode.EMPTY_ROOM);
+            response.setMsg("empty room");
+            return response;
+        }
+        if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
+            response.setCode(ErrorCode.INVALID_METERCONTACT);
+            response.setMsg("email invalid");
+            return response;
+        }
+        response.setMsg("add meter success");
+        response.setData(mService.addMeter(meter));
         return response;
     }
 }

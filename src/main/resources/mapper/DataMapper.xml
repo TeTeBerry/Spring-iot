@@ -16,9 +16,4 @@
         limit 1
     </select>
 
-    <select id="selectAllSensorData" resultType="com.iot.smart.water.meter.model.Data">
-        select * from iot.sensorData
-        order by reading_time desc
-        limit 1
-    </select>
 </mapper>
