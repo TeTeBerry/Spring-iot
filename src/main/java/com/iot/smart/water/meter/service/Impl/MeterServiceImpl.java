@@ -1,13 +1,17 @@
 package com.iot.smart.water.meter.service.Impl;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.model.DailyData;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.MonthlyData;
 import com.iot.smart.water.meter.model.WaterBill;
+import com.iot.smart.water.meter.model.WeeklyData;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.util.DateUtil;
 import com.iot.smart.water.meter.util.EmailUtil;
+import com.iot.smart.water.meter.util.WeekUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +41,83 @@ public class MeterServiceImpl implements MeterService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Override
+    public List<MonthlyData> getMonthlyDatas(String meterName, String date) {
+        Date parseDate = DateUtil.parseDate(date, "yyyy-MM-dd");
+        if (parseDate == null) {
+            return null;
+        }
+        List<MonthlyData> list = new ArrayList<>();
+        int day = DateUtil.getDay(parseDate);
+        int maxDay = DateUtil.getDaysOfMonth(parseDate);
+        String start;
+        String end;
+        for (int i = 1; i <= maxDay; i++) {
+            MonthlyData monthlyData = new MonthlyData();
+            if (i < 10) {
+                monthlyData.setDay("0" + i);
+            } else {
+                monthlyData.setDay(String.valueOf(i));
+            }
+            String dayDate = DateUtil.formatDiffDate(parseDate, i - day, "yyyy-MM-dd");
+            start = dayDate + " 00:00:00";
+            end = dayDate + " 23:59:59";
+            Data data = dataService.getLatestData(meterName, start, end);
+            monthlyData.setTotalMilliters(data == null ? 0 : data.getTotalMilliters());
+            list.add(monthlyData);
+        }
+        return list;
+    }
+
+    @Override
+    public List<WeeklyData> getWeeklyDatas(String meterName, String date) {
+        Date parseDate = DateUtil.parseDate(date, "yyyy-MM-dd");
+        if (parseDate == null) {
+            return null;
+        }
+        List<WeeklyData> list = new ArrayList<>();
+        int week = DateUtil.getWeekDay(parseDate);
+        String start;
+        String end;
+        for (int i = 1; i <= 7; i++) {
+            WeeklyData weeklyData = new WeeklyData();
+            weeklyData.setWeek(WeekUtil.WEEK_CONTENT[i]);
+            String weekDate = DateUtil.formatDiffDate(parseDate, i - week, "yyyy-MM-dd");
+            start = weekDate + " 00:00:00";
+            end = weekDate + " 23:59:59";
+            Data data = dataService.getLatestData(meterName, start, end);
+            weeklyData.setTotalMilliters(data == null ? 0 : data.getTotalMilliters());
+            list.add(weeklyData);
+        }
+        return list;
+    }
+
+    @Override
+    public List<DailyData> getDailyDatas(String meterName, String date) {
+        Date parseDate = DateUtil.parseDate(date, "yyyy-MM-dd");
+        if (parseDate == null) {
+            return null;
+        }
+        List<DailyData> list = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            DailyData dailyData = new DailyData();
+            String start;
+            String end;
+            if (i < 10) {
+                dailyData.setHour(dailyData + " 0" + i + ":00");
+                start = date + " 0" + i + ":00:00";
+                end = date + " 0" + i + ":59:59";
+            } else {
+                dailyData.setHour(dailyData + " " + i + ":00");
+                start = date + " " + i + ":00:00";
+                end = date + " " + i + ":59:59";
+            }
+            Data data = dataService.getLatestData(meterName, start, end);
+            dailyData.setTotalMilliters(data == null ? 0 : data.getTotalMilliters());
+            list.add(dailyData);
+        }
+        return list;
+    }
 
     @Override
     public List<WaterBill> getWaterBill() {
