@@ -30,6 +30,7 @@ public class MeterController {
         Response response = new Response();
         List<WaterBill> list = mService.getWaterBill();
         response.setData(list);
+        response.setMsg("get water bill success");
         return response;
     }
 
