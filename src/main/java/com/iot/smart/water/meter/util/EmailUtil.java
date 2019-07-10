@@ -1,3 +1,4 @@
+
 package com.iot.smart.water.meter.util;
 
 import org.springframework.beans.factory.annotation.Autowired;

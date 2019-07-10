@@ -9,12 +9,22 @@ import org.springframework.stereotype.Component;
 
 
 @Mapper
-@Component(value = "dataMapper")
+@Component("dataMapper")
 public interface DataMapper {
 
-    Data selectLatestDataByName(@Param("name") String name);
+    /**
+	 * 
+	 * @param name
+	 */
+	Data selectLatestDataByName(@Param("name") String name);
 
-    Data selectLatestDataInMonthByName(@Param("name") String name,
+    /**
+	 * 
+	 * @param name
+	 * @param startTime
+	 * @param endTime
+	 */
+	Data selectLatestDataInMonthByName(@Param("name") String name,
                                        @Param("startTime") String startTime,
                                        @Param("endTime") String endTime);
 

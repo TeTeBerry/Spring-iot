@@ -56,7 +56,8 @@
         `dailyCheck` tinyint(4) NULL DEFAULT 0,
         `monthlyCheck` tinyint(4) NULL DEFAULT 0,
         PRIMARY KEY (`mid`) USING BTREE,
-        UNIQUE INDEX `mid`(`mid`) USING BTREE
+        UNIQUE INDEX `mid`(`mid`) USING BTREE,
+        UNIQUE INDEX `meterName`(`meterName`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
 

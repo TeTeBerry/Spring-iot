@@ -1,13 +1,18 @@
 package com.iot.smart.water.meter.service.Impl;
 
 import com.iot.smart.water.meter.dao.DataMapper;
+import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
 
 import com.iot.smart.water.meter.util.DateUtil;
+import com.iot.smart.water.meter.util.EmailUtil;
 import com.iot.smart.water.meter.util.WeekUtil;
 import javafx.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -18,8 +23,16 @@ import java.util.List;
 @Service
 public class DataServiceImpl implements DataService {
 
+    private static final Logger logger = LoggerFactory.getLogger(DataServiceImpl.class);
+
     @Autowired
     private DataMapper dataMapper;
+
+    @Autowired
+    private MeterMapper meterMapper;
+
+    @Autowired
+    private EmailUtil emailUtil;
 
     @Override
     public Data getLatestData(String meterName, String start, String end) {
@@ -47,15 +60,16 @@ public class DataServiceImpl implements DataService {
         }
         List<DailyData> list = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
+
             DailyData dailyData = new DailyData();
             String start;
             String end;
             if (i < 10) {
-                dailyData.setHour(dailyData + " 0" + i + ":00");
+                dailyData.setHour(" 0" + i + ":00");
                 start = date + " 0" + i + ":00:00";
                 end = date + " 0" + i + ":59:59";
             } else {
-                dailyData.setHour(dailyData + " " + i + ":00");
+                dailyData.setHour( " " + i + ":00");
                 start = date + " " + i + ":00:00";
                 end = date + " " + i + ":59:59";
             }
@@ -115,6 +129,56 @@ public class DataServiceImpl implements DataService {
             list.add(weeklyData);
         }
         return list;
+    }
+
+
+    @Scheduled(cron = "0 * * * * ?")
+    private void scheduleTask() {
+        String currentTime = DateUtil.formatDate(new Date());
+        logger.info("execute task in: " + currentTime);
+        List<Meter> meters = meterMapper.selectAllMeter();
+        if (meters != null) {
+            for (Meter meter : meters) {
+                if (currentTime.endsWith("000000")) {
+                    resetCheck(meter, "01".equals(currentTime.substring(6,8)));
+                } else {
+                    checkLimit(meter);
+                }
+            }
+        }
+    }
+
+    private void checkLimit(Meter meter) {
+        Pair<Boolean, Boolean> result = whetherExceedLimit(meter);
+        boolean update = false;
+        if (result.getKey()) {
+            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "Today's water exceeds the limit");
+            meter.setDailyCheck(1);
+            update = true;
+        }
+        if (result.getValue()) {
+            emailUtil.postEmail(meter.getMemberName(), meter.getMemberContact(), "This Month's water exceeds the limit");
+            meter.setMonthlyCheck(1);
+            update = true;
+        }
+        if (update) {
+            meterMapper.updateMeter(meter);
+        }
+    }
+
+    private void resetCheck(Meter meter, boolean firstDayOfMonth) {
+        boolean update = false;
+        if (meter.getDailyCheck() == 1) {
+            meter.setDailyCheck(0);
+            update = true;
+        }
+        if (firstDayOfMonth && meter.getMonthlyCheck() == 1) {
+            meter.setMonthlyCheck(0);
+            update = true;
+        }
+        if (update) {
+            meterMapper.updateMeter(meter);
+        }
     }
 
 }

@@ -14,14 +14,19 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/iot/data")
+@RequestMapping("/iot/data")
 public class DataController {
 
     @Autowired
     private DataService dataService;
 
-    @GetMapping(value = "/getDailyData")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param meterName
+	 * @param date
+	 */
+	@GetMapping("/getDailyData")
+	@CrossOrigin(origins="*")
     public Response getDailyData(@RequestParam("meterName") String meterName,
                                  @RequestParam("date") String date) {
         Response response = new Response();
@@ -32,12 +37,18 @@ public class DataController {
             return response;
         }
         response.setData(dailyDataList);
+        response.setMsg("get daily data success");
         return response;
     }
 
 
-    @GetMapping(value = "/getMonthlyData")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param meterName
+	 * @param date
+	 */
+	@GetMapping("/getMonthlyData")
+	@CrossOrigin(origins="*")
     public Response getMonthlyData(@RequestParam("meterName") String meterName,
                                    @RequestParam("date") String date) {
         Response response = new Response();
@@ -48,11 +59,17 @@ public class DataController {
             return response;
         }
         response.setData(monthlyDataList);
+        response.setMsg("get monthly data success");
         return response;
     }
 
-    @GetMapping(value = "/getWeeklyData")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param meterName
+	 * @param date
+	 */
+	@GetMapping("/getWeeklyData")
+	@CrossOrigin(origins="*")
     public Response getWeeklyData(@RequestParam("meterName") String meterName,
                                   @RequestParam("date") String date) {
         Response response = new Response();
@@ -63,6 +80,7 @@ public class DataController {
             return response;
         }
         response.setData(weeklyDataList);
+        response.setMsg("get weekly data success");
         return response;
     }
 

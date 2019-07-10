@@ -7,14 +7,18 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 @Mapper
-@Component(value = "userMapper")
+@Component("userMapper")
 public interface UserMapper {
 
     int insertUser(User user);
 
     int updateUser(User user);
 
-    User selectUserByName(@Param("userName") String userName);
+    /**
+	 * 
+	 * @param userName
+	 */
+	User selectUserByName(@Param("userName") String userName);
 
     void createTable();
 }

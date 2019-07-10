@@ -1,7 +1,7 @@
 package com.iot.smart.water.meter.response;
 
 public class Response<T> {
-    private int code = ErrorCode.SUCCESS;
+    private int code = com.iot.smart.water.meter.response.ErrorCode.SUCCESS;
     private String msg;
     private T data;
 
