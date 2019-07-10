@@ -2,11 +2,9 @@ package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
-import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
-import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import java.util.Map;
 @RequestMapping(value = "/iot/admin")
 public class UserController {
 
-    private static final String testToken = "72F97DC34A9D0FFD45E5FC1D963EB01A";
 
     private Map<String, Integer> tokenUidMap = new HashMap<>();
     private Map<Integer, String> uidTokenMap = new HashMap<>();
@@ -34,8 +31,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MeterService meterService;
 
     @Autowired
     private UserMapper userMapper;
@@ -134,37 +129,4 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/addMeter")
-    @CrossOrigin(origins = "*")
-    public Response addMeter(@RequestBody Meter meter) {
-        Response response = new Response();
-        if (StringUtils.isEmpty(meter.getMeterName())) {
-            response.setCode(ErrorCode.EMPTY_METERNAME);
-            response.setMsg("empty meterName");
-            return response;
-        }
-        if (StringUtils.isEmpty(meter.getMeterDesc())) {
-            response.setCode(ErrorCode.EMPTY_METERDESC);
-            response.setMsg("empty meterDesc");
-            return response;
-        }
-        if (StringUtils.isEmpty(meter.getMeterDesc())) {
-            response.setCode(ErrorCode.EMPTY_METERDESC);
-            response.setMsg("empty memberName");
-            return response;
-        }
-        if (StringUtils.isEmpty(meter.getRoom())) {
-            response.setCode(ErrorCode.EMPTY_ROOM);
-            response.setMsg("empty room");
-            return response;
-        }
-        if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
-            response.setCode(ErrorCode.INVALID_METERCONTACT);
-            response.setMsg("email invalid");
-            return response;
-        }
-        response.setMsg("add meter success");
-        response.setData(meterService.addMeter(meter));
-        return response;
-    }
 }

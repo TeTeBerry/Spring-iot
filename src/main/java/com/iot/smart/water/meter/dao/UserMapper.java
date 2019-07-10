@@ -16,7 +16,5 @@ public interface UserMapper {
 
     User selectUserByName(@Param("userName") String userName);
 
-    User selectUserById(@Param("uid") int uid);
-
     void createTable();
 }

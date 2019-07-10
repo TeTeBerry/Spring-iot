@@ -50,14 +50,6 @@ public class Data {
         this.totalMilliLitres = totalMilliLitres;
     }
 
-    public float getTotalMilliLitres() {
-        return totalMilliLitres;
-    }
-
-    public void setTotalMilliLitres(float totalMilliLitres) {
-        this.totalMilliLitres = totalMilliLitres;
-    }
-
     public Timestamp getReading_time() {
         return reading_time;
     }

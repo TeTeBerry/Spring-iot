@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private static final String USER_ADMIN = "admin";
 
     @Override
     public User register(User user) {
