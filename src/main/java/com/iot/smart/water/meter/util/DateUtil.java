@@ -23,7 +23,7 @@ public class DateUtil {
     public static Date parseDate(String date, String patten) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(patten);
-            sdf.parse(date);
+            return sdf.parse(date);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,11 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.DataMapper;
+import com.iot.smart.water.meter.model.DailyData;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.MonthlyData;
+import com.iot.smart.water.meter.model.WeeklyData;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.DataServiceImpl;
 import com.iot.smart.water.meter.util.DateUtil;
@@ -20,6 +23,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+
 import javafx.util.Pair;
 
 @RunWith(SpringRunner.class)
@@ -39,6 +44,36 @@ public class DataServiceTest {
 
     @Autowired
     private DataService dataService;
+
+    @Test
+    public void getMonthlyData() {
+        Meter meter = new Meter();
+        meter.setMeterName("sensor1");
+
+        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
+        List<MonthlyData> result = dataService.getMonthlyData(meter.getMeterName(), "2019-07-10");
+        Assertions.assertThat(result.size()).isEqualTo(31);
+    }
+
+    @Test
+    public void getWeeklyData() {
+        Meter meter = new Meter();
+        meter.setMeterName("sensor1");
+
+        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
+        List<WeeklyData> result = dataService.getWeeklyData(meter.getMeterName(), "2019-07-10");
+        Assertions.assertThat(result.size()).isEqualTo(7);
+    }
+
+    @Test
+    public void getDailyData() {
+        Meter meter = new Meter();
+        meter.setMeterName("sensor1");
+
+        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
+        List<DailyData> result = dataService.getDailyData(meter.getMeterName(), "2019-07-10");
+        Assertions.assertThat(result.size()).isEqualTo(24);
+    }
 
     @Test
     public void getLatestData() {
