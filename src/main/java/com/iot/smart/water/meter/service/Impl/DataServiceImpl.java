@@ -4,15 +4,10 @@ import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
-
 import com.iot.smart.water.meter.util.DateUtil;
-
 import com.iot.smart.water.meter.util.WeekUtil;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,18 +29,7 @@ public class DataServiceImpl implements DataService {
         return dataMapper.selectLatestDataInMonthByName(meterName, start, end);
     }
 
-    @Override
-    public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
-        Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-        Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
-        if (data != null && DateUtil.isSameDay(data.getReading_time(),ts)) {
-            return new Pair<>(data.getTotalMilliters() >= meter.getVolume(),
-                    data.getTotalMilliters() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
-        }
-        return new Pair<>(false, false);
-    }
+
 
     @Override
     public List<DailyData> getDailyData(String meterName, String date) {

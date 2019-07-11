@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import javafx.util.Pair;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -101,26 +101,6 @@ public class DataServiceTest {
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
         Data result = dataService.getLatestData(meter.getMeterName(), start, end);
         Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
-    }
-
-    @Test
-    public void whetherExceedLimit() {
-        Meter meter = new Meter();
-        meter.setMeterName("sensor1");
-        meter.setVolume(100);
-
-        Data data = new Data();
-        data.setSensorName("sensor1");
-        data.setTotalMilliters(100);
-        Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
-        data.setReading_time(ts);
-
-        Mockito.when(dataMapper.selectLatestDataByName(meter.getMeterName())).thenReturn(data);
-        Pair<Boolean, Boolean> result = dataService.whetherExceedLimit(meter);
-        Assertions.assertThat(result.getKey()).isEqualTo(true);
-        Assertions.assertThat(result.getValue()).isEqualTo(false);
     }
 
 }
