@@ -3,14 +3,14 @@
 <mapper namespace="com.iot.smart.water.meter.dao.UserMapper">
 
     <insert id="insertUser" parameterType="com.iot.smart.water.meter.model.User" keyProperty="uid" useGeneratedKeys="true">
-        insert into iot.user
+        insert into user
             (userName, password, createDate)
         values
             (#{userName}, #{password}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateUser" parameterType="com.iot.smart.water.meter.model.User">
-        update iot.user
+        update user
         set
             userName = #{userName},
             password = #{password}
@@ -18,17 +18,17 @@
     </update>
 
     <select id="selectUserByName" resultType="com.iot.smart.water.meter.model.User">
-        select * from iot.user
+        select * from user
         where userName = #{userName}
     </select>
 
     <select id="selectUserById" resultType="com.iot.smart.water.meter.model.User">
-        select * from iot.user
+        select * from user
         where uid = #{uid}
     </select>
 
     <update id="createTable">
-        create table if not exists heroku_0abf4b67ee6747a.user (
+        create table if not exists user (
         `uid` int(11) NOT NULL AUTO_INCREMENT,
         `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
