@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: iot-service
+    name: heroku_0abf4b67ee6747a
   cloud:
     config:
       discovery:
