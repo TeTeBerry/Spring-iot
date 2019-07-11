@@ -1,11 +1,11 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
-import com.iot.smart.water.meter.model.DailyData;
+
 import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.MonthlyData;
+
 import com.iot.smart.water.meter.model.WaterBill;
-import com.iot.smart.water.meter.model.WeeklyData;
+
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 

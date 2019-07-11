@@ -11,7 +11,7 @@ import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.DataServiceImpl;
 import com.iot.smart.water.meter.util.DateUtil;
 
-import com.iot.smart.water.meter.util.EmailUtil;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,8 +47,7 @@ public class DataServiceTest {
     @MockBean
     private MeterMapper meterMapper;
 
-    @MockBean
-    private EmailUtil emailUtil;
+
 
     @Autowired
     private DataService dataService;
