@@ -44,7 +44,7 @@
     </delete>
 
     <update id="createTable">
-        create table if not exists meter (
+        create table if not exists heroku_0abf4b67ee6747a.meter (
         `mid` int(11) NOT NULL AUTO_INCREMENT,
         `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

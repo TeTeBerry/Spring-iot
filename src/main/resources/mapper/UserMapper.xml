@@ -28,7 +28,7 @@
     </select>
 
     <update id="createTable">
-        create table if not exists user (
+        create table if not exists heroku_0abf4b67ee6747a.user (
         `uid` int(11) NOT NULL AUTO_INCREMENT,
         `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
