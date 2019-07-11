@@ -44,14 +44,14 @@
     </delete>
 
     <update id="createTable">
-        create table if not exists iot.meter (
+        create table if not exists meter (
         `mid` int(11) NOT NULL AUTO_INCREMENT,
         `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `memberName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `room` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-        `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `volume` float(20, 2) NULL DEFAULT 0.00,
         `dailyCheck` tinyint(4) NULL DEFAULT 0,
         `monthlyCheck` tinyint(4) NULL DEFAULT 0,

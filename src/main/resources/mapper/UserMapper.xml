@@ -28,11 +28,11 @@
     </select>
 
     <update id="createTable">
-        create table if not exists iot.user (
+        create table if not exists user (
         `uid` int(11) NOT NULL AUTO_INCREMENT,
         `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-        `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`uid`) USING BTREE,
         UNIQUE INDEX `uid`(`uid`) USING BTREE,
         UNIQUE INDEX `userName`(`userName`) USING BTREE
