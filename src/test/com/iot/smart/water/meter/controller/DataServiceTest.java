@@ -1,6 +1,7 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.DataMapper;
+import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.DailyData;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
@@ -10,6 +11,7 @@ import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.DataServiceImpl;
 import com.iot.smart.water.meter.util.DateUtil;
 
+import com.iot.smart.water.meter.util.EmailUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,36 +44,42 @@ public class DataServiceTest {
     @MockBean
     private DataMapper dataMapper;
 
+    @MockBean
+    private MeterMapper meterMapper;
+
+    @MockBean
+    private EmailUtil emailUtil;
+
     @Autowired
     private DataService dataService;
 
     @Test
     public void getMonthlyData() {
         Meter meter = new Meter();
-        meter.setMeterName("sensor1");
+        meter.setMeterName("Sensor1");
 
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
-        List<MonthlyData> result = dataService.getMonthlyData(meter.getMeterName(), "2019-07-10");
+        List<MonthlyData> result = dataService.getMonthlyData(meter.getMeterName(), "2019-07-01");
         Assertions.assertThat(result.size()).isEqualTo(31);
     }
 
     @Test
     public void getWeeklyData() {
         Meter meter = new Meter();
-        meter.setMeterName("sensor1");
+        meter.setMeterName("Sensor1");
 
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
-        List<WeeklyData> result = dataService.getWeeklyData(meter.getMeterName(), "2019-07-10");
+        List<WeeklyData> result = dataService.getWeeklyData(meter.getMeterName(), "2019-07-01");
         Assertions.assertThat(result.size()).isEqualTo(7);
     }
 
     @Test
     public void getDailyData() {
         Meter meter = new Meter();
-        meter.setMeterName("sensor1");
+        meter.setMeterName("Sensor1");
 
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), "", "")).thenReturn(null);
-        List<DailyData> result = dataService.getDailyData(meter.getMeterName(), "2019-07-10");
+        List<DailyData> result = dataService.getDailyData(meter.getMeterName(), "2019-07-01");
         Assertions.assertThat(result.size()).isEqualTo(24);
     }
 

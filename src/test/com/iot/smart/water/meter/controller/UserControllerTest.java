@@ -28,7 +28,6 @@ public class UserControllerTest {
     private MockMvc mvc;
     private MockHttpSession session;
 
-    private static final String testToken = "72F97DC34A9D0FFD45E5FC1D963EB01A";
     private static final String testUserName = "test";
 
     @Before
@@ -39,7 +38,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test\",\"password\":\"1111\"}";
+        String paramJson = "{\"userName\":\"test01\",\"password\":\"1111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -77,14 +76,4 @@ public class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    @Test
-    public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"sensorasdfte\",\"meterDesc\":\"tebaobasdfao\",\"memberName\":\"tetebaobao\",\"room\":\"1\",\"memberContact\":\"t111111@qq.com\"}";
-        mvc.perform(MockMvcRequestBuilders.post("/iot/admin/addMeter")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(paramJson)
-                .session(session))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-    }
 }

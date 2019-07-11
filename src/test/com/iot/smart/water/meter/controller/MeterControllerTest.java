@@ -80,4 +80,14 @@ public class MeterControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+    @Test
+    public void addMeter() throws Exception {
+        String paramJson = "{\"meterName\":\"sensor-2\",\"meterDesc\":\"tebafao\",\"memberName\":\"tetebaobao\",\"room\":\"1222\",\"memberContact\":\"t11111@qq.com\"}";
+        mvc.perform(MockMvcRequestBuilders.post("/iot/meter/addMeter")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(paramJson)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }
