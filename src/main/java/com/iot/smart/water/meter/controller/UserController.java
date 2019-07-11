@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@SuppressWarnings("unchecked")
 @RequestMapping("/iot/admin")
 public class UserController {
 
