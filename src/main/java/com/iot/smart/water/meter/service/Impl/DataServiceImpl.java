@@ -8,7 +8,7 @@ import com.iot.smart.water.meter.util.DateUtil;
 import com.iot.smart.water.meter.util.WeekUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javafx.util.Pair;
+
 import java.sql.Timestamp;
 import java.io.IOException;
 import java.util.ArrayList;
