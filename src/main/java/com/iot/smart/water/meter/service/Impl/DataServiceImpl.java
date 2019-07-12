@@ -4,7 +4,6 @@ import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
-import com.iot.smart.water.meter.util.ConnectionUtil;
 import com.iot.smart.water.meter.util.DateUtil;
 import com.iot.smart.water.meter.util.WeekUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 
@@ -153,47 +151,47 @@ public class DataServiceImpl implements DataService {
 
 
 
-    @Override
-    public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
-        Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-        Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
-        if (data != null && DateUtil.isSameDay(data.getReading_time(), ts)) {
-            return new Pair<>(data.getTotalMilliters() >= meter.getVolume(),
-                    data.getTotalMilliters() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
+//    @Override
+//    public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
+//        Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
+//        Date date = new Date();
+//        long time = date.getTime();
+//        Timestamp ts = new Timestamp(time);
+//        if (data != null && DateUtil.isSameDay(data.getReading_time(), ts)) {
+//            return new Pair<>(data.getTotalMilliters() >= meter.getVolume(),
+//                    data.getTotalMilliters() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
+//        }
+//        return new Pair<>(false, false);
+//    }
+//
+//    @Scheduled(cron = "0 * * * * ?")
+//    private void scheduleTask() {
+//        List<Meter> meters = meterMapper.selectAllMeter();
+//        if (meters != null) {
+//            for (Meter meter : meters) {
+//                    checkLimit(meter);
+//                }
+//            }
+//    }
+
+
+//    private void checkLimit(Meter meter) {
+//        Pair<Boolean, Boolean> result = whetherExceedLimit(meter);
+//        boolean update = false;
+//        LineNotify ln = new LineNotify(USER_TOKEN);
+//            if (result.getValue()) {
+//                try {
+//                    ln.notifyMe("This Week water exceeds the limit");
+//                    meter.setweeklyCheck(1);
+//                    update = true;
+//                } catch (IOException ex) {
+//                    System.err.println(ex);
+//
+//                }
+//                if (update) {
+//                    meterMapper.updateMeter(meter);
+//                }
+//            }
         }
-        return new Pair<>(false, false);
-    }
-
-    @Scheduled(cron = "0 * * * * ?")
-    private void scheduleTask() {
-        List<Meter> meters = meterMapper.selectAllMeter();
-        if (meters != null) {
-            for (Meter meter : meters) {
-                    checkLimit(meter);
-                }
-            }
-    }
 
 
-    private void checkLimit(Meter meter) {
-        Pair<Boolean, Boolean> result = whetherExceedLimit(meter);
-        boolean update = false;
-        LineNotify ln = new LineNotify(USER_TOKEN);
-            if (result.getValue()) {
-                try {
-                    ln.notifyMe("This Week water exceeds the limit");
-                    meter.setweeklyCheck(1);
-                    update = true;
-                } catch (IOException ex) {
-                    System.err.println(ex);
-
-                }
-                if (update) {
-                    meterMapper.updateMeter(meter);
-                }
-            }
-        }
-
-}

@@ -12,7 +12,7 @@ import javafx.util.Pair;
 public interface DataService {
 
 
-    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
+//    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
 
     Data getLatestData(String meterName, String start, String end);
 
