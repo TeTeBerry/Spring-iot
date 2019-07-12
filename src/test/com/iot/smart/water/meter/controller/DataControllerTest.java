@@ -1,8 +1,5 @@
 package com.iot.smart.water.meter.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,16 +16,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-public class UserControllerTest {
-
+@SpringBootTest
+public class DataControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mvc;
     private MockHttpSession session;
-
-    private static final String testUserName = "test";
 
     @Before
     public void setupMockMvc() {
@@ -37,43 +31,33 @@ public class UserControllerTest {
     }
 
     @Test
-    public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test01\",\"password\":\"1111\"}";
-        mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(paramJson)
-                .session(session))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    public void login() throws Exception {
-        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"1112\"}";
-        String response = mvc.perform(MockMvcRequestBuilders.post("/iot/admin/login")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(paramJson)
-                .session(session))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print())
-                .andReturn().getResponse().getContentAsString();
-        JSONObject resultJson = JSON.parseObject(response);
-        if (resultJson != null) {
-            String token = resultJson.getString("msg");
-            System.out.println("token: " + token);
-        }
-    }
-
-    @Test
-    public void updatePassword() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
+    public void getDailyData() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/iot/data/getDailyData")
+                .param("meterName","Sensor-1")
+                .param("date","2019-07-03")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("userName", "admin")
-                .param("oldPwd", "1111")
-                .param("newPwd", "1112")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
-
+    @Test
+    public void getWeeklyData() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/iot/data/getWeeklyData")
+                .param("meterName","Sensor-1")
+                .param("date","2019-07-01")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+    @Test
+    public void getMonthlyData() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/iot/data/getMonthlyData")
+                .param("meterName","Sensor-1")
+                .param("date","2019-07-01")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .session(session))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }

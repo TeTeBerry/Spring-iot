@@ -14,17 +14,8 @@ spring:
     password: "root"
 #    password: "123456"
     driverClassName: com.mysql.cj.jdbc.Driver
-  mail:
-    host: smtp.exmail.qq.com
-    username: 250714751@qq.com
-    password: czy1994128!
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
+

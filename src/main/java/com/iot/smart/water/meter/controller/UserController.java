@@ -5,6 +5,7 @@ import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
+import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/iot/admin")
+@SuppressWarnings("unchecked")
+@RequestMapping("/iot/admin")
 public class UserController {
 
 
@@ -31,13 +33,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DataService dataService;
+
 
     @Autowired
     private UserMapper userMapper;
 
 
-    @PostMapping(value = "/register")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param user
+	 */
+	@PostMapping("/register")
+	@CrossOrigin(origins="*")
     public Response register(@RequestBody User user) {
         Response response = new Response();
         if (StringUtils.isEmpty(user.getUserName())) {
@@ -55,8 +64,12 @@ public class UserController {
         return response;
     }
 
-    @PostMapping(value = "/login")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param info
+	 */
+	@PostMapping("/login")
+	@CrossOrigin(origins="*")
     public Response login(@RequestBody LoginInfo info) {
 
         Response<User> response = new Response<>();
@@ -76,7 +89,11 @@ public class UserController {
                 response.setMsg("invalid password");
                 return response;
             } else {
-                userService.login(info);
+
+                    userService.login(info);
+                    if (info.getUserName().contains("member")) {
+                        dataService.notifyMe("You have been login IoT Water System web application");
+                    }
 
                 String token = uidTokenMap.get(user.getUid());
                 if (token != null) {
@@ -94,8 +111,14 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/updatePassword")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param userName
+	 * @param oldPwd
+	 * @param newPwd
+	 */
+	@PostMapping("/updatePassword")
+	@CrossOrigin(origins="*")
     public Response updatePassword(@RequestParam("userName") String userName,
                                    @RequestParam("oldPwd") String oldPwd,
                                    @RequestParam("newPwd") String newPwd) {

@@ -12,4 +12,18 @@ public class WeekUtil {
             "Saturday",
             "Sunday"
     };
+
+	public String[] getWEEK_CONTENT() {
+		// TODO - implement WeekUtil.getWEEK_CONTENT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param WEEK_CONTENT
+	 */
+	public void setWEEK_CONTENT(String[] WEEK_CONTENT) {
+		// TODO - implement WeekUtil.setWEEK_CONTENT
+		throw new UnsupportedOperationException();
+	}
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Mapper
-@Component(value = "meterMapper")
+@Component("meterMapper")
 public interface MeterMapper {
 
     int insertMeter(Meter meter);
@@ -18,11 +18,23 @@ public interface MeterMapper {
 
     List<Meter> selectAllMeter();
 
-    Meter selectMeterById(@Param("mid") int mid);
+    /**
+	 * 
+	 * @param mid
+	 */
+	Meter selectMeterById(@Param("mid") int mid);
 
-    Meter selectMeterByMemberName(@Param("memberName") String memberName);
+    /**
+	 * 
+	 * @param memberName
+	 */
+	Meter selectMeterByMemberName(@Param("memberName") String memberName);
 
-    int deleteMeterById(@Param("mid") int mid);
+    /**
+	 * 
+	 * @param mid
+	 */
+	int deleteMeterById(@Param("mid") int mid);
 
     void createTable();
 }

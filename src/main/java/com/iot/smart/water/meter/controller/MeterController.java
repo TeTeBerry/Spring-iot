@@ -1,11 +1,11 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
-import com.iot.smart.water.meter.model.DailyData;
+
 import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.MonthlyData;
+
 import com.iot.smart.water.meter.model.WaterBill;
-import com.iot.smart.water.meter.model.WeeklyData;
+
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/iot/meter")
+@RequestMapping("/iot/meter")
 public class MeterController {
 
     @Autowired
@@ -27,8 +27,8 @@ public class MeterController {
     @Autowired
     private MeterMapper meterMapper;
 
-    @GetMapping(value = "/getWaterBill")
-    @CrossOrigin(origins = "*")
+    @GetMapping("/getWaterBill")
+	@CrossOrigin(origins="*")
     public Response getWaterBill() {
         Response<List<WaterBill>> response = new Response<>();
         response.setData(mService.getWaterBill());
@@ -36,8 +36,13 @@ public class MeterController {
         return response;
     }
 
-    @PostMapping(value = "/setMemberVolume")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param memberName
+	 * @param volume
+	 */
+	@PostMapping("/setMemberVolume")
+	@CrossOrigin(origins="*")
     public Response setMemberVolume(@RequestParam("memberName") String memberName,
                                     @RequestParam("volume") float volume) {
         Response response = new Response();
@@ -50,8 +55,8 @@ public class MeterController {
         return response;
     }
 
-    @GetMapping(value = "/getMeters")
-    @CrossOrigin(origins = "*")
+    @GetMapping("/getMeters")
+	@CrossOrigin(origins="*")
     public Response getMeters() {
         Response<List<Meter>> response = new Response<>();
         response.setMsg("get meter success");
@@ -59,8 +64,12 @@ public class MeterController {
         return response;
     }
 
-    @PostMapping(value = "/update")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param meter
+	 */
+	@PostMapping("/update")
+	@CrossOrigin(origins="*")
     public Response updateMeter(@RequestBody Meter meter) {
         // TODO need auth in header to verify token?
         Response response = new Response();
@@ -93,8 +102,12 @@ public class MeterController {
         return response;
     }
 
-    @DeleteMapping(value = "/delete")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param mid
+	 */
+	@DeleteMapping("/delete")
+	@CrossOrigin(origins="*")
     public Response deleteMeter(@RequestParam("mid") int mid) {
         // TODO need auth in header to verify token?
         Response response = new Response();
@@ -107,8 +120,12 @@ public class MeterController {
         return response;
     }
 
-    @PostMapping(value = "/addMeter")
-    @CrossOrigin(origins = "*")
+    /**
+	 * 
+	 * @param meter
+	 */
+	@PostMapping("/addMeter")
+	@CrossOrigin(origins="*")
     public Response addMeter(@RequestBody Meter meter) {
         Response response = new Response();
         if (StringUtils.isEmpty(meter.getMeterName())) {

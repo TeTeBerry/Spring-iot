@@ -59,5 +59,4 @@
         UNIQUE INDEX `mid`(`mid`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
-
 </mapper>
