@@ -60,7 +60,6 @@ public class UserController {
             return response;
         }
         response.setData(userService.register(user));
-        response.setData(dataService.notifyMe(""));
         response.setMsg("register success");
         return response;
     }
@@ -90,7 +89,9 @@ public class UserController {
                 response.setMsg("invalid password");
                 return response;
             } else {
-                userService.login(info);
+
+                    userService.login(info);
+                    dataService.notifyMe("Login Success");
 
                 String token = uidTokenMap.get(user.getUid());
                 if (token != null) {

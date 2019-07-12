@@ -25,7 +25,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Service
 public class DataServiceImpl implements DataService {
 
-    final String USER_TOKEN = "oX5U83XCdlXQvV1A2sG4EPlWfie9DnIkulaxb9OEV6i";
+    final String USER_TOKEN = "pCtUdqqKEqGzZEVJDRUWJIs3ZZgCdo3joYcH9FeTLQ2";
 
     private static final Logger logger = LoggerFactory.getLogger(DataServiceImpl.class);
 
@@ -141,13 +141,17 @@ public class DataServiceImpl implements DataService {
     @Override
     public boolean notifyMe(String message) {
         LineNotify ln = new LineNotify(USER_TOKEN);
+        LineParameter lineParameter = new LineParameter(message);
         try {
-            ln.notifyMe("Hello World");
+            ln.notifyMe(lineParameter.getMessage(),2,1);
         } catch (IOException ex) {
             System.err.println(ex);
         }
         return true;
     }
+
+
+
 
     @Override
     public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
