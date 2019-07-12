@@ -5,6 +5,7 @@ import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
+import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DataService dataService;
+
 
     @Autowired
     private UserMapper userMapper;
@@ -56,6 +60,7 @@ public class UserController {
             return response;
         }
         response.setData(userService.register(user));
+        response.setData(dataService.notifyMe(""));
         response.setMsg("register success");
         return response;
     }
