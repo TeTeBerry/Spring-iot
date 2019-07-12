@@ -19,7 +19,3 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 
 
-line.bot:
-    channel-token: dRaF1mGY8pDpxRStCA7sKp+HP4CcI/t7tTH0N8S98mz1r3b7SJN3UmJHG77hsaiWMe+MTCebi3Df355ZBTPpFAliAlJN2R6hhviDlpWAmvzeLn+9VMsjkzv0su8WHUf1wMz/Aeana12Xy2binCTVzAdB04t89/1O/w1cDnyilFU=
-    channel-secret: 403ebe9f219199f80cc4170d3a2290b4
-    handler.path: /callback
