@@ -91,7 +91,9 @@ public class UserController {
             } else {
 
                     userService.login(info);
-                    dataService.notifyMe("Login Success");
+                    if (info.getUserName().contains("member")) {
+                        dataService.notifyMe("You have been login IoT Water System web application");
+                    }
 
                 String token = uidTokenMap.get(user.getUid());
                 if (token != null) {
