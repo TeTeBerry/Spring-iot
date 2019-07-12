@@ -30,7 +30,7 @@ public class LineBotController {
 
         final TextMessage textMessage = new TextMessage("hello");
         final PushMessage pushMessage = new PushMessage(
-                "world",
+                "<to>",
                 textMessage);
 
         final BotApiResponse botApiResponse;
