@@ -168,18 +168,12 @@ public class DataServiceImpl implements DataService {
 
     @Scheduled(cron = "0 * * * * ?")
     private void scheduleTask() {
-        String currentTime = DateUtil.formatDate(new Date());
-        logger.info("execute task in: " + currentTime);
         List<Meter> meters = meterMapper.selectAllMeter();
         if (meters != null) {
             for (Meter meter : meters) {
-                if (currentTime.endsWith("000000")) {
-                    resetCheck(meter, "01".equals(currentTime.substring(6, 8)));
-                } else {
                     checkLimit(meter);
                 }
             }
-        }
     }
 
 
@@ -187,18 +181,10 @@ public class DataServiceImpl implements DataService {
         Pair<Boolean, Boolean> result = whetherExceedLimit(meter);
         boolean update = false;
         LineNotify ln = new LineNotify(USER_TOKEN);
-        if (result.getKey()) {
-            try {
-                ln.notifyMe("Today's water exceeds the limit");
-                meter.setDailyCheck(1);
-                update = true;
-            } catch (IOException ex) {
-                System.err.println(ex);
-            }
             if (result.getValue()) {
                 try {
-                    ln.notifyMe("This Month's water exceeds the limit");
-                    meter.setMonthlyCheck(1);
+                    ln.notifyMe("This Week water exceeds the limit");
+                    meter.setweeklyCheck(1);
                     update = true;
                 } catch (IOException ex) {
                     System.err.println(ex);
@@ -209,5 +195,5 @@ public class DataServiceImpl implements DataService {
                 }
             }
         }
-    }
+
 }

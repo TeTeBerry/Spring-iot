@@ -26,7 +26,7 @@ public class DataControllerTest {
 
     @Before
     public void setupMockMvc() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build(); //初始化MockMvc对象
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         session = new MockHttpSession();
     }
 

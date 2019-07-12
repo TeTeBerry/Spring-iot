@@ -13,6 +13,7 @@ public class Meter {
     private float volume;
     private int dailyCheck;
     private int monthlyCheck;
+    private  int weeklyCheck;
 
     public int getMid() {
         return mid;
@@ -86,6 +87,14 @@ public class Meter {
         this.dailyCheck = dailyCheck;
     }
 
+    public int getweeklyCheck() {
+        return weeklyCheck;
+    }
+
+    public void setweeklyCheck(int weeklyCheck) {
+        this.weeklyCheck = weeklyCheck;
+    }
+
     public int getMonthlyCheck() {
         return monthlyCheck;
     }
@@ -93,4 +102,6 @@ public class Meter {
     public void setMonthlyCheck(int monthlyCheck) {
         this.monthlyCheck = monthlyCheck;
     }
+
+
 }
