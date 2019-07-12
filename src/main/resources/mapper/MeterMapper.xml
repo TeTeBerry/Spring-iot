@@ -3,14 +3,14 @@
 <mapper namespace="com.iot.smart.water.meter.dao.MeterMapper">
 
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="mid" keyProperty="mid" useGeneratedKeys="true">
-        insert into meter
+        insert into iot.meter
         (meterName, meterDesc, memberName, room, memberContact, createDate)
         values
         (#{meterName}, #{meterDesc}, #{memberName}, #{room}, #{memberContact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
-        update meter
+        update iot.meter
         set
             meterName = #{meterName},
             meterDesc = #{meterDesc},
@@ -24,41 +24,39 @@
     </update>
 
     <select id="selectAllMeter" resultType="com.iot.smart.water.meter.model.Meter">
-        select * from meter
+        select * from iot.meter
         order by createDate desc
     </select>
 
     <select id="selectMeterById" resultType="com.iot.smart.water.meter.model.Meter">
-        select * from meter
+        select * from iot.meter
         where mid = #{mid}
     </select>
 
     <select id="selectMeterByMemberName" resultType="com.iot.smart.water.meter.model.Meter">
-        select * from meter
+        select * from iot.meter
         where memberName = #{memberName}
     </select>
 
     <delete id="deleteMeterById" parameterType="int">
-        delete from meter
+        delete from iot.meter
         where mid = #{mid}
     </delete>
 
     <update id="createTable">
-        create table if not exists meter (
+        create table if not exists iot.meter (
         `mid` int(11) NOT NULL AUTO_INCREMENT,
         `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `memberName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `room` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
         `memberContact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-        `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
         `volume` float(20, 2) NULL DEFAULT 0.00,
         `dailyCheck` tinyint(4) NULL DEFAULT 0,
         `monthlyCheck` tinyint(4) NULL DEFAULT 0,
         PRIMARY KEY (`mid`) USING BTREE,
-        UNIQUE INDEX `mid`(`mid`) USING BTREE,
-        UNIQUE INDEX `meterName`(`meterName`) USING BTREE
+        UNIQUE INDEX `mid`(`mid`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
-
 </mapper>
