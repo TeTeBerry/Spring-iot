@@ -18,22 +18,10 @@ public interface MeterMapper {
 
     List<Meter> selectAllMeter();
 
-    /**
-	 * 
-	 * @param mid
-	 */
 	Meter selectMeterById(@Param("mid") int mid);
 
-    /**
-	 * 
-	 * @param memberName
-	 */
 	Meter selectMeterByMemberName(@Param("memberName") String memberName);
 
-    /**
-	 * 
-	 * @param mid
-	 */
 	int deleteMeterById(@Param("mid") int mid);
 
     void createTable();

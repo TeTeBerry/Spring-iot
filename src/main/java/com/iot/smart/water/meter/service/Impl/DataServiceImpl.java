@@ -5,12 +5,12 @@ import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.util.DateUtil;
+import com.iot.smart.water.meter.util.line.LineNotify;
 import com.iot.smart.water.meter.util.WeekUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,14 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-
 @Service
+@EnableScheduling
 public class DataServiceImpl implements DataService {
 
-    final String USER_TOKEN = "pCtUdqqKEqGzZEVJDRUWJIs3ZZgCdo3joYcH9FeTLQ2";
-
     private static final Logger logger = LoggerFactory.getLogger(DataServiceImpl.class);
-
 
     @Autowired
     private DataMapper dataMapper;
@@ -34,12 +31,13 @@ public class DataServiceImpl implements DataService {
     @Autowired
     private MeterMapper meterMapper;
 
+    @Autowired
+    private LineNotify lineNotify;
 
     @Override
     public Data getLatestData(String meterName, String start, String end) {
         return dataMapper.selectLatestDataInMonthByName(meterName, start, end);
     }
-
 
     @Override
     public List<DailyData> getDailyData(String meterName, String date) {
@@ -120,78 +118,23 @@ public class DataServiceImpl implements DataService {
         return list;
     }
 
-
-    private void resetCheck(Meter meter, boolean firstDayOfMonth) {
-        boolean update = false;
-        if (meter.getDailyCheck() == 1) {
-            meter.setDailyCheck(0);
-            update = true;
-        }
-        if (firstDayOfMonth && meter.getMonthlyCheck() == 1) {
-            meter.setMonthlyCheck(0);
-            update = true;
-        }
-        if (update) {
-            meterMapper.updateMeter(meter);
+    @Scheduled(cron = "0 * * * * ?")
+    private void scheduleTask() {
+        logger.info("DataServiceImpl schedule task");
+        List<Meter> meters = meterMapper.selectAllMeter();
+        if (meters != null) {
+            for (Meter meter : meters) {
+                if (meter.getNotifyLimit() == 0) {
+                    Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
+                    if (data.getTotalMilliters() >= meter.getVolume()) {
+                        meter.setNotifyLimit(1);
+                        meterMapper.updateMeter(meter);
+                        lineNotify.notifyMe("This Week water exceeds the limit", 16, 1);
+                    }
+                }
+            }
         }
     }
-
-    @Override
-    public boolean notifyMe(String message) {
-        LineNotify ln = new LineNotify(USER_TOKEN);
-        LineParameter lineParameter = new LineParameter(message);
-        try {
-            ln.notifyMe(lineParameter.getMessage(),2,1);
-        } catch (IOException ex) {
-            System.err.println(ex);
-        }
-        return true;
-    }
-
-
-
-
-//    @Override
-//    public Pair<Boolean, Boolean> whetherExceedLimit(Meter meter) {
-//        Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-//        Date date = new Date();
-//        long time = date.getTime();
-//        Timestamp ts = new Timestamp(time);
-//        if (data != null && DateUtil.isSameDay(data.getReading_time(), ts)) {
-//            return new Pair<>(data.getTotalMilliters() >= meter.getVolume(),
-//                    data.getTotalMilliters() >= meter.getVolume() * DateUtil.getDaysOfMonth(new Date()));
-//        }
-//        return new Pair<>(false, false);
-//    }
-//
-//    @Scheduled(cron = "0 * * * * ?")
-//    private void scheduleTask() {
-//        List<Meter> meters = meterMapper.selectAllMeter();
-//        if (meters != null) {
-//            for (Meter meter : meters) {
-//                    checkLimit(meter);
-//                }
-//            }
-//    }
-
-
-//    private void checkLimit(Meter meter) {
-//        Pair<Boolean, Boolean> result = whetherExceedLimit(meter);
-//        boolean update = false;
-//        LineNotify ln = new LineNotify(USER_TOKEN);
-//            if (result.getValue()) {
-//                try {
-//                    ln.notifyMe("This Week water exceeds the limit");
-//                    meter.setweeklyCheck(1);
-//                    update = true;
-//                } catch (IOException ex) {
-//                    System.err.println(ex);
-//
-//                }
-//                if (update) {
-//                    meterMapper.updateMeter(meter);
-//                }
-//            }
-        }
+}
 
 

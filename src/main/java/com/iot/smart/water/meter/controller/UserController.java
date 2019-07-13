@@ -7,6 +7,7 @@ import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.UserService;
+import com.iot.smart.water.meter.util.line.LineNotify;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@SuppressWarnings("unchecked")
 @RequestMapping("/iot/admin")
 public class UserController {
 
@@ -36,15 +36,12 @@ public class UserController {
     @Autowired
     private DataService dataService;
 
-
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private LineNotify lineNotify;
 
-    /**
-	 * 
-	 * @param user
-	 */
 	@PostMapping("/register")
 	@CrossOrigin(origins="*")
     public Response register(@RequestBody User user) {
@@ -64,10 +61,6 @@ public class UserController {
         return response;
     }
 
-    /**
-	 * 
-	 * @param info
-	 */
 	@PostMapping("/login")
 	@CrossOrigin(origins="*")
     public Response login(@RequestBody LoginInfo info) {
@@ -89,11 +82,10 @@ public class UserController {
                 response.setMsg("invalid password");
                 return response;
             } else {
-
-                    userService.login(info);
-                    if (info.getUserName().contains("member")) {
-                        dataService.notifyMe("You have been login IoT Water System web application");
-                    }
+                userService.login(info);
+                if (info.getUserName().contains("member")) {
+                    lineNotify.notifyMe("You have been login IoT Water System web application", 2, 1);
+                }
 
                 String token = uidTokenMap.get(user.getUid());
                 if (token != null) {
@@ -111,12 +103,6 @@ public class UserController {
         }
     }
 
-    /**
-	 * 
-	 * @param userName
-	 * @param oldPwd
-	 * @param newPwd
-	 */
 	@PostMapping("/updatePassword")
 	@CrossOrigin(origins="*")
     public Response updatePassword(@RequestParam("userName") String userName,
@@ -150,6 +136,4 @@ public class UserController {
         response.setData(userService.updatePassword(user, oldPwd, newPwd));
         return response;
     }
-
-
 }

@@ -6,28 +6,29 @@ import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.util.DateUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @Service("meterService")
 @EnableScheduling
 public class MeterServiceImpl implements MeterService {
 
+    private static final Logger logger = LoggerFactory.getLogger(MeterServiceImpl.class);
 
     @Autowired
     private MeterMapper meterMapper;
 
     @Autowired
     private DataService dataService;
-
-
-
 
     @Override
     public List<WaterBill> getWaterBill() {
@@ -58,14 +59,19 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public boolean setMemberVolume(String memberName, float volume) {
-        Meter meter = meterMapper.selectMeterByMemberName(memberName);
-        if (meter == null || volume <= 0) {
+    public boolean setMemberVolume(Meter meter, float volume) {
+        if (meter == null || meter.getChangeVolumeLimit() == 1) {
             return false;
         }
         meter.setVolume(volume);
+        meter.setChangeVolumeLimit(1);
         meterMapper.updateMeter(meter);
         return true;
+    }
+
+    @Override
+    public Meter getMeter(String memberName) {
+        return meterMapper.selectMeterByMemberName(memberName);
     }
 
     @Override
@@ -95,5 +101,16 @@ public class MeterServiceImpl implements MeterService {
         return meterMapper.selectMeterById(mid);
     }
 
-
+    @Scheduled(cron = "0 0 0 ? * MON")
+    private void scheduleTask() {
+        logger.info("MeterServiceImpl schedule task");
+        List<Meter> meters = meterMapper.selectAllMeter();
+        if (meters != null) {
+            for (Meter meter : meters) {
+                meter.setChangeVolumeLimit(0);
+                meter.setNotifyLimit(0);
+                meterMapper.updateMeter(meter);
+            }
+        }
+    }
 }

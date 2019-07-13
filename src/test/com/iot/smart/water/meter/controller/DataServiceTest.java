@@ -47,8 +47,6 @@ public class DataServiceTest {
     @MockBean
     private MeterMapper meterMapper;
 
-
-
     @Autowired
     private DataService dataService;
 

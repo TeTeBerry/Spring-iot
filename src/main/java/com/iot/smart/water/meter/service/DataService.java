@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 @Service
 public interface DataService {
-
-
-//    Pair<Boolean, Boolean> whetherExceedLimit(Meter meter);
 
     Data getLatestData(String meterName, String start, String end);
 
@@ -21,9 +17,4 @@ public interface DataService {
     List<MonthlyData> getMonthlyData(String meterName, String date);
 
     List<WeeklyData> getWeeklyData(String meterName, String date);
-
-    boolean notifyMe(String message);
-
-
-
 }

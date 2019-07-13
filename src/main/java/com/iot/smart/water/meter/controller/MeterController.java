@@ -1,14 +1,10 @@
 package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.MeterMapper;
-
 import com.iot.smart.water.meter.model.Meter;
-
 import com.iot.smart.water.meter.model.WaterBill;
-
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
-
 import com.iot.smart.water.meter.service.MeterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +42,15 @@ public class MeterController {
     public Response setMemberVolume(@RequestParam("memberName") String memberName,
                                     @RequestParam("volume") float volume) {
         Response response = new Response();
-        if (!mService.setMemberVolume(memberName, volume)) {
+        Meter meter = mService.getMeter(memberName);
+        if (meter == null || volume <= 0) {
             response.setCode(ErrorCode.INVALID_PARAMS);
             response.setMsg("invalid params");
+            return response;
+        }
+        if (!mService.setMemberVolume(meter, volume)) {
+            response.setCode(ErrorCode.INVALID_SET_VOLUME_LIMIT);
+            response.setMsg("set volume limit");
             return response;
         }
         response.setMsg("update member volume success");
