@@ -70,7 +70,7 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public Meter getMeter(String memberName) {
+    public Meter getMeterByName(String memberName) {
         return meterMapper.selectMeterByMemberName(memberName);
     }
 

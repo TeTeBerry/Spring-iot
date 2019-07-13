@@ -10,7 +10,7 @@ public interface MeterService {
 
     boolean setMemberVolume(Meter meter, float volume);
 
-    Meter getMeter(String memberName);
+    Meter getMeterByName(String memberName);
 
     List<Meter> getMeters();
 

@@ -42,7 +42,7 @@ public class MeterController {
     public Response setMemberVolume(@RequestParam("memberName") String memberName,
                                     @RequestParam("volume") float volume) {
         Response response = new Response();
-        Meter meter = mService.getMeter(memberName);
+        Meter meter = mService.getMeterByName(memberName);
         if (meter == null || volume <= 0) {
             response.setCode(ErrorCode.INVALID_PARAMS);
             response.setMsg("invalid params");
