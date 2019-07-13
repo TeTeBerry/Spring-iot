@@ -2,11 +2,7 @@ package com.iot.smart.water.meter.controller;
 
 import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
-import com.iot.smart.water.meter.model.DailyData;
-import com.iot.smart.water.meter.model.Data;
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.MonthlyData;
-import com.iot.smart.water.meter.model.WeeklyData;
+import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.DataServiceImpl;
 import com.iot.smart.water.meter.util.DateUtil;
@@ -23,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +46,8 @@ public class DataServiceTest {
 
     @Autowired
     private DataService dataService;
+
+
 
     @Test
     public void getMonthlyData() {
@@ -99,6 +98,16 @@ public class DataServiceTest {
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
         Data result = dataService.getLatestData(meter.getMeterName(), start, end);
         Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
+    }
+
+    @Test
+    public void notifyMe (){
+
+        DataService mock = org.mockito.Mockito.mock(DataService.class);
+        Mockito.when(mock.notifyMe("test")).thenReturn(true);
+        boolean result = dataService.notifyMe("test");
+        Assertions.assertThat(result).isTrue();
+
     }
 
 }
