@@ -1,7 +1,6 @@
-package com.iot.smart.water.meter.util;
+package com.iot.smart.water.meter.util.line;
 
 
-import com.iot.smart.water.meter.model.LineParameter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;

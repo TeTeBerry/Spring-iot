@@ -1,13 +1,9 @@
-package com.iot.smart.water.meter.model;
+package com.iot.smart.water.meter.util.line;
 
 public class LineParameter {
     private String message;
     private int stickerPackageId;
     private int stickerId ;
-
-    public LineParameter(String message) {
-        this.message = message;
-    }
 
     public LineParameter(String message, int stickerPackageId, int stickerId) {
         this.message = message;

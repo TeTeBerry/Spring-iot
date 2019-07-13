@@ -19,12 +19,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,12 +41,8 @@ public class DataServiceTest {
     @MockBean
     private MeterMapper meterMapper;
 
-
-
     @Autowired
     private DataService dataService;
-
-
 
     @Test
     public void getMonthlyData() {
@@ -101,15 +94,4 @@ public class DataServiceTest {
         Data result = dataService.getLatestData(meter.getMeterName(), start, end);
         Assertions.assertThat(result.getTotalMilliters()).isEqualTo(100);
     }
-
-    @Test
-    public void notifyMe (){
-
-        DataService mock = org.mockito.Mockito.mock(DataService.class);
-        Mockito.when(mock.notifyMe("test")).thenReturn(true);
-        boolean result = dataService.notifyMe("test");
-        Assertions.assertThat(result).isTrue();
-
-    }
-
 }

@@ -20,5 +20,6 @@ public class ErrorCode {
     public static final int INVALID_MEMBERNAME = 1013;
     public static final int INVALID_VOLUME = 1014;
     public static final int INVALID_FORMAT_DATE = 1015;
+    public static final int INVALID_SET_VOLUME_LIMIT = 1016;
 
 }
