@@ -26,7 +26,6 @@ import java.util.Map;
 @RequestMapping("/iot/admin")
 public class UserController {
 
-
     private Map<String, Integer> tokenUidMap = new HashMap<>();
     private Map<Integer, String> uidTokenMap = new HashMap<>();
 
