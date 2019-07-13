@@ -1,7 +1,7 @@
 package com.iot.smart.water.meter.model;
 
 import com.iot.smart.water.meter.util.ConnectionUtil;
-import sun.rmi.transport.Connection;
+
 
 import java.io.IOException;
 public class LineNotify {
