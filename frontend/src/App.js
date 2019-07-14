@@ -99,7 +99,7 @@ class App extends Component {
                     Welcome!
                     {isAdmin ? (
                       <Dropdown overlay={menu}>
-                        <a className="ant-dropdown-link" href="/changepw">
+                        <a className="ant-dropdown-link">
                           {localStorage.getItem("currentUser")}
                           <Icon type="down" />
                         </a>

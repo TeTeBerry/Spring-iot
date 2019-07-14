@@ -13,7 +13,7 @@ class WaterBill extends React.Component {
 
   getWaterBill() {
     axios
-      .get("http://localhost:8080/iot/meter/getWaterBill")
+      .get("/iot/meter/getWaterBill")
       .then(res => {
         const mm = res.data.data[0].month;
         var months = [
