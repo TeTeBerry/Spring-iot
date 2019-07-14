@@ -1,0 +1,29 @@
+@import "~antd/dist/antd.css";
+
+.logo {
+  width: 220px;
+  height: 31px;
+  margin: 1px 24px 16px 0;
+  float: left;
+  color: yellow;
+  font-size: 20px;
+}
+
+.welcome {
+  width: auto;
+  height: 31px;
+  margin: 1px 10px 2px 0;
+  float: right;
+  font-size: 20px;
+}
+.welcome h5 {
+  color: antiquewhite;
+  margin: 16px 1px 0 0;
+}
+
+.logout {
+  width: auto;
+  height: 31px;
+  margin: 1px 1px 1px 0;
+  float: right;
+}

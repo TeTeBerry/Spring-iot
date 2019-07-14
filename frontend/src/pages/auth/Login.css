@@ -1,0 +1,31 @@
+@import "../../../node_modules/antd/dist/antd.css";
+
+.login-form-button {
+  width: 100%;
+}
+.center {
+  font-family: "Raleway", sans-serif;
+  background-color: whitesmoke;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 0.8rem;
+  width: 300px;
+}
+.login-card h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.anticon {
+  vertical-align: 0.125em;
+}
