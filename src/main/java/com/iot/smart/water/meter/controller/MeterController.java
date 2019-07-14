@@ -40,7 +40,7 @@ public class MeterController {
 	@PostMapping("/setMemberVolume")
 	@CrossOrigin(origins="*")
     public Response setMemberVolume(@RequestParam("memberName") String memberName,
-                                    @RequestParam("volume") float volume) {
+                                    @RequestParam("volume") long volume) {
         Response response = new Response();
         Meter meter = mService.getMeterByName(memberName);
         if (meter == null || volume <= 0) {

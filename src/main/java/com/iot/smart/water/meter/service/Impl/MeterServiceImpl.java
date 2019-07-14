@@ -59,7 +59,7 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public boolean setMemberVolume(Meter meter, float volume) {
+    public boolean setMemberVolume(Meter meter, long volume) {
         if (meter == null || meter.getChangeVolumeLimit() == 1) {
             return false;
         }

@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `sensorData`;
 CREATE TABLE `sensorData`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sensorName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `flowRate` float(10, 2) NULL DEFAULT 0.00,
-  `flowMilliLiitres` float(10, 2) NULL DEFAULT 0.00,
-  `totalMilliLitres` float(20, 2) NULL DEFAULT 0.00,
+  `flowRate` varchar(30) NULL DEFAULT 0,
+  `flowMilliLiitres` varchar(30) NULL DEFAULT 0,
+  `totalMilliLitres` bigint(30) NULL DEFAULT 0,
   `readingTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `id`(`id`) USING BTREE,

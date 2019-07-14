@@ -62,7 +62,7 @@ public class MeterServiceTest {
         WaterBill waterBill = new WaterBill();
         Data data = new Data();
         waterBill.setTotalMilliters(data.getTotalMilliters());
-        waterBill.setTotalMilliters(data.getTotalMilliters()/1000f*25);
+        waterBill.setTotalMilliters(data.getTotalMilliters()/1000*25);
 
         Mockito.when(meterMapper.selectAllMeter()).thenReturn(Collections.singletonList(meter));
         List result = meterService.getWaterBill();
@@ -77,7 +77,7 @@ public class MeterServiceTest {
         meter.setMeterName("tete");
         meter.setRoom("1");
         meter.setMemberContact("111111");
-        meter.setVolume(100.0f);
+        meter.setVolume(100);
 
         Mockito.when(meterMapper.selectMeterByMemberName(meter.getMemberName())).thenReturn(meter);
         boolean result = meterService.setMemberVolume(meter, meter.getVolume());
@@ -92,7 +92,7 @@ public class MeterServiceTest {
         meter.setMeterName("tete");
         meter.setRoom("1");
         meter.setMemberContact("111111");
-        meter.setVolume(100.0f);
+        meter.setVolume(100);
 
         Mockito.when(meterMapper.selectMeterByMemberName(meter.getMemberName())).thenReturn(meter);
         Meter result = meterService.getMeterByName(meter.getMemberName());

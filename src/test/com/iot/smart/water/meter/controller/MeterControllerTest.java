@@ -44,8 +44,8 @@ public class MeterControllerTest {
     public void setMemberVolume() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/setMemberVolume")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("memberName", "tetebaobao")
-                .param("volume", "100.0f")
+                .param("memberName", "Jessica")
+                .param("volume", "100")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());

@@ -8,7 +8,7 @@ public interface MeterService {
 
     List<WaterBill> getWaterBill();
 
-    boolean setMemberVolume(Meter meter, float volume);
+    boolean setMemberVolume(Meter meter, long volume);
 
     Meter getMeterByName(String memberName);
 

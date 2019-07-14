@@ -2,7 +2,7 @@ package com.iot.smart.water.meter.model;
 
 public class WeeklyData {
     private String week;
-    private float totalMilliters;
+    private long totalMilliters;
 
     public String getWeek() {
         return week;
@@ -16,7 +16,7 @@ public class WeeklyData {
         return totalMilliters;
     }
 
-    public void setTotalMilliters(float totalMilliters) {
+    public void setTotalMilliters(long totalMilliters) {
         this.totalMilliters = totalMilliters;
     }
 }
