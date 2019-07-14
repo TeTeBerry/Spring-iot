@@ -25,7 +25,7 @@ class Report extends Component {
   getDailyReport() {
     axios
       .get(
-        `http://localhost:8080/iot/data/getDailyData?meterName=Sensor-1&date=2019-7-3`
+        `/iot/data/getDailyData?meterName=Sensor-1&date=${dateString}`
       )
       .then(res => {
         if (res.data.code === 200) {
@@ -43,7 +43,7 @@ class Report extends Component {
   getWeeklyReport() {
     axios
       .get(
-        `http://localhost:8080/iot/data/getWeeklyData?meterName=Sensor-1&date=2019-7-3`
+        `/iot/data/getWeeklyData?meterName=Sensor-1&date=${dateString}`
       )
       .then(res => {
         if (res.data.code === 200) {
@@ -60,7 +60,7 @@ class Report extends Component {
   getMonthlyReport() {
     axios
       .get(
-        `http://localhost:8080/iot/data/getMonthlyData?meterName=Sensor-1&date=${dateString}`
+        `/iot/data/getMonthlyData?meterName=Sensor-1&date=${dateString}`
       )
       .then(res => {
         if (res.data.code === 200) {
