@@ -13,14 +13,15 @@ import NormalLoginForm from "./pages/auth/Login";
 import SensorData from "./pages/common/SensorData";
 
 const menu = (
-  <Menu>
-    <Menu.Item>
-      <a target="_self" href="/changepw">
-        Change password
-      </a>
-    </Menu.Item>
-  </Menu>
+    <Menu>
+      <Menu.Item>
+       <Link to="/changepw">
+          Change password
+        </Link>
+      </Menu.Item>
+    </Menu>
 );
+
 
 const { Header, Content, Footer } = Layout;
 
@@ -67,6 +68,7 @@ class App extends Component {
     this.props.history.push("/login");
     this.Success();
   };
+  
 
   componentWillMount() {
     if (!Auth.isLoggedIn()) {

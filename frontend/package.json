@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "heroku-postbuild": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "node --max-old-space-size=8192 node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js"
