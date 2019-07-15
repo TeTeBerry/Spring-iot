@@ -51,9 +51,11 @@ public class MeterController {
         if (!mService.setMemberVolume(meter, volume)) {
             response.setCode(ErrorCode.INVALID_SET_VOLUME_LIMIT);
             response.setMsg("set volume limit");
+            response.setData(mService.setMemberVolume(meter,volume));
             return response;
         }
         response.setMsg("update member volume success");
+        response.setData(mService.setMemberVolume(meter,volume));
         return response;
     }
 

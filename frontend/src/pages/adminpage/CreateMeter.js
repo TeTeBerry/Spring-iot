@@ -11,7 +11,7 @@ class CreateMeter extends Component {
   };
 
   error = () => {
-    message.error("Add Fail");
+    message.error("Create Fail");
   };
 
   showModal = () => {

@@ -78,8 +78,8 @@ public class UserServiceTest {
     @Test
     public void register() {
         User user = new User();
-        user.setUserName("tete");
-        user.setPassword("123");
+        user.setUserName("test");
+        user.setPassword("1234");
         user.setCreateDate(new Date());
 
         Mockito.when(userMapper.insertUser(user)).thenReturn(1);

@@ -7,7 +7,7 @@ import java.io.IOException;
 @Component
 public class LineNotify {
 
-    private static final String USERTOKEN = "pAeZwcUFDSuUlHYKsvxBTft2MqNEnM8c1UmCqdg13iq";
+    private static final String USERTOKEN = "pCtUdqqKEqGzZEVJDRUWJIs3ZZgCdo3joYcH9FeTLQ2";
 
     public boolean notifyMe(String message) {
         return notifyMe(message, 0, 0);

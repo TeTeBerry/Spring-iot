@@ -73,7 +73,7 @@ public class MeterServiceTest {
     public void setMemberVolume() {
         Meter meter = new Meter();
         meter.setMid(1);
-        meter.setMeterDesc(null);
+        meter.setMeterDesc("G3&4");
         meter.setMeterName("tete");
         meter.setRoom("1");
         meter.setMemberContact("111111");
@@ -88,11 +88,11 @@ public class MeterServiceTest {
     public void getMeterByName() {
         Meter meter = new Meter();
         meter.setMid(1);
-        meter.setMeterDesc(null);
+        meter.setMeterDesc("G3&4");
         meter.setMeterName("tete");
         meter.setRoom("1");
         meter.setMemberContact("111111");
-        meter.setVolume(100);
+
 
         Mockito.when(meterMapper.selectMeterByMemberName(meter.getMemberName())).thenReturn(meter);
         Meter result = meterService.getMeterByName(meter.getMemberName());

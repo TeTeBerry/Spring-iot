@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import { Layout, Menu, Dropdown, Icon, message } from "antd";
 import "./App.css";
@@ -13,15 +14,12 @@ import NormalLoginForm from "./pages/auth/Login";
 import SensorData from "./pages/common/SensorData";
 
 const menu = (
-    <Menu>
-      <Menu.Item>
-       <Link to="/changepw">
-          Change password
-        </Link>
-      </Menu.Item>
-    </Menu>
+  <Menu>
+    <Menu.Item>
+      <Link to="/changepw">Change password</Link>
+    </Menu.Item>
+  </Menu>
 );
-
 
 const { Header, Content, Footer } = Layout;
 
@@ -68,7 +66,6 @@ class App extends Component {
     this.props.history.push("/login");
     this.Success();
   };
-
 
   componentWillMount() {
     if (!Auth.isLoggedIn()) {

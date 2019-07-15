@@ -17,6 +17,10 @@ class Login extends Component {
     message.error("Invalid Account");
   };
 
+  passwordError = () => {
+    message.error("invalid password");
+  };
+
   success = () => {
     message.success("Login Success!");
   };
@@ -43,14 +47,15 @@ class Login extends Component {
     axios
       .post("/iot/admin/login", user)
       .then(res => {
-        if (res.data.code !== 200) {
-          return alert(res.data.msg);
+        if (res.data.code === 1004) {
+          return this.passwordError();
+        } else if (res.data.code === 200) {
+          this.Auth.setUserName(res.data.data.userName);
+          this.Auth.setToken(res.data.msg);
+          console.log(res.data.data.userName);
+          this.props.history.push("/" + this.state.userName);
+          this.success();
         }
-        this.Auth.setUserName(res.data.data.userName);
-        this.Auth.setToken(res.data.msg);
-        console.log(res.data.data.userName);
-        this.props.history.push("/" + this.state.userName);
-        this.success();
       })
       .catch(error => {
         this.error();
