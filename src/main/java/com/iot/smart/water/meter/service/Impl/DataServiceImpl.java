@@ -126,7 +126,7 @@ public class DataServiceImpl implements DataService {
             for (Meter meter : meters) {
                 if (meter.getNotifyLimit() == 0) {
                     Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-                    if (data.getTotalMilliters() >= meter.getVolume()) {
+                    if (meter.getVolume() > 0 && data.getTotalMilliters() >= meter.getVolume()) {
                         meter.setNotifyLimit(1);
                         meterMapper.updateMeter(meter);
                         lineNotify.notifyMe("This Week water exceeds the limit", 16, 1);
