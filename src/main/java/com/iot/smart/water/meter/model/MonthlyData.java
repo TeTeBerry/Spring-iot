@@ -2,7 +2,7 @@ package com.iot.smart.water.meter.model;
 
 public class MonthlyData {
     private String day;
-    private float totalMilliters;
+    private long totalMilliters;
 
     public String getDay() {
         return day;
@@ -16,7 +16,7 @@ public class MonthlyData {
         return totalMilliters;
     }
 
-    public void setTotalMilliters(float totalMilliters) {
+    public void setTotalMilliters(long totalMilliters) {
         this.totalMilliters = totalMilliters;
     }
 }

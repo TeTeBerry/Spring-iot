@@ -59,7 +59,7 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public boolean setMemberVolume(Meter meter, float volume) {
+    public boolean setMemberVolume(Meter meter, long volume) {
         if (meter == null || meter.getChangeVolumeLimit() == 1) {
             return false;
         }
@@ -70,7 +70,7 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public Meter getMeter(String memberName) {
+    public Meter getMeterByName(String memberName) {
         return meterMapper.selectMeterByMemberName(memberName);
     }
 

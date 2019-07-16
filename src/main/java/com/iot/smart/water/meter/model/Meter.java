@@ -10,7 +10,7 @@ public class Meter {
     private String room;
     private String memberContact;
     private Date createDate;
-    private float volume;
+    private long volume;
     private int changeVolumeLimit;
     private int notifyLimit;
 
@@ -70,11 +70,11 @@ public class Meter {
         this.createDate = createDate;
     }
 
-    public float getVolume() {
+    public long getVolume() {
         return volume;
     }
 
-    public void setVolume(float volume) {
+    public void setVolume(long volume) {
         this.volume = volume;
     }
 
