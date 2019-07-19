@@ -1,5 +1,6 @@
 package com.iot.smart.water.meter.controller;
 
+import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
@@ -7,6 +8,7 @@ import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.Impl.MeterServiceImpl;
 import com.iot.smart.water.meter.service.MeterService;
+import com.iot.smart.water.meter.util.DateUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,10 @@ public class MeterServiceTest {
     @MockBean
     private MeterMapper meterMapper;
 
+
+    @MockBean
+    private DataMapper dataMapper;
+
     @MockBean
     private DataService dataService;
 
@@ -50,23 +56,32 @@ public class MeterServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+
     @Test
     public void getWaterBill() {
         Meter meter = new Meter();
-        meter.setMid(1);
-        meter.setMeterDesc("ghugjkafj87979");
-        meter.setMeterName("sensor1");
+        meter.setMid(31);
+        meter.setMeterDesc("3G&4SENSOR");
+        meter.setMeterName("Sensor-1");
         meter.setRoom("B232");
         meter.setMemberContact("343242@qq.com");
         meter.setMemberName("tete");
-        WaterBill waterBill = new WaterBill();
+        Date date = new Date();
         Data data = new Data();
+        data.setTotalMilliters(10000);
+        WaterBill waterBill = new WaterBill();
         waterBill.setTotalMilliters(data.getTotalMilliters());
-        waterBill.setTotalMilliters(data.getTotalMilliters()/1000*25);
+        waterBill.setFee(data.getTotalMilliters()/1000*25);
+
+        waterBill.setMonth(DateUtil.getMonth(date));
+        waterBill.setMeterName(meter.getMeterName());
+        waterBill.setMemberName(meter.getMemberName());
 
         Mockito.when(meterMapper.selectAllMeter()).thenReturn(Collections.singletonList(meter));
-        List result = meterService.getWaterBill();
-        Assertions.assertThat(result.size()).isEqualTo(1);
+        Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(),"2019-07-01","2019-07-18")).thenReturn(null);
+
+        WaterBill result = meterService.getWaterBill(meter.getMeterName());
+        Assertions.assertThat(result.getMemberName()).isEqualTo("tete");
     }
 
     @Test

@@ -12,7 +12,7 @@ public class WeeklyData {
         this.week = week;
     }
 
-    public float getTotalMilliters() {
+    public long getTotalMilliters() {
         return totalMilliters;
     }
 

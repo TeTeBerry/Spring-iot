@@ -34,6 +34,7 @@ public class MeterControllerTest {
     @Test
     public void getWaterBill() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getWaterBill")
+                .param("meterName","Sensor-1")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())

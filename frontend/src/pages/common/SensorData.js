@@ -69,7 +69,7 @@ class SensorData extends React.Component {
 
   startUpdatingData() {
     this.timerID = setInterval(() => {
-      axios.get("http://172.20.10.9:8088/react.php").then(d => {
+      axios.get("http://127.0.0.1:8088/react.php").then(d => {
         let x_axis = this.clientDateTime();
         let y_axis = d.data.flowRate;
 

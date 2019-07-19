@@ -69,8 +69,8 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .param("userName", "admin")
-                .param("oldPwd", "1111")
-                .param("newPwd", "1112")
+                .param("oldPwd", "1234")
+                .param("newPwd", "123")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
