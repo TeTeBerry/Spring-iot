@@ -7,6 +7,7 @@ public class User {
     private String userName;
     private String password;
     private Date createDate;
+    private String roles;
 
     public Integer getUid() {
         return uid;
@@ -39,4 +40,8 @@ public class User {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
+    public String getRoles() { return roles;}
+
+    public void setRoles(String roles) { this.roles = roles ;}
 }

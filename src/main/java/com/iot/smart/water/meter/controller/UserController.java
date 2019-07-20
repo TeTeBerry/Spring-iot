@@ -95,7 +95,7 @@ public class UserController {
                 tokenUidMap.put(token, user.getUid());
                 uidTokenMap.put(user.getUid(), token);
 
-                response.setMsg(token);
+                response.setMsg("token"+token);
                 response.setData(userService.login(info));
                 return response;
             }
@@ -130,6 +130,13 @@ public class UserController {
             response.setMsg("empty password");
             return response;
         }
+        user.setPassword(newPwd);
+        if (user.getPassword().length()<4){
+            response.setCode(ErrorCode.NEWPASSWORDDIGIT);
+            response.setMsg("at least 4 digits");
+            return response;
+        }
+
         userService.updatePassword(user, oldPwd, newPwd);
         response.setMsg("update password success");
         response.setData(userService.updatePassword(user, oldPwd, newPwd));

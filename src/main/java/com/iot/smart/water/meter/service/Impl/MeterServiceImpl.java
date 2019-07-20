@@ -31,12 +31,10 @@ public class MeterServiceImpl implements MeterService {
     private DataService dataService;
 
     @Override
-    public List<WaterBill> getWaterBill() {
-        List<WaterBill> waterBills = null;
+    public WaterBill getWaterBill(String meterName) {
         List<Meter> meters = meterMapper.selectAllMeter();
         if (meters != null) {
             Date date = new Date();
-            waterBills = new ArrayList<>();
             for (Meter meter : meters) {
                 WaterBill bill = new WaterBill();
                 bill.setMeterName(meter.getMeterName());
@@ -47,15 +45,17 @@ public class MeterServiceImpl implements MeterService {
                         DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
                 if (data != null) {
                     bill.setTotalMilliters(data.getTotalMilliters());
-                    bill.setFee(data.getTotalMilliters() / 1000f * 25);
+                    bill.setFee(data.getTotalMilliters() / 1000 * 25);
                 } else {
                     bill.setFee(0);
                     bill.setTotalMilliters(0);
                 }
-                waterBills.add(bill);
+                return bill;
+
             }
         }
-        return waterBills;
+        return null;
+
     }
 
     @Override

@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class Data {
     private int id;
     private String sensorName;
-    private String flowRate;
-    private String flowMilliters;
+    private int flowRate;
+    private long flowMilliters;
     private long totalMilliLitres;
     private Timestamp reading_time;
 
@@ -26,19 +26,19 @@ public class Data {
         this.sensorName = sensorName;
     }
 
-    public String getFlowRate() {
+    public int getFlowRate() {
         return flowRate;
     }
 
-    public void setFlowRate(String flowRate) {
+    public void setFlowRate(int flowRate) {
         this.flowRate = flowRate;
     }
 
-    public String getFlowMilliters() {
+    public long getFlowMilliters() {
         return flowMilliters;
     }
 
-    public void setFlowMilliters(String flowMilliters) {
+    public void setFlowMilliters(long flowMilliters) {
         this.flowMilliters = flowMilliters;
     }
 

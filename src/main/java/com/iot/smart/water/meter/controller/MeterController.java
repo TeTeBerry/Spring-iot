@@ -25,9 +25,9 @@ public class MeterController {
 
     @GetMapping("/getWaterBill")
 	@CrossOrigin(origins="*")
-    public Response getWaterBill() {
-        Response<List<WaterBill>> response = new Response<>();
-        response.setData(mService.getWaterBill());
+    public Response getWaterBill(@RequestParam("meterName") String meterName) {
+        Response response = new Response();
+        response.setData(mService.getWaterBill(meterName));
         response.setMsg("get water bill success");
         return response;
     }
