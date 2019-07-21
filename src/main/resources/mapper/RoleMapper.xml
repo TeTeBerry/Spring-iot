@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectRoleIdByName" parameterType="string" resultType="integer">
-        select id form iot.roles
+        select id from iot.roles
         where name = #{name}
     </select>
 

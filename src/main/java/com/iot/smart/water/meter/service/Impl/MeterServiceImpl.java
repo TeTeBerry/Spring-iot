@@ -101,16 +101,16 @@ public class MeterServiceImpl implements MeterService {
         return meterMapper.selectMeterById(mid);
     }
 
-    @Scheduled(cron = "0 0 0 ? * MON")
-    private void scheduleTask() {
-        logger.info("MeterServiceImpl schedule task");
-        List<Volume> volumes = volumeMapper.selectAllVolume();
-        if (volumes != null) {
-            for (Volume volume : volumes) {
-                volume.setChangeLimit(0);
-                volume.setNotifyLimit(0);
-                volumeMapper.updateVolume(volume);
-            }
-        }
-    }
+//    @Scheduled(cron = "0 0 0 ? * MON")
+//    private void scheduleTask() {
+//        logger.info("MeterServiceImpl schedule task");
+//        List<Volume> volumes = volumeMapper.selectAllVolume();
+//        if (volumes != null) {
+//            for (Volume volume : volumes) {
+//                volume.setChangeLimit(0);
+//                volume.setNotifyLimit(0);
+//                volumeMapper.updateVolume(volume);
+//            }
+//        }
+//    }
 }

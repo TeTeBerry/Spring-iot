@@ -11,7 +11,7 @@
         insert into iot.user_roles
         (user_id, role_id)
         values
-        (#{uid}, #{rid},
+        (#{uid}, #{rid})
     </insert>
 
 </mapper>

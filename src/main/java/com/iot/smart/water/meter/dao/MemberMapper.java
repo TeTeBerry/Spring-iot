@@ -4,8 +4,10 @@ import com.iot.smart.water.meter.model.Member;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface MemberMapper {
 
     int insertMember(Member member);

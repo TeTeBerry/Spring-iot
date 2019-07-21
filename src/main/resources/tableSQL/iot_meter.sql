@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `meter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `meter` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
