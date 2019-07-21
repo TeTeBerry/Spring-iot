@@ -48,7 +48,7 @@ public class UserServiceTest {
     @Test
     public void updatePassword() {
         User user = new User();
-        user.setUserName("tete");
+        user.setUsername("tete");
         user.setPassword("123");
         String oldPwd = "123";
         String newPwd = "123";
@@ -62,13 +62,13 @@ public class UserServiceTest {
     @Test
     public void login() {
         LoginInfo info = new LoginInfo();
-        info.setUserName("tete");
+        info.setUsername("tete");
         info.setPassword("123");
         User user = new User();
-        user.setUid(1);
-        user.setUserName("tete");
+        user.setId(1);
+        user.setUsername("tete");
         user.setPassword("123");
-        user.setCreateDate(new Date());
+        user.setCreated_at(new Date());
 
         Mockito.when(userMapper.selectUserByName("tete")).thenReturn(user);
         User result = userService.login(info);
@@ -78,9 +78,9 @@ public class UserServiceTest {
     @Test
     public void register() {
         User user = new User();
-        user.setUserName("test");
+        user.setUsername("test");
         user.setPassword("1234");
-        user.setCreateDate(new Date());
+        user.setCreated_at(new Date());
 
         Mockito.when(userMapper.insertUser(user)).thenReturn(1);
         User result = userService.register(user);

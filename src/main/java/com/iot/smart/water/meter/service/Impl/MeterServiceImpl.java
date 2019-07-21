@@ -1,7 +1,9 @@
 package com.iot.smart.water.meter.service.Impl;
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.dao.VolumeMapper;
 import com.iot.smart.water.meter.model.Data;
 import com.iot.smart.water.meter.model.Meter;
+import com.iot.smart.water.meter.model.Volume;
 import com.iot.smart.water.meter.model.WaterBill;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.MeterService;
@@ -13,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class MeterServiceImpl implements MeterService {
     private MeterMapper meterMapper;
 
     @Autowired
+    private VolumeMapper volumeMapper;
+
+    @Autowired
     private DataService dataService;
 
     @Override
@@ -38,7 +43,7 @@ public class MeterServiceImpl implements MeterService {
             for (Meter meter : meters) {
                 WaterBill bill = new WaterBill();
                 bill.setMeterName(meter.getMeterName());
-                bill.setMemberName(meter.getMemberName());
+//                bill.setMemberName(meter.getMemberName());
                 bill.setMonth(DateUtil.getMonth(date));
 
                 Data data = dataService.getLatestData(meter.getMeterName(),
@@ -59,19 +64,18 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public boolean setMemberVolume(Meter meter, long volume) {
-        if (meter == null || meter.getChangeVolumeLimit() == 1) {
+    public boolean setMemberVolume(Volume volume, long newVolumeNum) {
+        if (volume == null || volume.getChangeLimit() == 1) {
             return false;
         }
-        meter.setVolume(volume);
-        meter.setChangeVolumeLimit(1);
-        meterMapper.updateMeter(meter);
+        volume.setVolume(newVolumeNum);
+        volume.setChangeLimit(1);
+        if (volume.getId() == null) {
+            volumeMapper.insertVolume(volume);
+        } else {
+            volumeMapper.updateVolume(volume);
+        }
         return true;
-    }
-
-    @Override
-    public Meter getMeterByName(String memberName) {
-        return meterMapper.selectMeterByMemberName(memberName);
     }
 
     @Override
@@ -80,20 +84,16 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public Meter addMeter(Meter meter) {
         meter.setCreateDate(new Date());
-        try {
-            meterMapper.insertMeter(meter);
-        } catch (Exception e) {
-            meterMapper.createTable();
-            meterMapper.insertMeter(meter);
-        }
+        meterMapper.insertMeter(meter);
         return meter;
     }
 
     @Override
     public Meter updateMeter(Meter meter) {
-        return meterMapper.selectMeterById(meter.getMid());
+        return meterMapper.selectMeterById(meter.getId());
     }
 
     @Override
@@ -104,12 +104,12 @@ public class MeterServiceImpl implements MeterService {
     @Scheduled(cron = "0 0 0 ? * MON")
     private void scheduleTask() {
         logger.info("MeterServiceImpl schedule task");
-        List<Meter> meters = meterMapper.selectAllMeter();
-        if (meters != null) {
-            for (Meter meter : meters) {
-                meter.setChangeVolumeLimit(0);
-                meter.setNotifyLimit(0);
-                meterMapper.updateMeter(meter);
+        List<Volume> volumes = volumeMapper.selectAllVolume();
+        if (volumes != null) {
+            for (Volume volume : volumes) {
+                volume.setChangeLimit(0);
+                volume.setNotifyLimit(0);
+                volumeMapper.updateVolume(volume);
             }
         }
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iot.smart.water.meter.dao.MemberMapper">
+
+    <insert id="insertMember" parameterType="com.iot.smart.water.meter.model.Member" keyProperty="id" useGeneratedKeys="true">
+        insert into iot.member
+            (user_id, name, room, contact, description, created_at)
+        values
+            (#{user_id}, #{name}, #{room}, #{contact}, #{description}, date_format(#{created_at}, '%Y-%m-%d %H:%i:%s'))
+    </insert>
+
+    <update id="updateMember" parameterType="com.iot.smart.water.meter.model.Member">
+        update iot.member
+        set
+            name = #{name},
+            room = #{room},
+            contact = #{contact},
+            description = #{description}
+        where id = #{id}
+    </update>
+
+    <select id="selectMemberByName" resultType="com.iot.smart.water.meter.model.Member">
+        select * from iot.member
+        where name = #{name}
+    </select>
+
+    <select id="selectMemberById" resultType="com.iot.smart.water.meter.model.Member">
+        select * from iot.member
+        where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iot.smart.water.meter.dao.VolumeMapper">
+
+    <insert id="insertVolume" parameterType="com.iot.smart.water.meter.model.Volume" keyProperty="id" useGeneratedKeys="true">
+        insert into iot.volume
+        (member_id, meter_id, changeLimit, notifyLimit, volume)
+        values
+        (#{member_id}, #{meter_id}, #{changeLimit}, #{notifyLimit}, #{volume})
+    </insert>
+
+    <update id="updateVolume" parameterType="com.iot.smart.water.meter.model.Volume">
+        update iot.volume
+        set
+            volume = #{volume},
+            changeLimit = #{changeLimit},
+            notifyLimit = #{notifyLimit}
+        where id = #{id}
+    </update>
+
+    <select id="selectAllVolume">
+        select * from iot.volume
+    </select>
+
+    <select id="selectVolumeByMeterId" resultType="com.iot.smart.water.meter.model.Volume">
+        select * from iot.volume
+        where meter_id = #{meter_id}
+    </select>
+
+    <select id="selectVolumeByMemberId" resultType="com.iot.smart.water.meter.model.Volume">
+        select * from iot.volume
+        where member_id = #{member_id}
+    </select>
+
+    <select id="selectVolumeById" resultType="com.iot.smart.water.meter.model.Volume">
+        select * from iot.volume
+        where meter_id = #{meter_id} and member_id = #{member_id}
+    </select>
+
+</mapper>

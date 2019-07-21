@@ -1,19 +1,20 @@
 package com.iot.smart.water.meter.service.Impl;
 
+import com.iot.smart.water.meter.dao.RoleMapper;
 import com.iot.smart.water.meter.dao.UserMapper;
+import com.iot.smart.water.meter.dao.UserRoleMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
 import com.iot.smart.water.meter.service.UserService;
-import com.iot.smart.water.meter.util.HashUtil;
+import com.iot.smart.water.meter.util.RoleManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service("UserService")
 public class UserServiceImpl implements UserService {
@@ -21,30 +22,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public User register(User user) {
-        if (user.getUid() != null) {
-            user.setUid(null);
+        if (user.getId() != null) {
+            user.setId(null);
         }
-        user.setCreateDate(new Date());
-        try {
-            userMapper.insertUser(user);
-        } catch (Exception e) {
-            userMapper.createTable();
-            userMapper.insertUser(user);
-        }
+        user.setCreated_at(new Date());
+        userMapper.insertUser(user);
+        userRoleMapper.insertUidAndRid(user.getId(), roleMapper.selectRoleIdByName(RoleManager.ROLE_ADMIN));
         return user;
     }
 
     @Override
-    public String createToken(int uid) {
-        return HashUtil.MD5.get(uid + System.currentTimeMillis() + "");
-    }
-
-    @Override
     public User login(LoginInfo info) {
-        return userMapper.selectUserByName(info.getUserName());
+        return userMapper.selectUserByName(info.getUsername());
     }
 
     @Override

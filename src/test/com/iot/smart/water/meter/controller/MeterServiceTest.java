@@ -60,12 +60,9 @@ public class MeterServiceTest {
     @Test
     public void getWaterBill() {
         Meter meter = new Meter();
-        meter.setMid(31);
+        meter.setId(31);
         meter.setMeterDesc("3G&4SENSOR");
         meter.setMeterName("Sensor-1");
-        meter.setRoom("B232");
-        meter.setMemberContact("343242@qq.com");
-        meter.setMemberName("tete");
         Date date = new Date();
         Data data = new Data();
         data.setTotalMilliters(10000);
@@ -87,7 +84,7 @@ public class MeterServiceTest {
     @Test
     public void setMemberVolume() {
         Meter meter = new Meter();
-        meter.setMid(1);
+        meter.setId(1);
         meter.setMeterDesc("G3&4");
         meter.setMeterName("tete");
         meter.setRoom("1");
@@ -102,7 +99,7 @@ public class MeterServiceTest {
     @Test
     public void getMeterByName() {
         Meter meter = new Meter();
-        meter.setMid(1);
+        meter.setId(1);
         meter.setMeterDesc("G3&4");
         meter.setMeterName("tete");
         meter.setRoom("1");
@@ -117,7 +114,7 @@ public class MeterServiceTest {
     @Test
     public void getMeters() {
         Meter meter = new Meter();
-        meter.setMid(1);
+        meter.setId(1);
         meter.setMeterDesc("ghugjkafj87979");
         meter.setMeterName("sensor1");
         meter.setRoom("B232");
@@ -149,31 +146,31 @@ public class MeterServiceTest {
     @Test
     public void updateMeter() {
         Meter meter = new Meter();
-        meter.setMid(1);
+        meter.setId(1);
         meter.setMeterDesc("keke");
         meter.setMeterName("sensor1");
         meter.setRoom("B232");
         meter.setMemberContact("test@qq.com");
         meter.setMemberName("tete");
 
-        Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
+        Mockito.when(meterMapper.selectMeterById(meter.getId())).thenReturn(meter);
         Mockito.when(meterMapper.updateMeter(meter)).thenReturn(1);
         Meter result = meterService.updateMeter(meter);
-        Assertions.assertThat(result.getMid()).isEqualTo(1);
+        Assertions.assertThat(result.getId()).isEqualTo(1);
     }
 
     @Test
     public void deleteMeter() {
         Meter meter = new Meter();
-        meter.setMid(1);
+        meter.setId(1);
         meter.setMeterDesc("keke");
         meter.setMeterName("sensor1");
         meter.setRoom("B232");
         meter.setMemberContact("test@qq.com");
         meter.setMemberName("tete");
 
-        Mockito.when(meterMapper.selectMeterById(meter.getMid())).thenReturn(meter);
-        Mockito.when(meterMapper.deleteMeterById(meter.getMid())).thenReturn(1);
+        Mockito.when(meterMapper.selectMeterById(meter.getId())).thenReturn(meter);
+        Mockito.when(meterMapper.deleteMeterById(meter.getId())).thenReturn(1);
         Meter result = meterService.deleteMeter(1);
         Assertions.assertThat(result).isEqualTo(meter);
     }

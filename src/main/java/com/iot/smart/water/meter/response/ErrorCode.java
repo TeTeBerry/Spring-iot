@@ -4,6 +4,7 @@ public class ErrorCode {
 
     public static final int SUCCESS = 200;
 
+    public static final int DB_OPERATION_ERROR = 999;
     public static final int INVALID_PARAMS = 1000;
     public static final int EMPTY_USERNAME = 1001;
     public static final int EMPTY_PASSWORD = 1002;
@@ -22,6 +23,6 @@ public class ErrorCode {
     public static final int INVALID_FORMAT_DATE = 1015;
     public static final int INVALID_SET_VOLUME_LIMIT = 1016;
     public static final int NEWPASSWORDDIGIT = 1017;
-
+    public static final int PERMISSION_ERROR = 1018;
 
 }

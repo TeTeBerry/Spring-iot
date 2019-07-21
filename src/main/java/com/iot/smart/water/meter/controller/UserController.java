@@ -7,6 +7,8 @@ import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.UserService;
+import com.iot.smart.water.meter.util.RoleManager;
+import com.iot.smart.water.meter.util.TokenUtil;
 import com.iot.smart.water.meter.util.line.LineNotify;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +17,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/iot/admin")
 public class UserController {
-
-    private Map<String, Integer> tokenUidMap = new HashMap<>();
-    private Map<Integer, String> uidTokenMap = new HashMap<>();
 
     @Autowired
     private UserService userService;
@@ -41,11 +38,14 @@ public class UserController {
     @Autowired
     private LineNotify lineNotify;
 
+    @Autowired
+    private RoleManager roleManager;
+
 	@PostMapping("/register")
 	@CrossOrigin(origins="*")
     public Response register(@RequestBody User user) {
         Response response = new Response();
-        if (StringUtils.isEmpty(user.getUserName())) {
+        if (StringUtils.isEmpty(user.getUsername())) {
             response.setCode(ErrorCode.EMPTY_USERNAME);
             response.setMsg("empty userName");
             return response;
@@ -63,14 +63,13 @@ public class UserController {
 	@PostMapping("/login")
 	@CrossOrigin(origins="*")
     public Response login(@RequestBody LoginInfo info) {
-
         Response<User> response = new Response<>();
-        if (StringUtils.isEmpty(info.getUserName())) {
+        if (StringUtils.isEmpty(info.getUsername())) {
             response.setCode(ErrorCode.EMPTY_USERNAME);
             response.setMsg("empty userName");
             return response;
         }
-        User user = userMapper.selectUserByName(info.getUserName());
+        User user = userMapper.selectUserByName(info.getUsername());
         if (user == null) {
             response.setCode(ErrorCode.INVALID_USERNAME);
             response.setMsg("invalid userName");
@@ -82,20 +81,11 @@ public class UserController {
                 return response;
             } else {
                 userService.login(info);
-                if (info.getUserName().contains("member")) {
+                if (info.getUsername().contains("member")) {
                     lineNotify.notifyMe("You have been login IoT Water System web application", 2, 1);
                 }
 
-                String token = uidTokenMap.get(user.getUid());
-                if (token != null) {
-                    tokenUidMap.remove(token);
-                }
-
-                token = userService.createToken(user.getUid());
-                tokenUidMap.put(token, user.getUid());
-                uidTokenMap.put(user.getUid(), token);
-
-                response.setMsg("token"+token);
+                response.setMsg(TokenUtil.createToken(user.getId()));
                 response.setData(userService.login(info));
                 return response;
             }
@@ -104,17 +94,31 @@ public class UserController {
 
 	@PostMapping("/updatePassword")
 	@CrossOrigin(origins="*")
-    public Response updatePassword(@RequestParam("userName") String userName,
+    public Response updatePassword(@RequestHeader("token") String token,
+                                   @RequestParam("username") String userName,
                                    @RequestParam("oldPwd") String oldPwd,
                                    @RequestParam("newPwd") String newPwd) {
         Response response = new Response();
-        User user = userMapper.selectUserByName(userName);
-        if (user == null) {
-            response.setCode(ErrorCode.INVALID_USERNAME);
-            response.setMsg("invalid userName");
+        Integer id = TokenUtil.getId(token);
+        if (id == null) {
+            response.setCode(ErrorCode.INVALID_TOKEN);
+            response.setMsg("invalid token");
             return response;
         }
-        if (StringUtils.isEmpty(user.getUserName())) {
+        User user = userMapper.selectUserById(id);
+        if (user == null) {
+            TokenUtil.clear(id, token);
+            response.setCode(ErrorCode.INVALID_TOKEN);
+            response.setMsg("invalid token");
+            return response;
+        }
+        if (!roleManager.isAdmin(user.getId())) {
+            response.setCode(ErrorCode.PERMISSION_ERROR);
+            response.setMsg("permission error");
+            return response;
+        }
+
+        if (StringUtils.isEmpty(user.getUsername())) {
             response.setCode(ErrorCode.EMPTY_USERNAME);
             response.setMsg("empty userName");
             return response;

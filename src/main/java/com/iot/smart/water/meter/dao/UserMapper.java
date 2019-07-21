@@ -14,11 +14,7 @@ public interface UserMapper {
 
     int updateUser(User user);
 
-    /**
-	 * 
-	 * @param userName
-	 */
 	User selectUserByName(@Param("userName") String userName);
 
-    void createTable();
+	User selectUserById(@Param("id") Integer id);
 }

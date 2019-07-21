@@ -3,23 +3,17 @@ package com.iot.smart.water.meter.model;
 import java.util.Date;
 
 public class Meter {
-    private int mid;
+    private Integer id;
     private String meterName;
     private String meterDesc;
-    private String memberName;
-    private String room;
-    private String memberContact;
     private Date createDate;
-    private long volume;
-    private int changeVolumeLimit;
-    private int notifyLimit;
 
-    public int getMid() {
-        return mid;
+    public int getId() {
+        return id;
     }
 
-    public void setMid(int mid) {
-        this.mid = mid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMeterName() {
@@ -38,30 +32,6 @@ public class Meter {
         this.meterDesc = meterDesc;
     }
 
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getMemberContact() {
-        return memberContact;
-    }
-
-    public void setMemberContact(String memberContact) {
-        this.memberContact = memberContact;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -70,27 +40,4 @@ public class Meter {
         this.createDate = createDate;
     }
 
-    public long getVolume() {
-        return volume;
-    }
-
-    public void setVolume(long volume) {
-        this.volume = volume;
-    }
-
-    public int getChangeVolumeLimit() {
-        return changeVolumeLimit;
-    }
-
-    public void setChangeVolumeLimit(int changeVolumeLimit) {
-        this.changeVolumeLimit = changeVolumeLimit;
-    }
-
-    public int getNotifyLimit() {
-        return notifyLimit;
-    }
-
-    public void setNotifyLimit(int notifyLimit) {
-        this.notifyLimit = notifyLimit;
-    }
 }

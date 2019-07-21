@@ -3,27 +3,25 @@ package com.iot.smart.water.meter.model;
 import java.util.Date;
 
 public class User {
-    private Integer uid;
-    private String userName;
+    private Integer id;
+    private String username;
     private String password;
-    private Date createDate;
-    private String roles;
+    private Date created_at;
 
-
-    public Integer getUid() {
-        return uid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -34,18 +32,12 @@ public class User {
         this.password = password;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getRoles() { return roles;}
-
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
 }

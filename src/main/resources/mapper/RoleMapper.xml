@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iot.smart.water.meter.dao.RoleMapper">
+
+    <select id="selectRoleNameById" parameterType="integer" resultType="string">
+        select name from iot.roles
+        where id = #{id}
+    </select>
+
+    <select id="selectRoleIdByName" parameterType="string" resultType="integer">
+        select id form iot.roles
+        where name = #{name}
+    </select>
+
+</mapper>
