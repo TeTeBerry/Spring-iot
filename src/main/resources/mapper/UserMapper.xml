@@ -4,9 +4,9 @@
 
     <insert id="insertUser" parameterType="com.iot.smart.water.meter.model.User" keyProperty="uid" useGeneratedKeys="true">
         insert into iot.user
-            (userName, password, createDate)
+            (userName, password, roles,createDate)
         values
-            (#{userName}, #{password}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+            (#{userName}, #{password}, #{roles},date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateUser" parameterType="com.iot.smart.water.meter.model.User">
@@ -32,7 +32,7 @@
         `uid` int(11) NOT NULL AUTO_INCREMENT,
         `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-        `roles` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci,
+        `roles` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
         `createDate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
         PRIMARY KEY (`uid`) USING BTREE,
         UNIQUE INDEX `uid`(`uid`) USING BTREE,
