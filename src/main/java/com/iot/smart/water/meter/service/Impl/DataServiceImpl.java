@@ -2,6 +2,7 @@ package com.iot.smart.water.meter.service.Impl;
 
 import com.iot.smart.water.meter.dao.DataMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
+import com.iot.smart.water.meter.dao.VolumeMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.util.DateUtil;
@@ -30,6 +31,9 @@ public class DataServiceImpl implements DataService {
 
     @Autowired
     private MeterMapper meterMapper;
+
+    @Autowired
+    private VolumeMapper volumeMapper;
 
     @Autowired
     private LineNotify lineNotify;
@@ -121,14 +125,15 @@ public class DataServiceImpl implements DataService {
     @Scheduled(cron = "0 * * * * ?")
     private void scheduleTask() {
         logger.info("DataServiceImpl schedule task");
-        List<Meter> meters = meterMapper.selectAllMeter();
-        if (meters != null) {
-            for (Meter meter : meters) {
-                if (meter.getNotifyLimit() == 0) {
+        List<Volume> volumes = volumeMapper.selectAllVolume();
+        if (volumes != null) {
+            for (Volume volume : volumes) {
+                if (volume.getNotifyLimit() == 0) {
+                    Meter meter = meterMapper.selectMeterById(volume.getMeter_id());
                     Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-                    if (meter.getVolume() > 0 && data.getTotalMilliters() >= meter.getVolume()) {
-                        meter.setNotifyLimit(1);
-                        meterMapper.updateMeter(meter);
+                    if (volume.getVolume() > 0 && data.getTotalMilliters() >= volume.getVolume()) {
+                        volume.setNotifyLimit(1);
+                        volumeMapper.updateVolume(volume);
                         lineNotify.notifyMe("This Week water exceeds the limit", 16, 1);
                     }
                 }
