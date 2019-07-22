@@ -9,6 +9,8 @@
         (#{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
+
+
     <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
         update iot.meter
         set
@@ -16,6 +18,8 @@
             meterDesc = #{meterDesc},
         where id = #{id}
     </update>
+
+
 
     <select id="selectAllMeter" resultType="com.iot.smart.water.meter.model.Meter">
         select * from iot.meter

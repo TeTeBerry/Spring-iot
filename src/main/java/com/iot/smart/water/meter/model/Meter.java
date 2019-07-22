@@ -8,6 +8,7 @@ public class Meter {
     private String meterDesc;
     private Date createDate;
 
+
     public int getId() {
         return id;
     }
@@ -39,5 +40,6 @@ public class Meter {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
 
 }

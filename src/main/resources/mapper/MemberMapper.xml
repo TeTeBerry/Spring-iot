@@ -4,9 +4,9 @@
 
     <insert id="insertMember" parameterType="com.iot.smart.water.meter.model.Member" keyProperty="id" useGeneratedKeys="true">
         insert into iot.member
-            (user_id, name, room, contact, description, created_at)
+            (user_id, name, room, contact, createDate)
         values
-            (#{user_id}, #{name}, #{room}, #{contact}, #{description}, date_format(#{created_at}, '%Y-%m-%d %H:%i:%s'))
+            (#{userId}, #{name}, #{room}, #{contact}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
     <update id="updateMember" parameterType="com.iot.smart.water.meter.model.Member">

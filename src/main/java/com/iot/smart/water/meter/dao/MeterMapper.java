@@ -1,5 +1,6 @@
 package com.iot.smart.water.meter.dao;
 
+
 import com.iot.smart.water.meter.model.Meter;
 
 import org.apache.ibatis.annotations.Mapper;

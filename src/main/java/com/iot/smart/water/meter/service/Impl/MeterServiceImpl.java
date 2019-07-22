@@ -1,10 +1,6 @@
 package com.iot.smart.water.meter.service.Impl;
-import com.iot.smart.water.meter.dao.MeterMapper;
-import com.iot.smart.water.meter.dao.VolumeMapper;
-import com.iot.smart.water.meter.model.Data;
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.Volume;
-import com.iot.smart.water.meter.model.WaterBill;
+import com.iot.smart.water.meter.dao.*;
+import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.service.DataService;
 import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.util.DateUtil;
@@ -33,7 +29,14 @@ public class MeterServiceImpl implements MeterService {
     private VolumeMapper volumeMapper;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private DataService dataService;
+
+
+    @Autowired
+    private MemberMapper memberMapper;
 
     @Override
     public WaterBill getWaterBill(String meterName) {
@@ -101,16 +104,16 @@ public class MeterServiceImpl implements MeterService {
         return meterMapper.selectMeterById(mid);
     }
 
-//    @Scheduled(cron = "0 0 0 ? * MON")
-//    private void scheduleTask() {
-//        logger.info("MeterServiceImpl schedule task");
-//        List<Volume> volumes = volumeMapper.selectAllVolume();
-//        if (volumes != null) {
-//            for (Volume volume : volumes) {
-//                volume.setChangeLimit(0);
-//                volume.setNotifyLimit(0);
-//                volumeMapper.updateVolume(volume);
-//            }
-//        }
-//    }
+    @Scheduled(cron = "0 0 0 ? * MON")
+    public void scheduleTask() {
+        logger.info("MeterServiceImpl schedule task");
+        List<Volume> volumes = volumeMapper.selectAllVolume();
+        if (volumes != null) {
+            for (Volume volume : volumes) {
+                volume.setChangeLimit(0);
+                volume.setNotifyLimit(0);
+                volumeMapper.updateVolume(volume);
+            }
+        }
+    }
 }

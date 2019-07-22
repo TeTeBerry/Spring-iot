@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
+  `meter_id` bigint(20) NOT NULL,
   `name` varchar(15) NOT NULL,
   `room` varchar(15) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -33,6 +34,8 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`),
   KEY `fk_member_user_id` (`user_id`),
   CONSTRAINT `fk_member_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_member_meter_id` FOREIGN KEY (`meter_id`) REFERENCES `meter` (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
