@@ -38,7 +38,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"userName\":\"test01\",\"password\":\"1111\"}";
+        String paramJson = "{\"username\":\"member\",\"password\":\"1111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)

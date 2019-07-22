@@ -23,16 +23,14 @@ DROP TABLE IF EXISTS `meter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `meter` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `meterName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `meterDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `member_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `mid` (`id`) USING BTREE,
-  UNIQUE KEY `meterName_UNIQUE` (`meterName`),
-  KEY `fk_meter_member_id_idx` (`member_id`),
-  CONSTRAINT `fk_meter_member_id` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
+  UNIQUE KEY `meterName_UNIQUE` (`meterName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

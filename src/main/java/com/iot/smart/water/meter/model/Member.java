@@ -4,12 +4,19 @@ import java.util.Date;
 
 public class Member {
     private Integer id;
-    private Integer user_id;
     private String name;
     private String room;
     private String contact;
-    private String description;
-    private Date created_at;
+    private Date createDate;
+    private Integer user_id;
+
+    public Integer getUser() {
+        return user_id;
+    }
+
+    public void setUser(Integer user_id) {
+        this.user_id = user_id;
+    }
 
     public Integer getId() {
         return id;
@@ -17,14 +24,6 @@ public class Member {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
     }
 
     public String getName() {
@@ -51,19 +50,11 @@ public class Member {
         this.contact = contact;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Date getCreated_at() {
-        return created_at;
+        return createDate;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreated_at(Date createDate) {
+        this.createDate = createDate;
     }
 }

@@ -1,6 +1,8 @@
 package com.iot.smart.water.meter.controller;
 
+import com.iot.smart.water.meter.dao.RoleMapper;
 import com.iot.smart.water.meter.dao.UserMapper;
+import com.iot.smart.water.meter.dao.UserRoleMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 
@@ -36,6 +38,12 @@ public class UserServiceTest {
 
     @MockBean
     private UserMapper userMapper;
+
+    @MockBean
+    private UserRoleMapper userRoleMapper;
+
+    @MockBean
+    private RoleMapper roleMapper;
 
     @Autowired
     private UserService userService;

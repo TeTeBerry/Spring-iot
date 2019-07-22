@@ -1,5 +1,6 @@
 package com.iot.smart.water.meter.service;
 
+import com.iot.smart.water.meter.model.Member;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.model.Volume;
 import com.iot.smart.water.meter.model.WaterBill;

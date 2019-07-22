@@ -4,6 +4,7 @@ import com.iot.smart.water.meter.dao.MemberMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.dao.VolumeMapper;
+import com.iot.smart.water.meter.model.Member;
 import com.iot.smart.water.meter.model.Meter;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.model.Volume;
@@ -13,6 +14,7 @@ import com.iot.smart.water.meter.service.MeterService;
 import com.iot.smart.water.meter.util.RoleManager;
 import com.iot.smart.water.meter.util.TokenUtil;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -197,7 +199,7 @@ public class MeterController {
 	@PostMapping("/addMeter")
 	@CrossOrigin(origins="*")
     public Response addMeter(@RequestHeader("token") String token,
-                             @RequestBody Meter meter) {
+                             @RequestBody Meter meter){
         Response response = new Response();
         Integer id = TokenUtil.getId(token);
         if (id == null) {

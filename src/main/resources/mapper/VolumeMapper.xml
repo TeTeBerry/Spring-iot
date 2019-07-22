@@ -18,7 +18,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectAllVolume">
+    <select id="selectAllVolume" resultType="com.iot.smart.water.meter.model.Volume">
         select * from iot.volume
     </select>
 

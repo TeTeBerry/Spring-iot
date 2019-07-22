@@ -25,6 +25,8 @@ public class MeterControllerTest {
     private MockMvc mvc;
     private MockHttpSession session;
 
+    private static final String testToken= "e1e4f7b65b17a8da3a89000fe076bb97";
+
     @Before
     public void setupMockMvc() {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

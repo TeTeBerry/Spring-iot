@@ -66,13 +66,13 @@ public class UserController {
         Response<User> response = new Response<>();
         if (StringUtils.isEmpty(info.getUsername())) {
             response.setCode(ErrorCode.EMPTY_USERNAME);
-            response.setMsg("empty userName");
+            response.setMsg("empty username");
             return response;
         }
         User user = userMapper.selectUserByName(info.getUsername());
         if (user == null) {
             response.setCode(ErrorCode.INVALID_USERNAME);
-            response.setMsg("invalid userName");
+            response.setMsg("invalid username");
             return response;
         } else {
             if (!user.getPassword().equals(info.getPassword())) {
