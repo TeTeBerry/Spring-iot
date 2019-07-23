@@ -98,20 +98,20 @@ public class MeterServiceImpl implements MeterService {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public MeterRequest addMeter(MeterRequest meterRequest) {
-        Meter meter = new Meter();
-        meter.setMeterName(meterRequest.getMeterName());
-        meter.setMeterDesc(meterRequest.getMeterDesc());
-        meter.setCreateDate(new Date());
-        meterMapper.insertMeter(meter);
         Member member = new Member();
-        member.setMeter_id(meter.getId());
         member.setUser_id(meterRequest.getUser_id());
         member.setCreateDate(new Date());
         member.setContact(meterRequest.getContact());
         member.setName(meterRequest.getName());
         member.setRoom(meterRequest.getRoom());
         memberMapper.insertMember(member);
-        meterRequest.setMeter_id(meter.getId());
+        Meter meter = new Meter();
+        meter.setMember_id(member.getId());
+        meter.setMeterName(meterRequest.getMeterName());
+        meter.setMeterDesc(meterRequest.getMeterDesc());
+        meter.setCreateDate(new Date());
+        meterMapper.insertMeter(meter);
+        meterRequest.setMember_id(meter.getMember_id());
         return meterRequest;
     }
 

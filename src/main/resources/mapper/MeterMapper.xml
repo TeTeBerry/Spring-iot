@@ -5,9 +5,9 @@
 
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into iot.meter
-        (meterName, meterDesc, createDate)
+        (member_id,meterName, meterDesc, createDate)
         values
-        (#{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+        (#{member_id}, #{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
 
@@ -53,7 +53,7 @@
     <select id="selectMeterAndMember" resultMap="memberResultMap">
 		select iot.meter.*,member.room,member.contact,member.name,member.createDate
 		from iot.meter,iot.member
-		where member.meter_id=meter.id
+		where meter.member_id=member.id
 	</select>
 
 </mapper>

@@ -9,18 +9,12 @@ public class Member {
     private String contact;
     private Date createDate;
     private Integer user_id;
-    private Integer meter_id;
     private Meter meter;
 
     public Meter getMeter(){return  meter;}
 
     public void setMeter(Meter meter){ this.meter = meter;}
 
-    public Integer getMeter_id() {return  meter_id;}
-
-    public void setMeter_id(Integer meter_id){
-        this.meter_id = meter_id;
-    }
 
     public Integer getUser_id() {return user_id;}
 

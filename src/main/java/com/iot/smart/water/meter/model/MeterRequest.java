@@ -9,12 +9,12 @@ public class MeterRequest {
     private String room;
     private String contact;
     private Integer user_id;
-    private Integer meter_id;
+    private Integer member_id;
 
-    public Integer getMeter_id() {return  meter_id;}
+    public Integer getMember_id() {return  member_id;}
 
-    public void setMeter_id(Integer meter_id){
-        this.meter_id = meter_id;
+    public void setMember_id(Integer member_id){
+        this.member_id = member_id;
     }
 
     public Integer getUser_id() {return user_id;}
