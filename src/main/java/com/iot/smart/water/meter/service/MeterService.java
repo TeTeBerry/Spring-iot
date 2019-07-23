@@ -1,9 +1,7 @@
 package com.iot.smart.water.meter.service;
 
-import com.iot.smart.water.meter.model.Member;
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.Volume;
-import com.iot.smart.water.meter.model.WaterBill;
+import com.iot.smart.water.meter.model.*;
+
 import java.util.List;
 
 public interface MeterService {
@@ -14,9 +12,12 @@ public interface MeterService {
 
     List<Meter> getMeters();
 
-    Meter addMeter(Meter meter);
+    MeterRequest addMeter(MeterRequest MeterRequest);
 
     Meter updateMeter(Meter meter);
 
     Meter deleteMeter(int mid);
+
+    List<Meter> getMeterAndMember();
+
 }

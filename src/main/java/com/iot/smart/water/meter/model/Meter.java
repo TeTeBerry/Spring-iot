@@ -2,14 +2,20 @@ package com.iot.smart.water.meter.model;
 
 import java.util.Date;
 
+
 public class Meter {
     private Integer id;
     private String meterName;
     private String meterDesc;
     private Date createDate;
+    private Member member;
+
+    public Member getMember() {return member;}
+
+    public void setMember(Member member){this.member = member;}
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

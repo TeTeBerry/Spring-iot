@@ -4,10 +4,7 @@ import com.iot.smart.water.meter.dao.MemberMapper;
 import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.dao.VolumeMapper;
-import com.iot.smart.water.meter.model.Member;
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.User;
-import com.iot.smart.water.meter.model.Volume;
+import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.service.MeterService;
@@ -117,6 +114,15 @@ public class MeterController {
         return response;
     }
 
+    @GetMapping("/getMeterAndMember")
+    @CrossOrigin(origins="*")
+    public Response getMeterAndMember() {
+        Response<List<Meter>> response = new Response<>();
+        response.setMsg("get meter success");
+        response.setData(meterService.getMeterAndMember());
+        return response;
+    }
+
 	@PostMapping("/update")
 	@CrossOrigin(origins="*")
     public Response updateMeter(@RequestHeader("token") String token,
@@ -199,8 +205,10 @@ public class MeterController {
 	@PostMapping("/addMeter")
 	@CrossOrigin(origins="*")
     public Response addMeter(@RequestHeader("token") String token,
-                             @RequestBody Meter meter){
+                             @RequestParam("user_id") Integer user_id,
+                             @RequestBody MeterRequest meterRequest){
         Response response = new Response();
+        meterRequest.setUser_id(user_id);
         Integer id = TokenUtil.getId(token);
         if (id == null) {
             response.setCode(ErrorCode.INVALID_TOKEN);
@@ -220,23 +228,35 @@ public class MeterController {
             return response;
         }
 
-        if (StringUtils.isEmpty(meter.getMeterName())) {
+        if (StringUtils.isEmpty(meterRequest.getMeterName())) {
             response.setCode(ErrorCode.EMPTY_METERNAME);
             response.setMsg("empty meterName");
             return response;
         }
-        if (StringUtils.isEmpty(meter.getMeterDesc())) {
+        if (StringUtils.isEmpty(meterRequest.getMeterDesc())) {
             response.setCode(ErrorCode.EMPTY_METERDESC);
             response.setMsg("empty meterDesc");
             return response;
         }
-//        if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
-//            response.setCode(ErrorCode.INVALID_METERCONTACT);
-//            response.setMsg("email invalid");
-//            return response;
-//        }
+        if (StringUtils.isEmpty(meterRequest.getName())) {
+            response.setCode(ErrorCode.EMPTY_MEMBERNAME);
+            response.setMsg("empty memberName");
+            return response;
+        }
+        if (StringUtils.isEmpty(meterRequest.getRoom())) {
+            response.setCode(ErrorCode.EMPTY_ROOM);
+            response.setMsg("empty room");
+            return response;
+        }
+        if ((!meterRequest.getContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
+            response.setCode(ErrorCode.INVALID_METERCONTACT);
+            response.setMsg("email invalid");
+            return response;
+        }
         response.setMsg("add meter success");
-        response.setData(meterService.addMeter(meter));
+        response.setData(meterService.addMeter(meterRequest));
         return response;
     }
+
+
 }

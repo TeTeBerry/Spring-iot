@@ -22,6 +22,7 @@ public class MeterServiceImpl implements MeterService {
 
     private static final Logger logger = LoggerFactory.getLogger(MeterServiceImpl.class);
 
+
     @Autowired
     private MeterMapper meterMapper;
 
@@ -46,7 +47,8 @@ public class MeterServiceImpl implements MeterService {
             for (Meter meter : meters) {
                 WaterBill bill = new WaterBill();
                 bill.setMeterName(meter.getMeterName());
-//                bill.setMemberName(meter.getMemberName());
+                Member member = memberMapper.selectMemberByMeterId(meter.getId());
+                bill.setMemberName(member.getName());
                 bill.setMonth(DateUtil.getMonth(date));
 
                 Data data = dataService.getLatestData(meter.getMeterName(),
@@ -86,18 +88,39 @@ public class MeterServiceImpl implements MeterService {
         return meterMapper.selectAllMeter();
     }
 
+
+
+    @Override
+    public List<Meter> getMeterAndMember() {
+        return meterMapper.selectMeterAndMember();
+    }
+
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public Meter addMeter(Meter meter) {
+    public MeterRequest addMeter(MeterRequest meterRequest) {
+        Meter meter = new Meter();
+        meter.setMeterName(meterRequest.getMeterName());
+        meter.setMeterDesc(meterRequest.getMeterDesc());
         meter.setCreateDate(new Date());
         meterMapper.insertMeter(meter);
-        return meter;
+        Member member = new Member();
+        member.setMeter_id(meter.getId());
+        member.setUser_id(meterRequest.getUser_id());
+        member.setCreateDate(new Date());
+        member.setContact(meterRequest.getContact());
+        member.setName(meterRequest.getName());
+        member.setRoom(meterRequest.getRoom());
+        memberMapper.insertMember(member);
+        meterRequest.setMeter_id(meter.getId());
+        return meterRequest;
     }
 
     @Override
     public Meter updateMeter(Meter meter) {
         return meterMapper.selectMeterById(meter.getId());
     }
+
+
 
     @Override
     public Meter deleteMeter(int mid) {
