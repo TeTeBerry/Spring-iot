@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iot.smart.water.meter.dao.MeterMapper">
 
+
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into iot.meter
-        (meterName, meterDesc, createDate)
+        (member_id,meterName, meterDesc, createDate)
         values
-        (#{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
+        (#{member_id}, #{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
 
@@ -35,5 +36,29 @@
         delete from iot.meter
         where id = #{id}
     </delete>
+
+    <resultMap type="com.iot.smart.water.meter.model.Member" id="memberResultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="room" property="room"/>
+        <result column="contact" property="contact"/>
+        <result column="meter_id" property="meter_id"/>
+        <association property="meter" javaType="com.iot.smart.water.meter.model.Meter">
+            <id column="id" property="id"/>
+            <result column="meterName" property="meterName"/>
+            <result column="meterDesc" property="meterDesc"/>
+        </association>
+    </resultMap>
+
+    <select id="selectMeterAndMember" resultMap="memberResultMap">
+		select iot.meter.*,member.room,member.contact,member.name,member.createDate
+		from iot.meter,iot.member
+		where meter.member_id=member.id
+	</select>
+
+    <select id="selectMemberByMemberId" resultType="com.iot.smart.water.meter.model.Member">
+        select * from iot.member
+        where member_id = #{member_id}
+    </select>
 
 </mapper>

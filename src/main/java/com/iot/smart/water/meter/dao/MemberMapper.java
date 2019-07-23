@@ -16,5 +16,6 @@ public interface MemberMapper {
 
     Member selectMemberByName(@Param("name") String name);
 
+
     Member selectMemberById(@Param("id") Integer id);
 }
