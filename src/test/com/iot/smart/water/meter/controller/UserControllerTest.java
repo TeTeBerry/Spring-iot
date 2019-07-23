@@ -68,9 +68,9 @@ public class UserControllerTest {
     public void updatePassword() throws Exception {
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/updatePassword")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("userName", "admin")
-                .param("oldPwd", "1234")
-                .param("newPwd", "123")
+                .header("token", "QQQWWWEEE")
+                .param("oldPwd", "1111")
+                .param("newPwd", "1234")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());

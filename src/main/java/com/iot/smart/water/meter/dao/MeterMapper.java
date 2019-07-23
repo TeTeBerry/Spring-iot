@@ -18,6 +18,8 @@ public interface MeterMapper {
 
     int updateMeter(Meter meter);
 
+    Meter selectMeterByName(@Param("name") String name);
+
     List<Meter> selectAllMeter();
 
 	Meter selectMeterById(@Param("id") int id);

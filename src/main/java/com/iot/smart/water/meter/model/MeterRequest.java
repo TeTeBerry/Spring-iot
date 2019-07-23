@@ -1,7 +1,5 @@
 package com.iot.smart.water.meter.model;
 
-
-
 public class MeterRequest {
     private String meterName;
     private String meterDesc;
