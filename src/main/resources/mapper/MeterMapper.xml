@@ -56,4 +56,9 @@
 		where meter.member_id=member.id
 	</select>
 
+    <select id="selectMemberByMemberId" resultType="com.iot.smart.water.meter.model.Member">
+        select * from iot.member
+        where member_id = #{member_id}
+    </select>
+
 </mapper>

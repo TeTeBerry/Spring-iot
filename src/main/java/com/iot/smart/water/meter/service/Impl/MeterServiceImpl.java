@@ -47,7 +47,7 @@ public class MeterServiceImpl implements MeterService {
             for (Meter meter : meters) {
                 WaterBill bill = new WaterBill();
                 bill.setMeterName(meter.getMeterName());
-                Member member = memberMapper.selectMemberByMeterId(meter.getId());
+                Member member = memberMapper.selectMemberById(meter.getMember_id());
                 bill.setMemberName(member.getName());
                 bill.setMonth(DateUtil.getMonth(date));
 

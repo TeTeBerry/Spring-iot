@@ -3,7 +3,7 @@ package com.iot.smart.water.meter.dao;
 
 import com.iot.smart.water.meter.model.Meter;
 
-import com.iot.smart.water.meter.model.MeterRequest;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -25,5 +25,6 @@ public interface MeterMapper {
 	int deleteMeterById(@Param("id") int id);
 
 	List<Meter> selectMeterAndMember();
+
 
 }
