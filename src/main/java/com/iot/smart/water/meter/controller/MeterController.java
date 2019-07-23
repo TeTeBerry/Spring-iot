@@ -147,25 +147,17 @@ public class MeterController {
             return response;
         }
 
-        if (meterService.updateMeter(meter) == null) {
-            response.setCode(ErrorCode.INVALID_MID);
-        } else if (StringUtils.isEmpty(meter.getMeterName())) {
-            response.setCode(ErrorCode.EMPTY_METERNAME);
-            response.setMsg("empty meterName");
-            return response;
-        } else if (StringUtils.isEmpty(meter.getMeterDesc())) {
-            response.setCode(ErrorCode.EMPTY_METERDESC);
-            response.setMsg("empty meterDesc");
-            return response;
+        try {
+            if (meterService.updateMeter(meter)) {
+                response.setMsg("update meter success");
+            } else {
+                response.setCode(ErrorCode.DB_OPERATION_ERROR);
+                response.setMsg("update meter faile");
+            }
+        } catch (Exception e) {
+            response.setCode(ErrorCode.DB_OPERATION_ERROR);
+            response.setMsg("update meter faile");
         }
-//        else if ((!meter.getMemberContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
-//            response.setCode(ErrorCode.INVALID_METERCONTACT);
-//            response.setMsg("email invalid");
-//            return response;
-//        }
-        meterMapper.updateMeter(meter);
-        response.setMsg("update meter success");
-        response.setData(meterService.updateMeter(meter));
         return response;
     }
 
@@ -193,12 +185,18 @@ public class MeterController {
             return response;
         }
 
-        if (meterService.deleteMeter(mid) == null) {
-            response.setCode(ErrorCode.INVALID_MID);
-        } else {
-            meterMapper.deleteMeterById(meterService.deleteMeter(mid).getId());
+        try {
+            if (meterService.deleteMeter(mid)) {
+                response.setMsg("delete success");
+            } else {
+                response.setCode(ErrorCode.DB_OPERATION_ERROR);
+                response.setMsg("delete faile");
+            }
+        } catch (Exception e) {
+            response.setCode(ErrorCode.DB_OPERATION_ERROR);
+            response.setMsg("delete faile");
         }
-        response.setMsg("delete success");
+
         return response;
     }
 
@@ -253,8 +251,19 @@ public class MeterController {
             response.setMsg("email invalid");
             return response;
         }
-        response.setMsg("add meter success");
-        response.setData(meterService.addMeter(meterRequest));
+        try {
+            meterRequest = meterService.addMeter(meterRequest);
+            if (meterRequest != null) {
+                response.setMsg("add meter success");
+                response.setData(meterRequest);
+            } else {
+                response.setCode(ErrorCode.DB_OPERATION_ERROR);
+                response.setMsg("add meter fail");
+            }
+        } catch (Exception e) {
+            response.setCode(ErrorCode.DB_OPERATION_ERROR);
+            response.setMsg("add meter fail");
+        }
         return response;
     }
 

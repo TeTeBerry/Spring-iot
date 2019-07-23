@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iot.smart.water.meter.dao.MeterMapper">
 
-
     <insert id="insertMeter" parameterType="com.iot.smart.water.meter.model.Meter" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into iot.meter
         (member_id,meterName, meterDesc, createDate)
@@ -10,17 +9,18 @@
         (#{member_id}, #{meterName}, #{meterDesc}, date_format(#{createDate}, '%Y-%m-%d %H:%i:%s'))
     </insert>
 
-
-
     <update id="updateMeter" parameterType="com.iot.smart.water.meter.model.Meter">
         update iot.meter
         set
             meterName = #{meterName},
-            meterDesc = #{meterDesc},
+            meterDesc = #{meterDesc}
         where id = #{id}
     </update>
 
-
+    <select id="selectMeterByName" resultType="com.iot.smart.water.meter.model.Meter">
+        select * from iot.meter
+        where meterName = #{name}
+    </select>
 
     <select id="selectAllMeter" resultType="com.iot.smart.water.meter.model.Meter">
         select * from iot.meter
@@ -55,10 +55,5 @@
 		from iot.meter,iot.member
 		where meter.member_id=member.id
 	</select>
-
-    <select id="selectMemberByMemberId" resultType="com.iot.smart.water.meter.model.Member">
-        select * from iot.member
-        where member_id = #{member_id}
-    </select>
 
 </mapper>

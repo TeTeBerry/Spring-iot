@@ -18,6 +18,11 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteVolumeByMeterId">
+        delete from iot.volume
+        where meter_id = #{meter_id}
+    </delete>
+
     <select id="selectAllVolume" resultType="com.iot.smart.water.meter.model.Volume">
         select * from iot.volume
     </select>

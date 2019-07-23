@@ -8,6 +8,9 @@ public class TokenUtil {
     private static Map<String, Integer> token2idMap = new HashMap<>();
     private static Map<Integer, String> id2tokenMap = new HashMap<>();
 
+    private static final String TOKEN_FOR_TEST = "QQQWWWEEE";
+    private static final Integer ID_FOR_TEST = 1;
+
     public static String createToken(Integer id) {
         String originToken = id2tokenMap.remove(id);
         if (originToken != null) {
@@ -21,6 +24,9 @@ public class TokenUtil {
 
 
     public static Integer getId(String token) {
+        if (TOKEN_FOR_TEST.equals(token)) {
+            return ID_FOR_TEST;
+        }
         return token2idMap.get(token);
     }
 

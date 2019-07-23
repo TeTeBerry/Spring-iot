@@ -30,42 +30,36 @@ public class MeterServiceImpl implements MeterService {
     private VolumeMapper volumeMapper;
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private DataService dataService;
-
 
     @Autowired
     private MemberMapper memberMapper;
 
     @Override
     public WaterBill getWaterBill(String meterName) {
-        List<Meter> meters = meterMapper.selectAllMeter();
-        if (meters != null) {
+        Meter meter  = meterMapper.selectMeterByName(meterName);
+        if (meter != null) {
             Date date = new Date();
-            for (Meter meter : meters) {
-                WaterBill bill = new WaterBill();
-                bill.setMeterName(meter.getMeterName());
-                Member member = memberMapper.selectMemberById(meter.getMember_id());
+            WaterBill bill = new WaterBill();
+            bill.setMeterName(meter.getMeterName());
+            Member member = memberMapper.selectMemberById(meter.getMember_id());
+            if (member != null) {
                 bill.setMemberName(member.getName());
-                bill.setMonth(DateUtil.getMonth(date));
-
-                Data data = dataService.getLatestData(meter.getMeterName(),
-                        DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
-                if (data != null) {
-                    bill.setTotalMilliters(data.getTotalMilliters());
-                    bill.setFee(data.getTotalMilliters() / 1000 * 25);
-                } else {
-                    bill.setFee(0);
-                    bill.setTotalMilliters(0);
-                }
-                return bill;
-
             }
+            bill.setMonth(DateUtil.getMonth(date));
+
+            Data data = dataService.getLatestData(meter.getMeterName(),
+                    DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
+            if (data != null) {
+                bill.setTotalMilliters(data.getTotalMilliters());
+                bill.setFee(data.getTotalMilliters() / 1000 * 25);
+            } else {
+                bill.setFee(0);
+                bill.setTotalMilliters(0);
+            }
+            return bill;
         }
         return null;
-
     }
 
     @Override
@@ -87,8 +81,6 @@ public class MeterServiceImpl implements MeterService {
     public List<Meter> getMeters() {
         return meterMapper.selectAllMeter();
     }
-
-
 
     @Override
     public List<Meter> getMeterAndMember() {
@@ -116,15 +108,18 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public Meter updateMeter(Meter meter) {
-        return meterMapper.selectMeterById(meter.getId());
+    @Transactional(rollbackFor = {Exception.class})
+    public boolean updateMeter(Meter meter) {
+        meterMapper.updateMeter(meter);
+        return true;
     }
 
-
-
     @Override
-    public Meter deleteMeter(int mid) {
-        return meterMapper.selectMeterById(mid);
+    @Transactional(rollbackFor = {Exception.class})
+    public boolean deleteMeter(int mid) {
+        volumeMapper.deleteVolumeByMeterId(mid);
+        meterMapper.deleteMeterById(mid);
+        return true;
     }
 
     @Scheduled(cron = "0 0 0 ? * MON")

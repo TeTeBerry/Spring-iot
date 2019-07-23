@@ -95,7 +95,6 @@ public class UserController {
 	@PostMapping("/updatePassword")
 	@CrossOrigin(origins="*")
     public Response updatePassword(@RequestHeader("token") String token,
-                                   @RequestParam("username") String userName,
                                    @RequestParam("oldPwd") String oldPwd,
                                    @RequestParam("newPwd") String newPwd) {
         Response response = new Response();

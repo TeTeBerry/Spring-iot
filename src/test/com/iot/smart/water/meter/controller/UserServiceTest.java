@@ -57,9 +57,9 @@ public class UserServiceTest {
     public void updatePassword() {
         User user = new User();
         user.setUsername("tete");
-        user.setPassword("123");
-        String oldPwd = "123";
-        String newPwd = "123";
+        user.setPassword("1234");
+        String oldPwd = "1234";
+        String newPwd = "1234";
 
         Mockito.when(userMapper.updateUser(user)).thenReturn(1);
         User result = userService.updatePassword(user, oldPwd, newPwd);

@@ -14,9 +14,9 @@ public interface MeterService {
 
     MeterRequest addMeter(MeterRequest MeterRequest);
 
-    Meter updateMeter(Meter meter);
+    boolean updateMeter(Meter meter);
 
-    Meter deleteMeter(int mid);
+    boolean deleteMeter(int mid);
 
     List<Meter> getMeterAndMember();
 
