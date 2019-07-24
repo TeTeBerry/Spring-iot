@@ -77,10 +77,10 @@ public class MeterServiceImpl implements MeterService {
         return true;
     }
 
-    @Override
-    public List<Meter> getMeters() {
-        return meterMapper.selectAllMeter();
-    }
+//    @Override
+//    public List<Meter> getMeters() {
+//        return meterMapper.selectAllMeter();
+//    }
 
     @Override
     public List<Meter> getMeterAndMember() {
@@ -109,16 +109,27 @@ public class MeterServiceImpl implements MeterService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public boolean updateMeter(Meter meter) {
+    public boolean updateMeter(MeterRequest meterRequest) {
+        Meter meter = new Meter();
+        meter.setMeterName(meterRequest.getMeterName());
+        meter.setMeterDesc(meterRequest.getMeterDesc());
+        meter.setId(meterRequest.getMeter_id());
         meterMapper.updateMeter(meter);
+        Member member = new Member();
+        member.setRoom(meterRequest.getRoom());
+        member.setName(meterRequest.getName());
+        member.setContact(meterRequest.getContact());
+        member.setId(meterRequest.getMember_id());
+        memberMapper.updateMember(member);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public boolean deleteMeter(int mid) {
+    public boolean deleteMeter(int mid,int bid) {
         volumeMapper.deleteVolumeByMeterId(mid);
         meterMapper.deleteMeterById(mid);
+        memberMapper.deleteMemberById(bid);
         return true;
     }
 

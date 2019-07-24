@@ -42,11 +42,11 @@
         <result column="name" property="name"/>
         <result column="room" property="room"/>
         <result column="contact" property="contact"/>
-        <result column="meter_id" property="meter_id"/>
         <association property="meter" javaType="com.iot.smart.water.meter.model.Meter">
             <id column="id" property="id"/>
             <result column="meterName" property="meterName"/>
             <result column="meterDesc" property="meterDesc"/>
+            <result column="member_id" property="member_id"/>
         </association>
     </resultMap>
 

@@ -96,7 +96,8 @@ public class UserController {
 	@CrossOrigin(origins="*")
     public Response updatePassword(@RequestHeader("token") String token,
                                    @RequestParam("oldPwd") String oldPwd,
-                                   @RequestParam("newPwd") String newPwd) {
+                                   @RequestParam("newPwd") String newPwd,
+                                   @RequestParam("username") String username) {
         Response response = new Response();
         Integer id = TokenUtil.getId(token);
         if (id == null) {
@@ -117,24 +118,25 @@ public class UserController {
             return response;
         }
 
-        if (StringUtils.isEmpty(user.getUsername())) {
+        User user1 = userMapper.selectUserByName(username);
+        if (StringUtils.isEmpty(user1.getUsername())) {
             response.setCode(ErrorCode.EMPTY_USERNAME);
             response.setMsg("empty userName");
             return response;
         }
-        if (!user.getPassword().equals(oldPwd)) {
+        if (!user1.getPassword().equals(oldPwd)) {
             response.setCode(ErrorCode.INVALID_PASSWORD);
             response.setMsg("old password not match");
             return response;
         }
-        user.setPassword(newPwd);
-        if (StringUtils.isEmpty(user.getPassword())) {
+        user1.setPassword(newPwd);
+        if (StringUtils.isEmpty(user1.getPassword())) {
             response.setCode(ErrorCode.EMPTY_PASSWORD);
             response.setMsg("empty password");
             return response;
         }
-        user.setPassword(newPwd);
-        if (user.getPassword().length()<4){
+        user1.setPassword(newPwd);
+        if (user1.getPassword().length()<4){
             response.setCode(ErrorCode.NEWPASSWORDDIGIT);
             response.setMsg("at least 4 digits");
             return response;
@@ -142,7 +144,7 @@ public class UserController {
 
         userService.updatePassword(user, oldPwd, newPwd);
         response.setMsg("update password success");
-        response.setData(userService.updatePassword(user, oldPwd, newPwd));
+        response.setData(userService.updatePassword(user1, oldPwd, newPwd));
         return response;
     }
 }

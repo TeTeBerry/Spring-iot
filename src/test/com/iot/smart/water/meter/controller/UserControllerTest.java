@@ -38,7 +38,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        String paramJson = "{\"username\":\"member\",\"password\":\"1111\"}";
+        String paramJson = "{\"username\":\"test\",\"password\":\"1111\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/admin/register")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)
@@ -49,7 +49,7 @@ public class UserControllerTest {
 
     @Test
     public void login() throws Exception {
-        String paramJson = "{\"userName\":\"" + testUserName + "\",\"password\":\"1112\"}";
+        String paramJson = "{\"username\":\"" + testUserName + "\",\"password\":\"1111\"}";
         String response = mvc.perform(MockMvcRequestBuilders.post("/iot/admin/login")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(paramJson)

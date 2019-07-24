@@ -20,9 +20,9 @@ public interface VolumeMapper {
 
     int deleteVolumeByMeterId(@Param("meter_id") Integer meter_id);
 
-    Volume selectVolumeByMeterId(@Param("meter_id") Integer meter_id);
-
-    Volume selectVolumeByMemberId(@Param("member_id") Integer member_id);
+//    Volume selectVolumeByMeterId(@Param("meter_id") Integer meter_id);
+//
+//    Volume selectVolumeByMemberId(@Param("member_id") Integer member_id);
 
     Volume selectVolumeById(@Param("member_id") Integer member_id, @Param("meter_id") Integer meter_id);
 }

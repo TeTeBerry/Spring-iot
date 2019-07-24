@@ -25,7 +25,7 @@ public class MeterControllerTest {
     private MockMvc mvc;
     private MockHttpSession session;
 
-    private static final String testToken= "e1e4f7b65b17a8da3a89000fe076bb97";
+    private static final String testToken= "93c34fef5d6d73a0d1f0ff5645bdd790";
 
     @Before
     public void setupMockMvc() {
@@ -81,8 +81,9 @@ public class MeterControllerTest {
     public void delete() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/iot/meter/delete")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .header("token", "QQQWWWEEE")
-                .param("mid", "8")
+                .header("token", testToken)
+                .param("mid", "58")
+                .param("bid","42")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -92,7 +93,7 @@ public class MeterControllerTest {
         String paramJson = "{\"meterName\":\"sensor-2\",\"meterDesc\":\"tebafao\",\"memberName\":\"tetebaobao\",\"room\":\"1222\",\"memberContact\":\"t11111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .header("token", "QQQWWWEEE")
+                .header("token", testToken)
                 .param("user_id", "1")
                 .content(paramJson)
                 .session(session))

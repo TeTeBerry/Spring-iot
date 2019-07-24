@@ -105,14 +105,6 @@ public class MeterController {
         return response;
     }
 
-    @GetMapping("/getMeters")
-	@CrossOrigin(origins="*")
-    public Response getMeters() {
-        Response<List<Meter>> response = new Response<>();
-        response.setMsg("get meter success");
-        response.setData(meterService.getMeters());
-        return response;
-    }
 
     @GetMapping("/getMeterAndMember")
     @CrossOrigin(origins="*")
@@ -126,7 +118,7 @@ public class MeterController {
 	@PostMapping("/update")
 	@CrossOrigin(origins="*")
     public Response updateMeter(@RequestHeader("token") String token,
-                                @RequestBody Meter meter) {
+                                @RequestBody MeterRequest meterRequest) {
         Response response = new Response();
         Integer id = TokenUtil.getId(token);
         if (id == null) {
@@ -146,9 +138,34 @@ public class MeterController {
             response.setMsg("permission error");
             return response;
         }
+        if (StringUtils.isEmpty(meterRequest.getMeterName())) {
+            response.setCode(ErrorCode.EMPTY_METERNAME);
+            response.setMsg("empty meterName");
+            return response;
+        }
+        if (StringUtils.isEmpty(meterRequest.getMeterDesc())) {
+            response.setCode(ErrorCode.EMPTY_METERDESC);
+            response.setMsg("empty meterDesc");
+            return response;
+        }
+        if (StringUtils.isEmpty(meterRequest.getName())) {
+            response.setCode(ErrorCode.EMPTY_MEMBERNAME);
+            response.setMsg("empty memberName");
+            return response;
+        }
+        if (StringUtils.isEmpty(meterRequest.getRoom())) {
+            response.setCode(ErrorCode.EMPTY_ROOM);
+            response.setMsg("empty room");
+            return response;
+        }
+        if ((!meterRequest.getContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
+            response.setCode(ErrorCode.INVALID_METERCONTACT);
+            response.setMsg("email invalid");
+            return response;
+        }
 
         try {
-            if (meterService.updateMeter(meter)) {
+            if (meterService.updateMeter(meterRequest)) {
                 response.setMsg("update meter success");
             } else {
                 response.setCode(ErrorCode.DB_OPERATION_ERROR);
@@ -164,7 +181,8 @@ public class MeterController {
 	@DeleteMapping("/delete")
 	@CrossOrigin(origins="*")
     public Response deleteMeter(@RequestHeader("token") String token,
-                                @RequestParam("mid") int mid) {
+                                @RequestParam("mid") int mid,
+                                @RequestParam("bid") int bid) {
         Response response = new Response();
         Integer id = TokenUtil.getId(token);
         if (id == null) {
@@ -186,7 +204,7 @@ public class MeterController {
         }
 
         try {
-            if (meterService.deleteMeter(mid)) {
+            if (meterService.deleteMeter(mid,bid)) {
                 response.setMsg("delete success");
             } else {
                 response.setCode(ErrorCode.DB_OPERATION_ERROR);
