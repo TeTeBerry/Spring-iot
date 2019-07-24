@@ -1,11 +1,11 @@
 package com.iot.smart.water.meter.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iot.smart.water.meter.dao.UserMapper;
 import com.iot.smart.water.meter.model.LoginInfo;
 import com.iot.smart.water.meter.model.User;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.service.UserService;
+import com.iot.smart.water.meter.util.RoleManager;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +25,9 @@ public class UserControllerUnitTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private RoleManager roleManager;
 
     @InjectMocks
     UserController userController;
@@ -66,21 +69,28 @@ public class UserControllerUnitTest {
 
     }
 
-//    @Test
-//    public void updatePassword() {
-//        User user = new User();
-//        user.setUsername("tete");
-//        user.setPassword("1234");
-//        user.setId(1);
-//        String username = "test";
-//        String oldPwd = "1234";
-//        String newPwd = "1234";
-//        String token = "2f0e75d660199693153312156583df13";
-//
-//        Mockito.when(userMapper.updateUser(user)).thenReturn(1);
-//        Response result = userController.updatePassword(token,username,oldPwd, newPwd);
-//        Assertions.assertThat(result.getCode()).isEqualTo(200);
-//    }
+    @Test
+    public void updatePassword() {
+        User user = new User();
+        user.setUsername("admin");
+        user.setPassword("1234");
+        user.setId(11);
+        User user1 = new User();
+        user1.setUsername("member");
+        user1.setPassword("1111");
+        String username = "member";
+        String oldPwd = "1111";
+        String newPwd = "1234";
+
+        Mockito.when(userMapper.selectUserById(11)).thenReturn(user);
+        Mockito.when(roleManager.isAdmin(11)).thenReturn(true);
+        Mockito.when(userMapper.selectUserByName(username)).thenReturn(user1);
+        Mockito.when(userService.updatePassword(user1,oldPwd,newPwd)).thenReturn(user1);
+
+
+        Response result = userController.updatePassword("QQQWWWEEE",oldPwd, newPwd,username);
+        Assertions.assertThat(result.getCode()).isEqualTo(200);
+    }
 
 
 }
