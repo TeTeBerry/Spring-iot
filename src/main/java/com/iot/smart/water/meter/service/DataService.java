@@ -16,4 +16,6 @@ public interface DataService {
     List<MonthlyData> getMonthlyData(String meterName, String date);
 
     List<WeeklyData> getWeeklyData(String meterName, String date);
+
+    Data getAuthorize(Member member,String meterName);
 }

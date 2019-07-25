@@ -42,9 +42,17 @@ public class MeterController {
 
     @GetMapping("/getWaterBill")
 	@CrossOrigin(origins="*")
-    public Response getWaterBill(@RequestParam("meterName") String meterName) {
+    public Response getWaterBill(@RequestParam("meterName") String meterName,
+                                 @RequestParam("password") String password) {
         Response response = new Response();
-        response.setData(meterService.getWaterBill(meterName));
+        Meter meter  = meterMapper.selectMeterByName(meterName);
+        Member member = memberMapper.selectMemberById(meter.getMember_id());
+        if (!member.getPassword().equals(password)) {
+            response.setCode(ErrorCode.INVALID_PASSWORD);
+            response.setMsg("invalid password");
+            return  response;
+        }
+        response.setData(meterService.getWaterBill(member,meterName));
         response.setMsg("get water bill success");
         return response;
     }
@@ -54,7 +62,8 @@ public class MeterController {
     public Response setVolume(@RequestHeader("token") String token,
                               @RequestParam("member_id") Integer member_id,
                               @RequestParam("meter_id") Integer meter_id,
-                              @RequestParam("volume") long newVolumeNum) {
+                              @RequestParam("volume") long newVolumeNum,
+                              @RequestParam("password") String password) {
         Response response = new Response();
         Integer id = TokenUtil.getId(token);
         if (id == null) {
@@ -72,6 +81,14 @@ public class MeterController {
         if (!roleManager.isMember(user.getId())) {
             response.setCode(ErrorCode.PERMISSION_ERROR);
             response.setMsg("permission error");
+            return response;
+        }
+
+          Member member = memberMapper.selectMemberById(member_id);
+
+        if (!member.getPassword().equals(password)) {
+            response.setCode(ErrorCode.EMPTY_PASSWORD);
+            response.setMsg("invalid password");
             return response;
         }
 
@@ -96,7 +113,7 @@ public class MeterController {
             volumeBean.setMember_id(member_id);
             volumeBean.setMeter_id(meter_id);
         }
-        if (!meterService.setMemberVolume(volumeBean, newVolumeNum)) {
+        if (!meterService.setMemberVolume(member,volumeBean, newVolumeNum)) {
             response.setCode(ErrorCode.INVALID_SET_VOLUME_LIMIT);
             response.setMsg("set volume limit");
             return response;
@@ -158,6 +175,7 @@ public class MeterController {
             response.setMsg("empty room");
             return response;
         }
+
         if ((!meterRequest.getContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
             response.setCode(ErrorCode.INVALID_METERCONTACT);
             response.setMsg("email invalid");
@@ -267,6 +285,12 @@ public class MeterController {
         if ((!meterRequest.getContact().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
             response.setCode(ErrorCode.INVALID_METERCONTACT);
             response.setMsg("email invalid");
+            return response;
+        }
+
+        if (StringUtils.isEmpty(meterRequest.getPassword())) {
+            response.setCode(ErrorCode.EMPTY_PASSWORD);
+            response.setMsg("empty password");
             return response;
         }
         try {

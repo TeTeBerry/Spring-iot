@@ -36,13 +36,13 @@ public class MeterServiceImpl implements MeterService {
     private MemberMapper memberMapper;
 
     @Override
-    public WaterBill getWaterBill(String meterName) {
+    public WaterBill getWaterBill(Member member, String meterName) {
         Meter meter  = meterMapper.selectMeterByName(meterName);
         if (meter != null) {
             Date date = new Date();
             WaterBill bill = new WaterBill();
             bill.setMeterName(meter.getMeterName());
-            Member member = memberMapper.selectMemberById(meter.getMember_id());
+            member = memberMapper.selectMemberById(meter.getMember_id());
             if (member != null) {
                 bill.setMemberName(member.getName());
             }
@@ -63,7 +63,7 @@ public class MeterServiceImpl implements MeterService {
     }
 
     @Override
-    public boolean setMemberVolume(Volume volume, long newVolumeNum) {
+    public boolean setMemberVolume(Member member,Volume volume, long newVolumeNum) {
         if (volume == null || volume.getChangeLimit() == 1) {
             return false;
         }
@@ -96,6 +96,7 @@ public class MeterServiceImpl implements MeterService {
         member.setContact(meterRequest.getContact());
         member.setName(meterRequest.getName());
         member.setRoom(meterRequest.getRoom());
+        member.setPassword(meterRequest.getPassword());
         memberMapper.insertMember(member);
         Meter meter = new Meter();
         meter.setMember_id(member.getId());

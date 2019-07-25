@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface MeterService {
 
-    WaterBill getWaterBill(String meterName);
+    WaterBill getWaterBill(Member member,String meterName);
 
-    boolean setMemberVolume(Volume volume, long newVolumeNum);
+    boolean setMemberVolume(Member member,Volume volume, long newVolumeNum);
 
 //    List<Meter> getMeters();
 

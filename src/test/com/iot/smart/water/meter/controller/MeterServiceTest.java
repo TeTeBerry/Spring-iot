@@ -78,6 +78,7 @@ public class MeterServiceTest {
         member.setId(1);
         member.setName("keke");
         member.setUser_id(1);
+        member.setPassword("1111");
 
         Data data = new Data();
         data.setTotalMilliters(10000);
@@ -93,7 +94,7 @@ public class MeterServiceTest {
         Mockito.when(memberMapper.selectMemberById(meter.getMember_id())).thenReturn(member);
         Mockito.when(dataService.getLatestData(meter.getMeterName(),"2019-07-01","2019-07-18")).thenReturn(data);
 
-        WaterBill result = meterService.getWaterBill(meter.getMeterName());
+        WaterBill result = meterService.getWaterBill(member,meter.getMeterName());
         Assertions.assertThat(result.getMemberName()).isEqualTo("keke");
     }
 
@@ -108,8 +109,12 @@ public class MeterServiceTest {
         meter.setMeterDesc("G3&4");
         meter.setMeterName("tete");
 
+        Member member = new Member();
+        member.setName("tete");
+        member.setPassword("1234");
+
         Mockito.when(volumeMapper.insertVolume(volume)).thenReturn(1);
-        boolean result = meterService.setMemberVolume(volume, 1000);
+        boolean result = meterService.setMemberVolume(member,volume, 1000);
         Assertions.assertThat(result).isEqualTo(true);
     }
 
