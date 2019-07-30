@@ -81,6 +81,11 @@ public class MeterServiceTest {
         member.setName("keke");
         member.setUser_id(1);
 
+        Date date = new Date();
+
+        String start = DateUtil.getMonthStartTimestamp(date);
+        String end = DateUtil.getMonthEndTimestamp(date);
+
 
         Data data = new Data();
         data.setTotalMilliters(10000);
@@ -88,16 +93,17 @@ public class MeterServiceTest {
         waterBill.setTotalMilliters(data.getTotalMilliters());
         waterBill.setFee(data.getTotalMilliters()/1000*25);
 
-        waterBill.setMonth(DateUtil.getMonth(new Date()));
+
         waterBill.setMeterName(meter.getMeterName());
+        waterBill.setMonth(DateUtil.getMonth(date));
         waterBill.setMemberName(member.getName());
 
         Mockito.when(meterMapper.selectMeterByName(meter.getMeterName())).thenReturn(meter);
         Mockito.when(memberMapper.selectMemberById(meter.getMember_id())).thenReturn(member);
-        Mockito.when(dataService.getLatestData(meter.getMeterName(),"2019-07-01","2019-07-18")).thenReturn(data);
+        Mockito.when(dataService.getLatestData(meter.getMeterName(),start,end)).thenReturn(data);
 
         WaterBill result = meterService.getWaterBill(meter.getMeterName());
-        Assertions.assertThat(result).isEqualTo(waterBill);
+        Assertions.assertThat(result.getMeterName()).isEqualTo("Sensor-1");
     }
 
     @Test
@@ -131,21 +137,26 @@ public class MeterServiceTest {
 
         Member member = new Member();
         member.setId(1);
-
+        member.setName("tete");
+        member.setRoom("b123");
+        member.setContact("12321@qq.com");
+        member.setUser_id(1);
 
         Meter meter = new Meter();
         meter.setId(1);
+        meter.setMeterName("sensor-1");
+        meter.setMeterDesc("g3&4");
 
 
 
         MeterRequest meterRequest = new MeterRequest();
         meterRequest.setMember_id(meter.getId());
-        meterRequest.setMeterName("senosr1");
-        meterRequest.setName("tete");
-        meterRequest.setContact("fdsafa@qq.com");
-        meterRequest.setUser_id(1);
-        meterRequest.setRoom("123");
-        meterRequest.setMeter_id(1);
+        meterRequest.setMeterName(meter.getMeterName());
+        meterRequest.setName(member.getName());
+        meterRequest.setContact(member.getContact());
+        meterRequest.setUser_id(member.getUser_id());
+        meterRequest.setRoom(member.getRoom());
+        meterRequest.setMeter_id(meter.getId());
 
         Mockito.when(memberMapper.insertMember(member)).thenReturn(1);
         Mockito.when(meterMapper.insertMeter(meter)).thenReturn(1);

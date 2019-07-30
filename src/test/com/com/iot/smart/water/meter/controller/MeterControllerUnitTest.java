@@ -59,7 +59,7 @@ public class MeterControllerUnitTest {
 
         Member member = new Member();
         member.setName("keke");
-        member.setPassword("1111");
+
 
         Data data = new Data();
         data.setTotalMilliters(10000);
@@ -88,7 +88,7 @@ public class MeterControllerUnitTest {
 
         Member member = new Member();
         member.setId(1);
-        member.setPassword("1234");
+
 
         Meter meter = new Meter();
         meter.setId(1);

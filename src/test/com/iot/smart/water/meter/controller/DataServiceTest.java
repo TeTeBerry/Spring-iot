@@ -94,9 +94,7 @@ public class DataServiceTest {
         Data data = new Data();
         data.setSensorName("sensor1");
         data.setTotalMilliters(100);
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
-        data.setReading_time(ts);
+
 
         Mockito.when(dataMapper.selectLatestDataInMonthByName(meter.getMeterName(), start, end)).thenReturn(data);
         Data result = dataService.getLatestData(meter.getMeterName(), start, end);
