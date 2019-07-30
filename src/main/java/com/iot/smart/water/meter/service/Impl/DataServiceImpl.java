@@ -143,11 +143,6 @@ public class DataServiceImpl implements DataService {
         }
     }
 
-    @Override
-    public Data getAuthorize(Member member,String meterName){
-        Data data =  dataMapper.selectLatestDataByName(meterName);
-        return data;
-    }
 }
 
 
