@@ -10,6 +10,15 @@ public class Member {
     private Date createDate;
     private Integer user_id;
     private Meter meter;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Meter getMeter(){return  meter;}
 
