@@ -131,10 +131,12 @@ public class DataServiceImpl implements DataService {
                 if (volume.getNotifyLimit() == 0) {
                     Meter meter = meterMapper.selectMeterById(volume.getMeter_id());
                     Data data = dataMapper.selectLatestDataByName(meter.getMeterName());
-                    if (volume.getVolume() > 0 && data.getTotalMilliters() >= volume.getVolume()) {
-                        volume.setNotifyLimit(1);
-                        volumeMapper.updateVolume(volume);
-                        lineNotify.notifyMe("This Week water exceeds the limit", 16, 1);
+                    if (data !=null) {
+                        if (volume.getVolume() > 0 && data.getTotalMilliters() >= volume.getVolume()) {
+                            volume.setNotifyLimit(1);
+                            volumeMapper.updateVolume(volume);
+                            lineNotify.notifyMe("This Week water exceeds the limit volume is " + volume.getVolume() + " milliliter", 16, 1);
+                        }
                     }
                 }
             }

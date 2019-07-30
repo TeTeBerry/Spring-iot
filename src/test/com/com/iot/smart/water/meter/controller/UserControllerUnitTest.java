@@ -39,27 +39,14 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void register() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("1234");
-        user.setId(1);
-
-        Mockito.when(userService.register(user)).thenReturn(user);
-        Response result = userController.register(user);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
-
-    }
-
-    @Test
     public void login() {
         LoginInfo info = new LoginInfo();
         info.setUsername("tete");
-        info.setPassword("123");
+        info.setPassword("1234");
         User user = new User();
         user.setId(1);
         user.setUsername("tete");
-        user.setPassword("123");
+        user.setPassword("1234");
         user.setCreated_at(new Date());
 
         Mockito.when(userMapper.selectUserByName("tete")).thenReturn(user);

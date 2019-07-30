@@ -40,25 +40,25 @@ public class UserController {
 
     @Autowired
     private RoleManager roleManager;
-
-	@PostMapping("/register")
-	@CrossOrigin(origins="*")
-    public Response register(@RequestBody User user) {
-        Response response = new Response();
-        if (StringUtils.isEmpty(user.getUsername())) {
-            response.setCode(ErrorCode.EMPTY_USERNAME);
-            response.setMsg("empty userName");
-            return response;
-        }
-        if (StringUtils.isEmpty(user.getPassword())) {
-            response.setCode(ErrorCode.EMPTY_PASSWORD);
-            response.setMsg("empty password");
-            return response;
-        }
-        response.setData(userService.register(user));
-        response.setMsg("register success");
-        return response;
-    }
+//
+//	@PostMapping("/register")
+//	@CrossOrigin(origins="*")
+//    public Response register(@RequestBody User user) {
+//        Response response = new Response();
+//        if (StringUtils.isEmpty(user.getUsername())) {
+//            response.setCode(ErrorCode.EMPTY_USERNAME);
+//            response.setMsg("empty userName");
+//            return response;
+//        }
+//        if (StringUtils.isEmpty(user.getPassword())) {
+//            response.setCode(ErrorCode.EMPTY_PASSWORD);
+//            response.setMsg("empty password");
+//            return response;
+//        }
+//        response.setData(userService.register(user));
+//        response.setMsg("register success");
+//        return response;
+//    }
 
 	@PostMapping("/login")
 	@CrossOrigin(origins="*")
@@ -84,6 +84,7 @@ public class UserController {
                 if (info.getUsername().contains("member")) {
                     lineNotify.notifyMe("You have been login IoT Water System web application", 2, 1);
                 }
+
 
                 response.setMsg(TokenUtil.createToken(user.getId()));
                 response.setData(userService.login(info));

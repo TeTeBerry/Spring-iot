@@ -44,6 +44,11 @@ public class MeterController {
 	@CrossOrigin(origins="*")
     public Response getWaterBill(@RequestParam("meterName") String meterName) {
         Response response = new Response();
+        if (StringUtils.isEmpty(meterName)){
+            response.setCode(ErrorCode.EMPTY_METERNAME);
+            response.setMsg("empty meter name");
+            return response;
+        }
         response.setData(meterService.getWaterBill(meterName));
         response.setMsg("get water bill success");
         return response;

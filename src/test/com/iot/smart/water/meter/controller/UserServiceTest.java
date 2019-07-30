@@ -83,15 +83,4 @@ public class UserServiceTest {
         Assertions.assertThat(result).isEqualTo(user);
     }
 
-    @Test
-    public void register() {
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword("1234");
-        user.setCreated_at(new Date());
-
-        Mockito.when(userMapper.insertUser(user)).thenReturn(1);
-        User result = userService.register(user);
-        Assertions.assertThat(result).isEqualTo(user);
-    }
 }

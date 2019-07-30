@@ -9,5 +9,5 @@ public interface UserService {
 
     User login(LoginInfo info);
 
-    User register(User user);
+//    User register(User user);
 }

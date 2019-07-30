@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class MeterServiceImpl implements MeterService {
 
     @Override
     public WaterBill getWaterBill(String meterName) {
-        Meter meter  = meterMapper.selectMeterByName(meterName);
+        Meter meter = meterMapper.selectMeterByName(meterName);
         if (meter != null) {
             Date date = new Date();
             WaterBill bill = new WaterBill();
@@ -60,6 +61,7 @@ public class MeterServiceImpl implements MeterService {
             return bill;
         }
         return null;
+
     }
 
     @Override
@@ -84,7 +86,8 @@ public class MeterServiceImpl implements MeterService {
 
     @Override
     public List<Meter> getMeterAndMember() {
-        return meterMapper.selectMeterAndMember();
+
+        return  meterMapper.selectMeterAndMember();
     }
 
     @Override

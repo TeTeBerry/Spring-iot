@@ -93,7 +93,6 @@ public class MeterControllerUnitTest {
         Volume volume = new Volume();
         volume.setMember_id(1);
         volume.setMeter_id(1);
-        volume.setChangeLimit(0);
 
 
         long newVolumeNum = 1200;

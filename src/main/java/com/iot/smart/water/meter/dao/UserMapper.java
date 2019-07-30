@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("userMapper")
 public interface UserMapper {
 
-    int insertUser(User user);
+//    int insertUser(User user);
 
     int updateUser(User user);
 

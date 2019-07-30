@@ -28,17 +28,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleMapper roleMapper;
 
-    @Override
-    @Transactional(rollbackFor = {Exception.class})
-    public User register(User user) {
-        if (user.getId() != null) {
-            user.setId(null);
-        }
-        user.setCreated_at(new Date());
-        userMapper.insertUser(user);
-        userRoleMapper.insertUidAndRid(user.getId(), roleMapper.selectRoleIdByName(RoleManager.ROLE_ADMIN));
-        return user;
-    }
+//    @Override
+//    @Transactional(rollbackFor = {Exception.class})
+//    public User register(User user) {
+//        if (user.getId() != null) {
+//            user.setId(null);
+//        }
+//        user.setCreated_at(new Date());
+//        userMapper.insertUser(user);
+//        userRoleMapper.insertUidAndRid(user.getId(), roleMapper.selectRoleIdByName(RoleManager.ROLE_ADMIN));
+//        return user;
+//    }
 
     @Override
     public User login(LoginInfo info) {

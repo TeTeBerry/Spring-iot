@@ -70,7 +70,7 @@ public class DataControllerUnitTest {
         meter.setMeterName("Sensor1");
         List<WeeklyData> list = new ArrayList<>();
         WeeklyData weeklyData = new WeeklyData();
-        weeklyData.setWeek("Mondat");
+        weeklyData.setWeek("Monday");
         weeklyData.setTotalMilliters(1000);
         list.add(weeklyData);
 

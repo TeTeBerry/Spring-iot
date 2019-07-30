@@ -20,7 +20,7 @@ public interface MeterMapper {
 
     Meter selectMeterByName(@Param("name") String name);
 
-    List<Meter> selectAllMeter();
+//    List<Meter> selectAllMeter();
 
 	Meter selectMeterById(@Param("id") int id);
 

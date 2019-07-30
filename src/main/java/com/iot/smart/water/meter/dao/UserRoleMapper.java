@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
 public interface UserRoleMapper {
     Integer selectRoleIdByUid(Integer id);
 
-    int insertUidAndRid(@Param("uid") Integer uid, @Param("rid") Integer rid);
+//    int insertUidAndRid(@Param("uid") Integer uid, @Param("rid") Integer rid);
 }
