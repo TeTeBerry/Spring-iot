@@ -1,8 +1,6 @@
 package com.iot.smart.water.meter.controller;
 
 
-import com.iot.smart.water.meter.dao.MemberMapper;
-import com.iot.smart.water.meter.dao.MeterMapper;
 import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.response.ErrorCode;
 import com.iot.smart.water.meter.response.Response;
@@ -19,12 +17,6 @@ public class DataController {
 
     @Autowired
     private DataService dataService;
-
-    @Autowired
-    private MeterMapper meterMapper;
-
-    @Autowired
-    private MemberMapper memberMapper;
 
     /**
      * @param meterName
