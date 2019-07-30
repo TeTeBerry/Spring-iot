@@ -73,8 +73,8 @@ public class MeterControllerUnitTest {
 
         Mockito.when(meterMapper.selectMeterByName(meter.getMeterName())).thenReturn(meter);
         Mockito.when(memberMapper.selectMemberById(meter.getMember_id())).thenReturn(member);
-        Mockito.when(meterService.getWaterBill(member,"Sensor-1")).thenReturn(waterBill);
-        Response result = meterController.getWaterBill(meter.getMeterName(),"1111");
+        Mockito.when(meterService.getWaterBill("Sensor-1")).thenReturn(waterBill);
+        Response result = meterController.getWaterBill(meter.getMeterName());
         Assertions.assertThat(result.getCode()).isEqualTo(200);
 
     }
@@ -107,8 +107,8 @@ public class MeterControllerUnitTest {
         Mockito.when(memberMapper.selectMemberById(volume.getMember_id())).thenReturn(member);
         Mockito.when(meterMapper.selectMeterById(volume.getMeter_id())).thenReturn(meter);
         Mockito.when(volumeMapper.selectVolumeById(volume.getMeter_id(),volume.getMeter_id())).thenReturn(volume);
-        Mockito.when(meterService.setMemberVolume(member,volumeMapper.selectVolumeById(member.getId(),meter.getId()),newVolumeNum)).thenReturn(true);
-        Response result = meterController.setVolume("MEMBERQQQWWW",member.getId(),meter.getId(),newVolumeNum,member.getPassword());
+        Mockito.when(meterService.setMemberVolume(volumeMapper.selectVolumeById(member.getId(),meter.getId()),newVolumeNum)).thenReturn(true);
+        Response result = meterController.setVolume("MEMBERQQQWWW",member.getId(),meter.getId(),newVolumeNum);
         Assertions.assertThat(result.getCode()).isEqualTo(200);
     }
 
