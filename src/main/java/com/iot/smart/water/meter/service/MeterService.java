@@ -18,6 +18,6 @@ public interface MeterService {
 
     boolean deleteMeter(int mid,int bid);
 
-    List<Meter> getMeterAndMember();
+    List<MeterRequest> getMeterAndMember();
 
 }

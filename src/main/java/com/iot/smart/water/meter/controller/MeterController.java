@@ -107,6 +107,7 @@ public class MeterController {
             return response;
         }
         response.setMsg("update member volume success");
+        response.setData(meterService.setMemberVolume(volumeBean,newVolumeNum));
         return response;
     }
 
@@ -114,7 +115,7 @@ public class MeterController {
     @GetMapping("/getMeterAndMember")
     @CrossOrigin(origins="*")
     public Response getMeterAndMember() {
-        Response<List<Meter>> response = new Response<>();
+        Response<List<MeterRequest>> response = new Response<>();
         response.setMsg("get meter success");
         response.setData(meterService.getMeterAndMember());
         return response;
@@ -172,6 +173,7 @@ public class MeterController {
         try {
             if (meterService.updateMeter(meterRequest)) {
                 response.setMsg("update meter success");
+                response.setData(meterService.updateMeter(meterRequest));
             } else {
                 response.setCode(ErrorCode.DB_OPERATION_ERROR);
                 response.setMsg("update meter faile");
@@ -211,6 +213,7 @@ public class MeterController {
         try {
             if (meterService.deleteMeter(mid,bid)) {
                 response.setMsg("delete success");
+                response.setData(meterService.deleteMeter(mid,bid));
             } else {
                 response.setCode(ErrorCode.DB_OPERATION_ERROR);
                 response.setMsg("delete faile");

@@ -40,19 +40,19 @@ public class UserControllerUnitTest {
 
     @Test
     public void login() {
-        LoginInfo info = new LoginInfo();
-        info.setUsername("tete");
-        info.setPassword("1234");
         User user = new User();
         user.setId(1);
         user.setUsername("tete");
         user.setPassword("1234");
-        user.setCreated_at(new Date());
 
-        Mockito.when(userMapper.selectUserByName("tete")).thenReturn(user);
+        LoginInfo info = new LoginInfo();
+        info.setUsername("tete");
+        info.setPassword("1234");
+
+        Mockito.when(userMapper.selectUserByName(user.getUsername())).thenReturn(user);
         Response result = userController.login(info);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
-
+        Assertions.assertThat(result.getMsg()).isEqualTo(result.getMsg());
+        System.out.println(result.getMsg());
 
     }
 
@@ -63,7 +63,7 @@ public class UserControllerUnitTest {
         user.setPassword("1234");
         user.setId(11);
         User user1 = new User();
-        user1.setUsername("member");
+        user1.setUsername("admin");
         user1.setPassword("1111");
         String username = "member";
         String oldPwd = "1111";
@@ -76,7 +76,8 @@ public class UserControllerUnitTest {
 
 
         Response result = userController.updatePassword("QQQWWWEEE",oldPwd, newPwd,username);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Assertions.assertThat(result.getData()).isEqualTo(user1);
+        System.out.println(user1);
     }
 
 

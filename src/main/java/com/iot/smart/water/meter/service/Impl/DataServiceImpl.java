@@ -123,7 +123,7 @@ public class DataServiceImpl implements DataService {
     }
 
     @Scheduled(cron = "0 * * * * ?")
-    private void scheduleTask() {
+    public void scheduleTask() {
         logger.info("DataServiceImpl schedule task");
         List<Volume> volumes = volumeMapper.selectAllVolume();
         if (volumes != null) {

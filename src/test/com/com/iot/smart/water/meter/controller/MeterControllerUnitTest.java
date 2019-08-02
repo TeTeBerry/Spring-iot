@@ -18,8 +18,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 
 public class MeterControllerUnitTest {
@@ -75,7 +77,8 @@ public class MeterControllerUnitTest {
         Mockito.when(memberMapper.selectMemberById(meter.getMember_id())).thenReturn(member);
         Mockito.when(meterService.getWaterBill("Sensor-1")).thenReturn(waterBill);
         Response result = meterController.getWaterBill(meter.getMeterName());
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Assertions.assertThat(result.getData()).isEqualTo(waterBill);
+        System.out.println(result.getData());
 
     }
 
@@ -95,11 +98,11 @@ public class MeterControllerUnitTest {
 
 
         Volume volume = new Volume();
-        volume.setMember_id(1);
-        volume.setMeter_id(1);
+        volume.setMember_id(member.getId());
+        volume.setMeter_id(meter.getId());
+        volume.setVolume(1000);
 
 
-        long newVolumeNum = 1200;
 
 
         Mockito.when(userMapper.selectUserById(13)).thenReturn(user);
@@ -107,30 +110,32 @@ public class MeterControllerUnitTest {
         Mockito.when(memberMapper.selectMemberById(volume.getMember_id())).thenReturn(member);
         Mockito.when(meterMapper.selectMeterById(volume.getMeter_id())).thenReturn(meter);
         Mockito.when(volumeMapper.selectVolumeById(volume.getMeter_id(),volume.getMeter_id())).thenReturn(volume);
-        Mockito.when(meterService.setMemberVolume(volumeMapper.selectVolumeById(member.getId(),meter.getId()),newVolumeNum)).thenReturn(true);
-        Response result = meterController.setVolume("MEMBERQQQWWW",member.getId(),meter.getId(),newVolumeNum);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Mockito.when(meterService.setMemberVolume(volumeMapper.selectVolumeById(volume.getMember_id(),volume.getMeter_id()),volume.getVolume())).thenReturn(true);
+        Response result = meterController.setVolume("MEMBERQQQWWW",member.getId(),meter.getId(),volume.getVolume());
+        Assertions.assertThat(result.getData()).isEqualTo(true);
+        System.out.println(result.getData());
     }
 
 
     @Test
     public void getMeterAndMember() {
-        Meter meter = new Meter();
-        meter.setId(1);
-        meter.setMeterDesc("G3&4");
-        meter.setMeterName("tete");
 
-        Member member = new Member();
-        member.setId(1);
-        member.setContact("afadfa@qq.com");
-        member.setName("keke");
-        member.setRoom("b123");
+        MeterRequest meterRequest = new MeterRequest();
+        meterRequest.setMeter_id(1);
+        meterRequest.setMeterName("senor-1");
+        meterRequest.setMeterDesc("g34");
+        meterRequest.setMember_id(1);
+        meterRequest.setRoom("b123");
+        meterRequest.setContact("342423@qq.com");
+        meterRequest.setName("tete");
 
+        List <MeterRequest> list = new ArrayList<MeterRequest>();
+        list.add(meterRequest);
 
-        Mockito.when(meterService.getMeterAndMember()).thenReturn(Collections.singletonList(meter));
+        Mockito.when(meterService.getMeterAndMember()).thenReturn(Collections.singletonList(meterRequest));
         Response result = meterController.getMeterAndMember();
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
-
+        Assertions.assertThat(result.getData()).isEqualTo(list);
+        System.out.println(result.getData());
 
     }
 
@@ -150,11 +155,26 @@ public class MeterControllerUnitTest {
         meterRequest.setContact("342423@qq.com");
         meterRequest.setName("tete");
 
+        Meter meter = new Meter();
+        meter.setId(meterRequest.getMeter_id());
+        meter.setMeterName(meterRequest.getMeterName());
+        meter.setMeterDesc(meterRequest.getMeterDesc());
+
+        Member member = new Member();
+        member.setId(meterRequest.getMember_id());
+        member.setName(meterRequest.getName());
+        member.setRoom(meterRequest.getRoom());
+        member.setContact(meterRequest.getContact());
+        member.setMeter(meter);
+
         Mockito.when(userMapper.selectUserById(11)).thenReturn(user);
         Mockito.when(roleManager.isAdmin(11)).thenReturn(true);
+
+
         Mockito.when(meterService.updateMeter(meterRequest)).thenReturn(true);
         Response result = meterController.updateMeter("QQQWWWEEE",meterRequest);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Assertions.assertThat(result.getData()).isEqualTo(true);
+        System.out.println(result.getData());
 
 
     }
@@ -172,9 +192,10 @@ public class MeterControllerUnitTest {
 
         Mockito.when(userMapper.selectUserById(11)).thenReturn(user);
         Mockito.when(roleManager.isAdmin(11)).thenReturn(true);
-        Mockito.when(meterService.deleteMeter(1,1)).thenReturn(true);
+        Mockito.when(meterService.deleteMeter(meter.getId(),member.getId())).thenReturn(true);
         Response result = meterController.deleteMeter("QQQWWWEEE",1,1);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Assertions.assertThat(result.getData()).isEqualTo(true);
+        System.out.println(result.getData());
     }
 
     @Test
@@ -189,13 +210,12 @@ public class MeterControllerUnitTest {
         meterRequest.setRoom("b123");
         meterRequest.setMeterName("sensor-1");
         meterRequest.setMeterDesc("g3&4");
-        meterRequest.setPassword("1234");
 
         Mockito.when(userMapper.selectUserById(11)).thenReturn(user);
         Mockito.when(roleManager.isAdmin(11)).thenReturn(true);
         Mockito.when(meterService.addMeter(meterRequest)).thenReturn(meterRequest);
 
-        Response result = meterController.addMeter("QQQWWWEEE",11,meterRequest);
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Response result = meterController.addMeter("QQQWWWEEE",1,meterRequest);
+        Assertions.assertThat(result.getData()).isEqualTo(meterRequest);
     }
 }

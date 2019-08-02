@@ -7,6 +7,7 @@ public class WaterBill {
     private String memberName;
     private long totalMilliLitres;
 
+
     public int getMonth() {
         return month;
     }
@@ -45,5 +46,10 @@ public class WaterBill {
 
     public void setTotalMilliters(long totalMilliLitres) {
         this.totalMilliLitres = totalMilliLitres;
+    }
+
+    @Override
+    public String toString() {
+        return memberName+meterName+totalMilliLitres+fee+month;
     }
 }

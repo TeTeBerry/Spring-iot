@@ -1,9 +1,6 @@
 package com.iot.smart.water.meter.controller;
 
-import com.iot.smart.water.meter.model.DailyData;
-import com.iot.smart.water.meter.model.Meter;
-import com.iot.smart.water.meter.model.MonthlyData;
-import com.iot.smart.water.meter.model.WeeklyData;
+import com.iot.smart.water.meter.model.*;
 import com.iot.smart.water.meter.response.Response;
 import com.iot.smart.water.meter.service.DataService;
 import org.assertj.core.api.Assertions;
@@ -42,11 +39,14 @@ public class DataControllerUnitTest {
         DailyData dailyData = new DailyData();
         dailyData.setHour("00:00");
         dailyData.setTotalMilliters(1000);
+        dailyData.setHour("01:00");
+        dailyData.setTotalMilliters(1100);
         list.add(dailyData);
 
         Mockito.when(dataService.getDailyData(meter.getMeterName(),"2019-07-24")).thenReturn(list);
         Response result = dataController.getDailyData(meter.getMeterName(),"2019-07-24");
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Assertions.assertThat(result.getData()).isEqualTo(list);
+        System.out.println(result.getData());
     }
 
     @Test
@@ -57,11 +57,15 @@ public class DataControllerUnitTest {
         MonthlyData monthlyData = new MonthlyData();
         monthlyData.setDay("1");
         monthlyData.setTotalMilliters(1000);
+        monthlyData.setDay("2");
+        monthlyData.setTotalMilliters(1100);
         list.add(monthlyData);
 
         Mockito.when(dataService.getMonthlyData(meter.getMeterName(),"2019-07-01")).thenReturn(list);
-        Response result = dataController.getDailyData(meter.getMeterName(),"2019-07-01");
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Response result = dataController.getMonthlyData(meter.getMeterName(),"2019-07-01");
+        Assertions.assertThat(result.getData()).isEqualTo(list);
+
+
     }
 
     @Test
@@ -72,10 +76,14 @@ public class DataControllerUnitTest {
         WeeklyData weeklyData = new WeeklyData();
         weeklyData.setWeek("Monday");
         weeklyData.setTotalMilliters(1000);
+        weeklyData.setWeek("Tuesday");
+        weeklyData.setTotalMilliters(1100);
         list.add(weeklyData);
 
         Mockito.when(dataService.getWeeklyData(meter.getMeterName(),"2019-07-24")).thenReturn(list);
-        Response result = dataController.getDailyData(meter.getMeterName(),"2019-07-24");
-        Assertions.assertThat(result.getCode()).isEqualTo(200);
+        Response result = dataController.getWeeklyData(meter.getMeterName(),"2019-07-24");
+        Assertions.assertThat(result.getData()).isEqualTo(list);
+        System.out.println(result.getData());
     }
+
 }

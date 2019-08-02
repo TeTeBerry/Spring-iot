@@ -12,9 +12,12 @@ public class TokenUtil {
     private static final Integer ADMIN_ID_FOR_TEST = 11;
     private static final String TOKEN_FOR_MEMBER_TEST = "MEMBERQQQWWW";
     private static final Integer MEMBER_ID_FOR_TEST = 13;
+    private static final String TEST_TOKEN= "7569b887db82ca08c327a7fa2cb272e6";
+
 
     public static String createToken(Integer id) {
         String originToken = id2tokenMap.remove(id);
+
         if (originToken != null) {
             token2idMap.remove(originToken);
         }

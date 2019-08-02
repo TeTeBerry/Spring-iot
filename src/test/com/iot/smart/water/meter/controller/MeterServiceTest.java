@@ -98,12 +98,14 @@ public class MeterServiceTest {
         waterBill.setMonth(DateUtil.getMonth(date));
         waterBill.setMemberName(member.getName());
 
+
         Mockito.when(meterMapper.selectMeterByName(meter.getMeterName())).thenReturn(meter);
         Mockito.when(memberMapper.selectMemberById(meter.getMember_id())).thenReturn(member);
         Mockito.when(dataService.getLatestData(meter.getMeterName(),start,end)).thenReturn(data);
 
         WaterBill result = meterService.getWaterBill(meter.getMeterName());
-        Assertions.assertThat(result.getMeterName()).isEqualTo("Sensor-1");
+        Assertions.assertThat(result.toString()).isEqualTo(waterBill.toString());
+
     }
 
     @Test
@@ -117,19 +119,24 @@ public class MeterServiceTest {
         Assertions.assertThat(result).isEqualTo(true);
     }
 
-    @Test
-    public void getMeterAndMember() {
-        Meter meter = new Meter();
-        meter.setId(1);
-        meter.setMeterDesc("G3&4");
-        meter.setMeterName("tete");
-
-
-        Mockito.when(meterMapper.selectMeterAndMember()).thenReturn(Collections.singletonList(meter));
-        List<Meter> result = meterService.getMeterAndMember();
-        Assertions.assertThat(result.size()).isEqualTo(1);
-        Assertions.assertThat(result.get(0).getMeterName()).isEqualTo("tete");
-    }
+//    @Test
+//    public void getMeterAndMember() {
+//        Meter meter = new Meter();
+//        meter.setId(1);
+//        meter.setMeterDesc("G3&4");
+//        meter.setMeterName("tete");
+//        Member member = new Member();
+//        member.setName("tete");
+//        member.setRoom("b123");
+//        member.setContact("3423432@qq.com");
+//        member.setId(1);
+//        meter.setMember(member);
+//
+//
+//        Mockito.when(meterMapper.selectMeterAndMember()).thenReturn(Collections.singletonList(meter));
+//        List<Meter> result = meterService.getMeterAndMember();
+//        Assertions.assertThat(result.size()).isEqualTo(1);
+//    }
 
     @Test
     public void addMeter() {

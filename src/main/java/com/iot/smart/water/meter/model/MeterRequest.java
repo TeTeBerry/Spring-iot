@@ -9,15 +9,8 @@ public class MeterRequest {
     private Integer user_id;
     private Integer member_id;
     private Integer meter_id;
-    private String password;
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Integer getMeter_id() {return meter_id;}
 

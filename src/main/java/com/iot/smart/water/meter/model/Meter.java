@@ -8,12 +8,8 @@ public class Meter {
     private String meterName;
     private String meterDesc;
     private Date createDate;
-    private Member member;
     private Integer member_id;
 
-    public Member getMember() {return member;}
-
-    public void setMember(Member member){this.member = member;}
 
 
     public Integer getId() {
@@ -26,7 +22,7 @@ public class Meter {
         this.member_id = member_id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

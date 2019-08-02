@@ -85,7 +85,7 @@ public class MeterServiceImpl implements MeterService {
 //    }
 
     @Override
-    public List<Meter> getMeterAndMember() {
+    public List<MeterRequest> getMeterAndMember() {
 
         return  meterMapper.selectMeterAndMember();
     }
@@ -107,6 +107,7 @@ public class MeterServiceImpl implements MeterService {
         meter.setCreateDate(new Date());
         meterMapper.insertMeter(meter);
         meterRequest.setMember_id(meter.getMember_id());
+        meterRequest.setMeter_id(member.getId());
         return meterRequest;
     }
 
