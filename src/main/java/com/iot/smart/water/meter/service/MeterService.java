@@ -10,8 +10,6 @@ public interface MeterService {
 
     boolean setMemberVolume(Volume volume, long newVolumeNum);
 
-//    List<Meter> getMeters();
-
     MeterRequest addMeter(MeterRequest MeterRequest);
 
     boolean updateMeter(MeterRequest meterRequest);

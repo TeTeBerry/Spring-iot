@@ -48,9 +48,12 @@ public class MeterServiceImpl implements MeterService {
                 bill.setMemberName(member.getName());
             }
             bill.setMonth(DateUtil.getMonth(date));
+//            bill.setMonth(7);
 
             Data data = dataService.getLatestData(meter.getMeterName(),
                     DateUtil.getMonthStartTimestamp(date), DateUtil.getMonthEndTimestamp(date));
+//            Data data = dataService.getLatestData(meter.getMeterName(),"2019-07-01","2019-07-31");
+
             if (data != null) {
                 bill.setTotalMilliters(data.getTotalMilliters());
                 bill.setFee(data.getTotalMilliters() / 1000 * 25);
@@ -79,10 +82,7 @@ public class MeterServiceImpl implements MeterService {
         return true;
     }
 
-//    @Override
-//    public List<Meter> getMeters() {
-//        return meterMapper.selectAllMeter();
-//    }
+
 
     @Override
     public List<MeterRequest> getMeterAndMember() {

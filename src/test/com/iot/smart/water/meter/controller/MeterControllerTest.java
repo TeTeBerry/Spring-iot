@@ -37,8 +37,7 @@ public class MeterControllerTest {
     public void getWaterBill() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/iot/meter/getWaterBill")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("meterName","123")
-                .param("password","1111")
+                .param("meterName","Sensor-1")
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -52,7 +51,7 @@ public class MeterControllerTest {
                 .param("member_id", "49")
                 .param("meter_id", "64")
                 .param("volume", "500")
-                .param("password","1234")
+
                 .session(session))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -92,7 +91,7 @@ public class MeterControllerTest {
     }
     @Test
     public void addMeter() throws Exception {
-        String paramJson = "{\"meterName\":\"sensor-2\",\"meterDesc\":\"tebafao\",\"name\":\"tetebaobao\",\"room\":\"1222\",\"contact\":\"t11111@qq.com\",\"password\":\"1234\"}";
+        String paramJson = "{\"meterName\":\"sensor-2\",\"meterDesc\":\"tebafao\",\"name\":\"tetebaobao\",\"room\":\"1222\",\"contact\":\"t11111@qq.com\"}";
         mvc.perform(MockMvcRequestBuilders.post("/iot/meter/addMeter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .header("token", "QQQWWWEEE")

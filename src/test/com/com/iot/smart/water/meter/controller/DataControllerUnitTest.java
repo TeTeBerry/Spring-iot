@@ -46,7 +46,7 @@ public class DataControllerUnitTest {
         Mockito.when(dataService.getDailyData(meter.getMeterName(),"2019-07-24")).thenReturn(list);
         Response result = dataController.getDailyData(meter.getMeterName(),"2019-07-24");
         Assertions.assertThat(result.getData()).isEqualTo(list);
-        System.out.println(result.getData());
+
     }
 
     @Test
@@ -83,7 +83,7 @@ public class DataControllerUnitTest {
         Mockito.when(dataService.getWeeklyData(meter.getMeterName(),"2019-07-24")).thenReturn(list);
         Response result = dataController.getWeeklyData(meter.getMeterName(),"2019-07-24");
         Assertions.assertThat(result.getData()).isEqualTo(list);
-        System.out.println(result.getData());
+
     }
 
 }

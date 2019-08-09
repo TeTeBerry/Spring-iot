@@ -69,16 +69,15 @@ public class UserServiceTest {
 
     @Test
     public void login() {
-        LoginInfo info = new LoginInfo();
-        info.setUsername("tete");
-        info.setPassword("123");
         User user = new User();
         user.setId(1);
-        user.setUsername("tete");
-        user.setPassword("123");
-        user.setCreated_at(new Date());
+        user.setUsername("admin");
+        user.setPassword("1234");
+        LoginInfo info = new LoginInfo();
+        info.setUsername("admin");
+        info.setPassword("1234");
 
-        Mockito.when(userMapper.selectUserByName("tete")).thenReturn(user);
+        Mockito.when(userMapper.selectUserByName("admin")).thenReturn(user);
         User result = userService.login(info);
         Assertions.assertThat(result).isEqualTo(user);
     }

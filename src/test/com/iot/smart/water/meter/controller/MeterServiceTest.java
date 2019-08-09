@@ -119,24 +119,27 @@ public class MeterServiceTest {
         Assertions.assertThat(result).isEqualTo(true);
     }
 
-//    @Test
-//    public void getMeterAndMember() {
-//        Meter meter = new Meter();
-//        meter.setId(1);
-//        meter.setMeterDesc("G3&4");
-//        meter.setMeterName("tete");
-//        Member member = new Member();
-//        member.setName("tete");
-//        member.setRoom("b123");
-//        member.setContact("3423432@qq.com");
-//        member.setId(1);
-//        meter.setMember(member);
-//
-//
-//        Mockito.when(meterMapper.selectMeterAndMember()).thenReturn(Collections.singletonList(meter));
-//        List<Meter> result = meterService.getMeterAndMember();
-//        Assertions.assertThat(result.size()).isEqualTo(1);
-//    }
+    @Test
+    public void getMeterAndMember() {
+
+        MeterRequest meterRequest = new MeterRequest();
+        meterRequest.setMeter_id(1);
+        meterRequest.setMeterName("senor-1");
+        meterRequest.setMeterDesc("g34");
+        meterRequest.setMember_id(1);
+        meterRequest.setRoom("b123");
+        meterRequest.setContact("342423@qq.com");
+        meterRequest.setName("tete");
+
+        List <MeterRequest> list = new ArrayList<MeterRequest>();
+        list.add(meterRequest);
+
+
+
+        Mockito.when(meterMapper.selectMeterAndMember()).thenReturn(Collections.singletonList(meterRequest));
+        List<MeterRequest> result = meterService.getMeterAndMember();
+        Assertions.assertThat(result).isEqualTo(list);
+    }
 
     @Test
     public void addMeter() {

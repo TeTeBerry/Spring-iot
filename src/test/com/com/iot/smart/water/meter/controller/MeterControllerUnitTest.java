@@ -78,7 +78,7 @@ public class MeterControllerUnitTest {
         Mockito.when(meterService.getWaterBill("Sensor-1")).thenReturn(waterBill);
         Response result = meterController.getWaterBill(meter.getMeterName());
         Assertions.assertThat(result.getData()).isEqualTo(waterBill);
-        System.out.println(result.getData());
+
 
     }
 
@@ -113,7 +113,7 @@ public class MeterControllerUnitTest {
         Mockito.when(meterService.setMemberVolume(volumeMapper.selectVolumeById(volume.getMember_id(),volume.getMeter_id()),volume.getVolume())).thenReturn(true);
         Response result = meterController.setVolume("MEMBERQQQWWW",member.getId(),meter.getId(),volume.getVolume());
         Assertions.assertThat(result.getData()).isEqualTo(true);
-        System.out.println(result.getData());
+
     }
 
 
@@ -129,14 +129,12 @@ public class MeterControllerUnitTest {
         meterRequest.setContact("342423@qq.com");
         meterRequest.setName("tete");
 
-        List <MeterRequest> list = new ArrayList<MeterRequest>();
+        List <MeterRequest> list = new ArrayList<>();
         list.add(meterRequest);
 
         Mockito.when(meterService.getMeterAndMember()).thenReturn(Collections.singletonList(meterRequest));
         Response result = meterController.getMeterAndMember();
         Assertions.assertThat(result.getData()).isEqualTo(list);
-        System.out.println(result.getData());
-
     }
 
     @Test
@@ -174,7 +172,7 @@ public class MeterControllerUnitTest {
         Mockito.when(meterService.updateMeter(meterRequest)).thenReturn(true);
         Response result = meterController.updateMeter("QQQWWWEEE",meterRequest);
         Assertions.assertThat(result.getData()).isEqualTo(true);
-        System.out.println(result.getData());
+
 
 
     }
@@ -195,7 +193,7 @@ public class MeterControllerUnitTest {
         Mockito.when(meterService.deleteMeter(meter.getId(),member.getId())).thenReturn(true);
         Response result = meterController.deleteMeter("QQQWWWEEE",1,1);
         Assertions.assertThat(result.getData()).isEqualTo(true);
-        System.out.println(result.getData());
+
     }
 
     @Test

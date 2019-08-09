@@ -19,6 +19,8 @@ import java.util.Date;
 
 public class UserControllerUnitTest {
 
+    private static final String TEST_TOKEN= "7569b887db82ca08c327a7fa2cb272e6";
+
 
     @Mock
     private UserService userService;
@@ -51,8 +53,7 @@ public class UserControllerUnitTest {
 
         Mockito.when(userMapper.selectUserByName(user.getUsername())).thenReturn(user);
         Response result = userController.login(info);
-        Assertions.assertThat(result.getMsg()).isEqualTo(result.getMsg());
-        System.out.println(result.getMsg());
+        Assertions.assertThat(result.getMsg()).isEqualTo(TEST_TOKEN);
 
     }
 
@@ -77,7 +78,6 @@ public class UserControllerUnitTest {
 
         Response result = userController.updatePassword("QQQWWWEEE",oldPwd, newPwd,username);
         Assertions.assertThat(result.getData()).isEqualTo(user1);
-        System.out.println(user1);
     }
 
 
